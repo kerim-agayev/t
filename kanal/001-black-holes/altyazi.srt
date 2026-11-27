@@ -1,0 +1,251 @@
+1
+00:00:00,000 --> 00:00:04,008
+Here is a black hole. In theory, it could be smaller than an atom.
+
+2
+00:00:04,308 --> 00:00:12,396
+And here is another one, so wide that Voyager 1, after almost fifty years of flying, has covered only a fraction of the distance across it.
+
+3
+00:00:12,696 --> 00:00:16,920
+Same name. Same physics. Wildly different sizes.
+
+4
+00:00:17,220 --> 00:00:22,620
+So how small, and how big, can a black hole actually get? Let's climb the whole ladder.
+
+5
+00:00:23,467 --> 00:00:30,187
+First, what is it? Throw a ball up, and gravity pulls it back. Throw it fast enough, and it escapes.
+
+6
+00:00:30,487 --> 00:00:36,367
+Squeeze enough mass into a small enough space, and the speed you need to escape becomes faster than light.
+
+7
+00:00:36,667 --> 00:00:42,115
+The boundary where that happens is called the event horizon. Nothing that crosses it comes back out.
+
+8
+00:00:42,415 --> 00:00:49,183
+But a black hole is not a cosmic vacuum cleaner. From far away, it pulls like any other object with the same mass.
+
+9
+00:00:49,483 --> 00:00:55,147
+If the Sun were swapped for a black hole of equal mass, Earth would freeze, but it would keep its orbit.
+
+10
+00:00:56,067 --> 00:01:01,491
+So what decides how big one gets? Mostly its mass. And there is one simple rule.
+
+11
+00:01:01,791 --> 00:01:08,991
+For a black hole that is not spinning, every Sun's worth of mass adds about three kilometers to the radius of its event horizon.
+
+12
+00:01:09,291 --> 00:01:12,795
+Double the mass, and the horizon becomes twice as wide.
+
+13
+00:01:13,095 --> 00:01:19,575
+Now try it with Earth. To become a black hole, our whole planet would have to be squeezed to about the width of a marble.
+
+14
+00:01:20,433 --> 00:01:26,457
+So let's start at the bottom. The smallest rung is also the strangest, because nobody has ever found one.
+
+15
+00:01:26,757 --> 00:01:33,861
+Scientists think black holes might have formed in the first second after the universe began. They are called primordial black holes.
+
+16
+00:01:34,161 --> 00:01:39,969
+In theory, some could weigh far less than a paperclip. Others could outweigh the Sun a hundred thousand times.
+
+17
+00:01:40,269 --> 00:01:44,613
+One with the mass of an asteroid would have a horizon about the size of an atom.
+
+18
+00:01:44,913 --> 00:01:51,729
+Theory also says the very tiniest should slowly evaporate and disappear. So far, all of this is unproven.
+
+19
+00:01:52,029 --> 00:01:56,133
+To reach black holes we have real evidence for, we need a dying star.
+
+20
+00:01:56,967 --> 00:02:03,879
+When a very massive star, around twenty times the Sun's mass or more, runs out of fuel, its core can collapse.
+
+21
+00:02:04,179 --> 00:02:12,651
+What remains is a stellar-mass black hole. The lightest one NASA lists weighs just three point eight Suns. Its horizon would fit across a city.
+
+22
+00:02:12,951 --> 00:02:17,439
+But if a black hole gives off no light, how do we find it? Watch its neighbor.
+
+23
+00:02:17,739 --> 00:02:25,779
+The nearest one we know, Gaia BH1, is about fifteen hundred light-years away. We know it is there because a star keeps circling something unseen.
+
+24
+00:02:26,079 --> 00:02:33,423
+Its larger cousin, Gaia BH3, holds about thirty-three Suns inside a horizon roughly two hundred kilometers wide.
+
+25
+00:02:33,723 --> 00:02:37,587
+Our galaxy may hide as many as one hundred million of these.
+
+26
+00:02:38,433 --> 00:02:42,825
+But what if you got too close? Imagine falling in, feet first.
+
+27
+00:02:43,125 --> 00:02:47,517
+Near a small black hole, gravity pulls your feet much harder than your head.
+
+28
+00:02:47,817 --> 00:02:52,929
+You are stretched long and squeezed thin. Scientists really do call it spaghettification.
+
+29
+00:02:53,229 --> 00:02:56,109
+And it happens before you even reach the horizon.
+
+30
+00:02:56,409 --> 00:03:02,985
+Here is the twist: near a giant black hole, the difference is gentler. You could cross the horizon in one piece.
+
+31
+00:03:03,285 --> 00:03:07,197
+You still would not come back. So how do black holes get that big?
+
+32
+00:03:08,000 --> 00:03:15,248
+Between star-sized black holes and giants, there should be a middle class: from about a hundred to hundreds of thousands of Suns.
+
+33
+00:03:15,548 --> 00:03:21,068
+For decades, it was the missing link. Candidates kept appearing, but proof was hard.
+
+34
+00:03:21,368 --> 00:03:28,568
+In twenty twenty-three, detectors felt two black holes collide. They merged into one of more than two hundred and twenty-five Suns.
+
+35
+00:03:28,868 --> 00:03:36,548
+And inside the star cluster Omega Centauri, Hubble data revealed seven stars moving so fast that something heavy must be holding them.
+
+36
+00:03:36,848 --> 00:03:44,048
+That hidden object weighs at least eight thousand two hundred Suns. Its horizon would be almost four Earths wide, or more.
+
+37
+00:03:44,348 --> 00:03:47,804
+It is still called a candidate. The next rung is not.
+
+38
+00:03:48,600 --> 00:03:54,720
+At the center of our own galaxy, about twenty-seven thousand light-years away, sits Sagittarius A star.
+
+39
+00:03:55,020 --> 00:03:59,124
+It is a supermassive black hole, weighing about four million Suns.
+
+40
+00:03:59,424 --> 00:04:06,168
+Astronomers tracked stars whipping around an invisible point for years. That work shared the Nobel Prize in twenty twenty.
+
+41
+00:04:07,168 --> 00:04:14,056
+Its horizon is about seventeen Suns wide. Big, but it would still fit easily inside the orbit of Mercury.
+
+42
+00:04:14,756 --> 00:04:19,844
+In twenty twenty-two, the Event Horizon Telescope showed us its glowing ring and dark shadow.
+
+43
+00:04:20,144 --> 00:04:27,536
+Gas and mergers help such monsters grow, but how they first formed is still a mystery. And this one is small, as giants go.
+
+44
+00:04:28,333 --> 00:04:33,853
+Meet M87 star, about fifty-five million light-years away, in another galaxy.
+
+45
+00:04:34,153 --> 00:04:40,777
+It holds about six and a half billion Suns. In twenty nineteen, it became the first black hole ever imaged.
+
+46
+00:04:41,077 --> 00:04:47,077
+Now watch the scale change. Here is the Sun, and here is the orbit of Neptune, the farthest planet.
+
+47
+00:04:47,377 --> 00:04:52,057
+The horizon of M87 star reaches about four times farther than that.
+
+48
+00:04:52,357 --> 00:04:57,061
+Our entire family of planets would fit inside, with plenty of room to spare.
+
+49
+00:04:57,900 --> 00:05:05,244
+And still, there are bigger ones. Far away, a blazing quasar called TON 618 is powered by a monster.
+
+50
+00:05:05,544 --> 00:05:11,424
+Its mass is hard to measure. Estimates run from about forty billion to sixty-six billion Suns.
+
+51
+00:05:11,724 --> 00:05:17,748
+Take the lower number. The horizon's radius is about eight hundred times the distance from Earth to the Sun.
+
+52
+00:05:18,048 --> 00:05:23,040
+Remember Voyager 1? In November twenty twenty-six, it reached one light-day from us.
+
+53
+00:05:23,340 --> 00:05:28,380
+That is about a hundred and seventy-three Earth-Sun distances, after nearly fifty years.
+
+54
+00:05:28,680 --> 00:05:33,888
+Placed at the center of TON 618, it would be only about a fifth of the way to the edge.
+
+55
+00:05:34,733 --> 00:05:36,773
+Now put every rung on one board.
+
+56
+00:05:37,073 --> 00:05:40,625
+An atom-sized primordial black hole, if it exists.
+
+57
+00:05:40,925 --> 00:05:43,901
+A city-sized one, born from a dead star.
+
+58
+00:05:44,201 --> 00:05:48,017
+A candidate wider than several Earths, hiding in a star cluster.
+
+59
+00:05:48,317 --> 00:05:56,285
+A giant that fits inside Mercury's orbit. One that swallows the planets. And a monster that makes our farthest probe look close to home.
+
+60
+00:05:57,133 --> 00:06:04,189
+So how small can a black hole be? In theory, smaller than an atom. In evidence, a few times the mass of the Sun.
+
+61
+00:06:04,489 --> 00:06:08,905
+And how big? Tens of billions of Suns, as far as we can tell today.
+
+62
+00:06:09,205 --> 00:06:16,069
+Which one surprised you most: the one nobody has found, or the one we can barely fit on the board? Tell me in the comments.
+
+63
+00:06:16,369 --> 00:06:20,953
+Next time: that tiny probe. How far has humanity actually reached?

@@ -53,6 +53,27 @@ Uyan yoksa biçimleri karıştır veya yenisini kur. "Yanlış inanç" yalnız k
 - **Bitiş:** ana cümle bir kez, izleyiciye soru veya sıradaki videoya köprü; uzun teşekkür ve abone çağrısı yok.
 - **Doğruluk:** olay, söz, sayı uydurma.
 
+## Teknik kutusu (kaynak ve sınır: references/arastirma.md)
+Hepsini birden uygulama: konuya uyan **bir omurga** seç, sonra denetim araçlarından geçir. `SENARYO.md` içine hangisini seçtiğini yaz.
+
+### Omurga seçenekleri
+| Teknik | İskelet | Ne zaman |
+|---|---|---|
+| **VE - AMA - BU YÜZDEN** (ABT, Olson) | bildiğimiz (ve) → sorun (ama) → sonuç (bu yüzden) | videonun tek cümlelik özü; her bölümün açılışı; Shorts |
+| **Story Spine** (Kenn Adams) | bir zamanlar → her gün → ama bir gün → bu yüzden (2-3 kez) → sonunda → o günden beri | olay, tarih, "ne olurdu" |
+| **Hikâye çemberi** (Dan Harmon) | sen → ihtiyaç → git → ara → bul → bedel → dön → değiş | karakterli hikâye |
+| **Kishōtenketsu** | giriş → geliştirme → dönüş (yeni bakış) → bağlama | çatışmasız konu: atmosfer, ölçek turu, görsel sürpriz |
+| **Yanlış inanç diyaloğu** (Muller) | yaygın cevabı söyle → sınat → çürüt → doğrusu | konuda gerçek bir yanılgı varsa |
+
+### Denetim araçları (metin bitince, sırayla)
+1. **Ama / bu yüzden testi** (Parker ve Stone): sahne özetlerini alt alta yaz; araya yalnız "ve sonra" giriyorsa bağ yok, sırayı veya sahneyi değiştir. Bağlaç sözcüğünü zorla ekleme; nedensellik gerçek olsun.
+2. **ABT testi:** videoyu tek ve-ama-bu yüzden cümlesiyle söyleyemiyorsan konu dağınık.
+3. **Döngü defteri:** açılan her soru ve kapandığı sahne; kapanmayan soru kalmaz.
+4. **Yeniden kanca:** bir cevabın hemen ardından sıradaki soruyu aç (kanca → gelişme → ödül → yeni kanca).
+5. **Bilgi boşluğu:** soru sormadan önce izleyiciye yarısını bildir; tamamen yabancı soru merak uyandırmaz.
+6. **SUCCESs** (Heath): basit, beklenmedik, somut, inandırıcı, duygusal, hikâye. Eksik olan hangisi?
+7. **Mayer:** süsü at (tutarlılık), önemliyi işaretle (işaretleme), anlamlı parçalara böl (bölümleme).
+
 ## 2. Akış
 - Süreyi konu belirler; kullanıcı söylemediyse öner (anlatım videosu için 4-6 dk iyi başlangıç).
 - 3 başlık (somut, merak boşluklu, yaklaşık 60 karakter altı) ve 3 kapak eskizi (tek odak, en fazla 3-4 kelime, sağ alt köşe boş).

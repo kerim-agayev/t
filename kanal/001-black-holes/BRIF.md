@@ -1,6 +1,6 @@
 # Video 1: Every Type of Black Hole, From Tiny to Monstrous
 
-Durum: **başlanacak.** Aşağıdakiler taslak öneri; araştırma yapılmadı, onay alınmadı.
+Durum: **araştırma, senaryo, metin ve resimler hazır; onay bekliyor** (ARASTIRMA.md, SENARYO.md, PAKET.md, onizleme.png). Aşağısı ilk taslak notlardır.
 
 ## Konu
 - İzleyici: uzayı merak eden, fizik bilmeyen İngilizce izleyici.

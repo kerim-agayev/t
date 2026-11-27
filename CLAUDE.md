@@ -15,15 +15,26 @@ git clone https://github.com/kerim-agayev/t.git && cd t/kanal
 uv venv -p 3.13 && uv pip install -r requirements.txt                  # bir kez
 .venv/Scripts/python render.py ornek taslak                            # kurulum denemesi -> ornek/onizleme.png
 ```
-Sonra Claude Code'u `t/` klasöründe aç ve yaz: **"001-black-holes videosuna başla"**. Claude sırayla: bu dosya → `kanal/001-black-holes/BRIF.md` → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
+Sonra Claude Code'u `t/` klasöründe aç ve yaz: **"001 videosunun sesini ElevenLabs ile değiştir"**. Claude `kanal/001-black-holes/SESLENDIRME.md` dosyasını izler. Yeni video için sıra: bu dosya → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
 
 ## Kanal
+- **Marka:** ad "Chalk Orbit" (öneri; müsaitliği kontrol edilmedi). `kanal/marka/profil_800.png` ve `banner_2560x1440.png` yüklemeye hazır (kaynak görseller ChatGPT üretimi, aynı klasörde).
 - **Niş:** İngilizce "uzay ve ölçek, tahtada": evrenle ilgili merak sorularını çizerek anlatmak. Veri ve sınırları: `NIS_ARASTIRMASI.md`.
 - **Tarz:** varsayılan beyaz + siyah tahta animasyonu. Sahne için başka tarz açıkça daha iyiyse kullan: seçim kuralı ve tarz anlatımı **`STIL_REHBERI.md`**.
-- **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). İngilizce ses henüz onaylanmadı.
-- **Yayın:** haftada 1 uzun video (6-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
+- **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). Video sesi şimdilik geçici (edge-tts); kullanıcı ElevenLabs ile değiştirecek (`kanal/eleven.py`).
+- **Video 1 durumu (2026-11-27):** üretildi (kapak C). **Bekleyen: ses değişimi** → `kanal/001-black-holes/SESLENDIRME.md` adımları, sonra izle ve yayınla (`PAKET.md`).
+- **Yayın:** haftada 1 uzun video (5-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
 - **Kurallar:** her sayı ve iddia kaynaklı, yazmadan önce doğrulanır; kapakta videoda olmayan vaat yok; art arda aynı başlık kalıbı yok.
 - İlk 8 videodan sonra YouTube Studio verisine göre sıra ve türler güncellenir.
+
+### YouTube'a API ile yükleme (kurulmadı; kullanıcı isteyince)
+2026-11-27'de soruldu. Aşağıdakiler genel bilgiye dayanıyor: **kurmadan önce güncel resmi dokümandan doğrula.**
+- MCP gerekmez: YouTube Data API v3 ile küçük bir betik (topluluk MCP'lerine kanal yazma yetkisi verme).
+- API ile: video, başlık, açıklama, etiket, bölümler, kapak (telefonla doğrulanmış kanal), altyazı, oynatma listesi, yayın zamanlama, yorum yazma.
+- Elle (Studio): bitiş ekranı, kartlar, kapak A/B testi, para kazanma, yorum sabitleme.
+- Gerekli: Google Cloud'da OAuth istemcisi (API anahtarı yetmez) ve tarayıcıda kullanıcının bir kez onayı. İstemci sırrı ve yetki dosyası repoya girmez (önce `.gitignore`).
+- Sınır: denetimden geçmemiş yeni API projelerinden yüklenen videolar gizli kalıyor. Denetim yoksa Studio'dan elle yükle, metinleri videonun `PAKET.md` dosyasından al.
+- Yükleme ve yayınlama her seferinde kullanıcı onayıyla.
 
 ### Türler ve hikâye omurgaları
 | Kod | Tür | Süre | Omurga |

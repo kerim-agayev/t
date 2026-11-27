@@ -28,5 +28,19 @@ Yalnız arama özetleri okundu; tam metinler, kitaplar ve tezler baştan sona in
 - Chip ve Dan Heath, *Made to Stick*: [basit, beklenmedik, somut, inandırıcı, duygusal, hikâye](https://readingraphics.com/book-summary-made-to-stick/); "bilgi laneti".
 - Genel bilgi, bu aramada **doğrulanmadı**: McKee *Story* (tetikleyici olay, beklenti-sonuç farkı), Will Storr *The Science of Storytelling* (beklenmedik değişim, karakterin kusurlu inancı).
 
+## Anlatı teknikleri (ikinci tarama, 2026-11-27; arama özetleri)
+| Teknik | Kaynak | Kanıt düzeyi |
+|---|---|---|
+| Ama / bu yüzden | [NYU dersi yazısı](https://nofilmschool.com/2015/04/tony-zhou-storytelling-video-essay-f-fake-therefore-but-and-then) | uygulayıcı kuralı; tam ders dökümü okunmadı |
+| ABT | [NCSE](https://ncse.ngo/and-therefore-randy-olson-and-art-science-storytelling-part-1), [Scientific American](https://www.scientificamerican.com/blog/observations/how-the-word-but-could-save-the-world/) | uygulayıcı yöntemi; Olson da yaklaşık araç diyor |
+| Story Spine | [NPR/KUNC söyleşisi](https://www.kunc.org/2026-06-23/meet-the-creator-of-the-story-spine-an-8-sentence-tool-to-create-and-analyze-stories) | doğaçlama alıştırması; adım sözleri genel bilgiden, özetlerde doğrulanmadı |
+| Hikâye çemberi | [Reedsy](https://reedsy.com/blog/guide/story-structure/dan-harmon-story-circle/) | uygulayıcı yöntemi |
+| Kishōtenketsu | [Wikipedia](https://en.wikipedia.org/wiki/Kishotenketsu) | geleneksel yapı; izlenmeye etkisi ölçülmedi |
+| Yanlış inanç diyaloğu: son test puanı yaklaşık iki katı, ama öğrenciler "kafa karıştırıcı" buldu | [THE Journal](https://thejournal.com/articles/2015/05/05/watching-videos-does-not-necessarily-lead-to-learning.aspx) | fizik öğrencileri; öğrenme ölçüldü, izlenme değil |
+| Mayer ilkeleri: tutarlılık 18/19, işaretleme 26/28 deneyde olumlu | [Mayer özeti](https://ugc.futurelearn.com/uploads/files/7d/d6/7dd6188d-c343-4311-b064-ac98d2c95abc/Multimedia_Principles._R._E._Mayer__2020.pdf) | kontrollü deneyler |
+| Elle çizim (Khan tarzı) videolar daha çok izlendi (6,9 milyon oturum) | [Guo ve ark. 2014](https://up.csail.mit.edu/other-pubs/las2014-pguo-engagement.pdf) | gözlemsel, yalnız MOOC |
+| Açık döngü, yeniden kanca | [Social Media Examiner](https://www.socialmediaexaminer.com/youtube-retention) ve benzeri bloglar | blog tavsiyesi; "60-90 sn'de bir" gibi sayıların kaynağı yok |
+
 ## Bulunamayan
+İç içe döngüler üzerine araştırma bulunamadı.
 YouTube kancaları üzerine hakemli çalışma bulunamadı; "ilk 3 sn", "%70 tutma" gibi sayılar blog iddiasıdır, skill'e alınmadı.
