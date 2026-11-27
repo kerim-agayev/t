@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; overflow: hidden; font-family: "Segoe UI", sans-serif }
+  canvas { display: block }
+  .ad { position: absolute; bottom: 50px; transform: translateX(-50%); font-size: 34px; font-weight: 700; color: #3a2f55; white-space: nowrap }
+  h1 { position: absolute; top: 24px; width: 100%; text-align: center; margin: 0; font-size: 64px; color: #3a2f55 }
+</style>
+<body>
+<script type="importmap">{"imports": {"three": "/node_modules/three/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from "three";
+import { karakter } from "./mino.js";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.append(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xcfe8ff);
+const camera = new THREE.PerspectiveCamera(24, innerWidth / innerHeight, 0.1, 60);
+const gunes = new THREE.DirectionalLight(0xfff3e0, 1.9);
+gunes.position.set(2.5, 5, 4);
+gunes.castShadow = true;
+gunes.shadow.mapSize.set(2048, 2048);
+Object.assign(gunes.shadow.camera, { left: -5, right: 5, top: 5, bottom: -3 });
+const arka = new THREE.DirectionalLight(0xbfc8ff, 0.9);
+arka.position.set(-3, 2, -2);
+scene.add(gunes, arka, new THREE.AmbientLight(0xffffff, 0.95));
+const yer = new THREE.Mesh(new THREE.CircleGeometry(12, 64), new THREE.MeshToonMaterial({ color: 0xf6dcc0 }));
+yer.rotation.x = -Math.PI / 2;
+yer.receiveShadow = true;
+scene.add(yer);
+
+const durumlar = [
+  ["Merhaba!", -2.35, 0.25, (m) => { m.kolSag.rotation.set(-0.7, 0, 1.95); m.kolSag.scale.setScalar(1.12); m.bas.rotation.z = 0.12; m.yuz({ goz: "mutlu", agiz: "acik" }); }],
+  ["Normal", 0, 0, (m) => { m.yuz({ goz: "acik", agiz: "gulumse" }); }],
+  ["Şaşkın", 2.35, -0.3, (m) => { m.kolSag.rotation.set(-1.0, 0, 0.7); m.kolSol.rotation.set(-1.0, 0, -0.7); m.bas.rotation.x = -0.06; m.yuz({ goz: "buyuk", agiz: "o", kas: 1 }); }],
+];
+for (const [ad, x, donus, kur] of durumlar) {
+  const m = karakter();
+  m.kok.position.x = x;
+  m.kok.rotation.y = donus;
+  kur(m);
+  scene.add(m.kok);
+  const e = Object.assign(document.createElement("div"), { className: "ad", textContent: ad });
+  e.style.left = `${50 + x * 15}%`;
+  document.body.append(e);
+}
+document.body.append(Object.assign(document.createElement("h1"), { textContent: "Mino" }));
+camera.position.set(0, 1.75, 8.9);
+camera.lookAt(0, 1.16, 0);
+renderer.render(scene, camera);
+window.hazir = true;
+</script>

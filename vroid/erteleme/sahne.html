@@ -1,0 +1,342 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; overflow: hidden; font-family: "Segoe UI", sans-serif; color: #231d3a }
+  canvas { display: block }
+  .kart { position: absolute; background: #fffdf8; border-radius: 28px; padding: 28px 44px; box-shadow: 0 18px 50px #0005; font-weight: 700; line-height: 1.35; opacity: 0 }
+  .saat { background: #14111f; color: #ff5d6c; font: 800 130px Consolas, monospace; padding: 10px 44px }
+  .imlec { display: inline-block; width: 6px; height: 1em; background: #231d3a; vertical-align: -0.12em; margin-left: 4px }
+  .balon { border: 6px solid #7c6bd6; font-size: 50px; max-width: 760px }
+  #alt { position: absolute; left: 50%; bottom: 44px; transform: translateX(-50%); width: max-content; max-width: 1560px; text-align: center;
+    font: 600 44px/1.35 "Segoe UI", sans-serif; color: #fff; background: #100c20cc; border-radius: 16px; padding: 10px 28px }
+  #alt.Y { color: #9fe3ff } #alt.E { color: #ffe08a }
+  #kapi { position: absolute; inset: 0; background: #000; z-index: 9 }
+</style>
+<body>
+<script type="importmap">{"imports": {
+  "three": "/node_modules/three/build/three.module.js",
+  "three/addons/": "/node_modules/three/examples/jsm/",
+  "@pixiv/three-vrm": "/node_modules/@pixiv/three-vrm/lib/three-vrm.module.js"
+}}</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
+
+const n = Number(new URLSearchParams(location.search).get("s") || 1);
+const Z = (await (await fetch("zaman.json")).json())[n - 1];
+const son = Z.kare / 30;
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.append(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.05, 50);
+const loader = new GLTFLoader();
+loader.register((p) => new VRMLoaderPlugin(p));
+
+// ---------- oda ----------
+const gece = n === 1 || n === 3 || n === 5 || n === 6;
+const renk = gece
+  ? { duvar: 0x4a4a7a, yer: 0x3d2f45, gok: 0x141a3d, ana: [0x9fa8ff, 1.0], ortam: [0x8a86c8, 0.75] }
+  : { duvar: 0xf3dcc4, yer: 0xb98a64, gok: 0x9fd8ff, ana: [0xfff1d6, 1.9], ortam: [0xffffff, 0.85] };
+scene.background = new THREE.Color(renk.duvar);
+const gunes = new THREE.DirectionalLight(...renk.ana);
+gunes.position.set(1.5, 2.6, 2);
+gunes.castShadow = true;
+gunes.shadow.mapSize.set(2048, 2048);
+scene.add(gunes, new THREE.AmbientLight(...renk.ortam));
+
+const gec = new THREE.DataTexture(new Uint8Array([120, 190, 255]), 3, 1, THREE.RedFormat);
+gec.needsUpdate = true;
+const mat = (c, ek = {}) => new THREE.MeshToonMaterial({ color: c, gradientMap: gec, ...ek });
+function kutu(w, h, d, c, x, y, z, ek) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(c, ek));
+  m.position.set(x, y, z);
+  m.castShadow = m.receiveShadow = true;
+  scene.add(m);
+  return m;
+}
+kutu(9, 0.1, 9, renk.yer, 0, -0.05, 0);
+kutu(9, 4, 0.1, renk.duvar, 0, 2, -1.6);
+kutu(0.1, 4, 9, renk.duvar, -2.4, 2, 0);
+kutu(2.4, 0.02, 1.7, gece ? 0x5a3f78 : 0xe9a28f, 0.1, 0.01, 0.3);            // halı
+kutu(1.25, 1.05, 0.04, 0xf6efe6, -1.15, 1.6, -1.54);                          // pencere
+kutu(1.13, 0.93, 0.02, renk.gok, -1.15, 1.6, -1.51, { emissive: renk.gok, emissiveIntensity: 0.6 });
+kutu(0.05, 0.93, 0.03, 0xf6efe6, -1.15, 1.6, -1.49);
+if (gece) {
+  const ay = new THREE.Mesh(new THREE.CircleGeometry(0.1, 32), new THREE.MeshBasicMaterial({ color: 0xffe9a0 }));
+  ay.position.set(-1.42, 1.82, -1.475);
+  scene.add(ay);
+}
+kutu(1.1, 0.05, 0.24, 0x8c5f45, 1.2, 1.62, -1.45);                            // raf ve kitaplar
+[0xe76f6f, 0x6fb3e7, 0xf2c14e, 0x7ac59a, 0xb18ae0, 0xe76f6f].forEach((c, i) => kutu(0.08, 0.26 + (i % 3) * 0.04, 0.17, c, 0.8 + i * 0.11, 1.79 + (i % 3) * 0.02, -1.45));
+kutu(1.0, 0.34, 1.7, 0x7c6bd6, -1.85, 0.2, -0.55);                            // yatak
+kutu(0.7, 0.14, 0.4, 0xfdf6ee, -1.85, 0.43, -1.15);
+
+if (n !== 2 && n !== 4) {
+  kutu(1.35, 0.05, 0.62, 0x9b6a4b, 0, 0.7, 0.52);                             // masa
+  for (const x of [-0.62, 0.62]) for (const z of [0.27, 0.77]) kutu(0.05, 0.68, 0.05, 0x6d4733, x, 0.34, z);
+  kutu(0.46, 0.06, 0.44, 0x4f4a6e, 0, 0.43, -0.03);                           // sandalye
+  kutu(0.46, 0.55, 0.06, 0x4f4a6e, 0, 0.74, -0.27);
+  for (const x of [-0.2, 0.2]) for (const z of [-0.22, 0.16]) kutu(0.045, 0.42, 0.045, 0x38344f, x, 0.21, z);
+  kutu(0.4, 0.016, 0.27, 0xb9bccb, 0.02, 0.735, 0.47);                        // dizüstü
+  kutu(0.4, 0.26, 0.012, 0xb9bccb, 0.02, 0.86, 0.63).rotation.x = 0.28;
+  const lx = n === 5 || n === 6 ? 0.52 : -0.48;                               // lamba karakteri kapatmasın
+  kutu(0.05, 0.1, 0.05, 0xe76f6f, -Math.sign(lx) * 0.45, 0.78, 0.45);         // bardak
+  kutu(0.16, 0.02, 0.16, 0x333047, lx, 0.735, 0.62);                          // lamba
+  kutu(0.025, 0.36, 0.025, 0x333047, lx, 0.91, 0.62);
+  kutu(0.18, 0.1, 0.14, 0xf2c14e, lx * 0.94, 1.1, 0.58, gece ? { emissive: 0xffb84d, emissiveIntensity: 0.9 } : {});
+  if (gece) { const l = new THREE.PointLight(0xffbe66, 1.5, 3, 1.5); l.position.set(lx * 0.85, 1.02, 0.4); scene.add(l); }
+}
+
+// ---------- karakter ve yardımcılar ----------
+async function karakter() {
+  const vrm = (await loader.loadAsync("/models/Sendagaya_Shibu.vrm")).userData.vrm;
+  VRMUtils.rotateVRM0(vrm);
+  vrm.scene.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.frustumCulled = false; } });
+  scene.add(vrm.scene);
+  return vrm;
+}
+// Eksenler VRM0 içindir (model yerelde -Z'ye bakar).
+function poz(vrm, acilar) {
+  for (const [ad, [x, y, z]] of Object.entries(acilar)) vrm.humanoid.getNormalizedBoneNode(ad).rotation.set(x, y, z);
+}
+const ayakta = { leftUpperArm: [0, 0, 1.25], rightUpperArm: [0, 0, -1.25] };
+const oturan = {
+  leftUpperLeg: [1.5, 0, -0.04], rightUpperLeg: [1.5, 0, 0.04], leftLowerLeg: [-1.5, 0, 0], rightLowerLeg: [-1.5, 0, 0],
+  leftUpperArm: [0.35, 0, 1.2], rightUpperArm: [0.35, 0, -1.2], leftLowerArm: [0, -1.35, 0], rightLowerArm: [0, 1.35, 0],
+};
+const P = (ek) => ({ ...oturan, ...ek });
+function oturt(vrm, koltuk = 0.54) {
+  vrm.scene.updateMatrixWorld(true);
+  const k = vrm.humanoid.getRawBoneNode("hips").getWorldPosition(new THREE.Vector3());
+  vrm.scene.position.y += koltuk - k.y;
+}
+// poz ham kemiklere ancak update ile geçer
+function elde(vrm, el) {
+  vrm.humanoid.update();
+  vrm.scene.updateMatrixWorld(true);
+  return vrm.humanoid.getRawBoneNode(el).getWorldPosition(new THREE.Vector3());
+}
+function yazi(html, stil, sinif = "") {
+  const d = document.createElement("div");
+  d.className = "kart " + sinif;
+  d.style.cssText = stil;
+  d.innerHTML = html;
+  document.body.append(d);
+  return d;
+}
+// zaman: bas("söz") o cümlenin başladığı an
+const bas = (soz) => { const c = Z.satirlar.find((x) => x.metin.includes(soz)); if (!c) throw new Error("cümle yok: " + soz); return c.t0; };
+const yumusak = (t, t0, sure = 0.7) => { const k = Math.min(1, Math.max(0, (t - t0) / sure)); return k * k * (3 - 2 * k); };
+function belir(d, k, dondur = "") { d.style.opacity = k; d.style.transform = `translateY(${(1 - k) * 40}px) scale(${0.9 + 0.1 * k}) ${dondur}`; }
+function karisim(a, b, k) {
+  const sonuc = {};
+  for (const ad of new Set([...Object.keys(a), ...Object.keys(b)])) {
+    const x = a[ad] || [0, 0, 0], y = b[ad] || [0, 0, 0];
+    sonuc[ad] = x.map((v, i) => v + (y[i] - v) * k);
+  }
+  return sonuc;
+}
+function yuzler(vrm, a, b = a, k = 0) {
+  for (const ad of ["happy", "sad", "relaxed", "surprised", "oh"]) vrm.expressionManager.setValue(ad, (a[ad] || 0) * (1 - k) + (b[ad] || 0) * k);
+}
+// nefes, hafif baş hareketi, göz kırpma; ağız yalnız karakterin kendi repliğinde
+function canli(vrm, t, kim, faz = 0, kapak = 0) {
+  const kemik = (a) => vrm.humanoid.getNormalizedBoneNode(a);
+  kemik("spine").rotation.x += Math.sin(t * 1.7 + faz) * 0.014;
+  kemik("head").rotation.y += Math.sin(t * 0.53 + faz) * 0.055;
+  kemik("head").rotation.z += Math.sin(t * 0.37 + faz * 2) * 0.03;
+  kemik("head").rotation.x += Math.sin(t * 0.81 + faz) * 0.025;
+  for (const k of ["leftUpperArm", "rightUpperArm"]) kemik(k).rotation.x += Math.sin(t * 1.7 + faz + 1) * 0.012;
+  const g = (t + faz) % 3.7, kirp = g < 0.16 ? Math.sin((g / 0.16) * Math.PI) : 0;
+  const gulen = (vrm.expressionManager.getValue("happy") || 0) > 0.6;          // gülen yüzde gözler zaten kapalı
+  vrm.expressionManager.setValue("blink", gulen ? 0 : Math.max(kirp, kapak));
+  const c = Z.satirlar.find((x) => t >= x.t0 && t <= x.t1);
+  vrm.expressionManager.setValue("aa", c && c.kim === kim ? Z.agiz[Math.min(Z.kare - 1, Math.floor(t * 30))] : 0);
+}
+function kamera(a, b, k) {
+  const v = a.map((x, i) => x + (b[i] - x) * k);
+  camera.position.set(v[0], v[1], v[2]);
+  camera.lookAt(v[3], v[4], v[5]);
+}
+
+const elif = await karakter();
+let kur;                          // kur(t): o andaki poz, yüz, eşya, kart, kamera
+let yarin = null;
+
+if (n === 1) {
+  const saat = yazi("23:47", "left:90px;top:80px", "saat");
+  const kart = yazi('Ödev.docx<br><span style="font-size:74px">Giriş<i class="imlec"></i></span><br><span style="font-weight:400">Teslim: yarın 09:00</span>', "right:80px;top:90px;font-size:40px;width:520px");
+  const a = P({ spine: [-0.08, 0, 0], head: [-0.15, 0, 0] }), b = P({ spine: [-0.14, 0, 0], head: [-0.26, 0.38, 0.1] });
+  poz(elif, a); oturt(elif);
+  kur = (t) => {
+    const k = yumusak(t, bas("Elif bu ödevi"), 1.2);
+    poz(elif, karisim(a, b, k)); yuzler(elif, { sad: 0.5 }, { sad: 1, oh: 0.2 }, k);
+    belir(saat, yumusak(t, 0.2)); belir(kart, yumusak(t, bas("Elif'in sayfasında")));
+    const q = bas("Peki neden");
+    if (t < q) kamera([1.9, 1.45, 2.3, -0.1, 0.95, 0.15], [1.45, 1.33, 1.75, -0.12, 0.97, 0.15], yumusak(t, 0, q));
+    else kamera([0.75, 1.25, 1.25, -0.05, 1.07, 0.05], [0.62, 1.23, 1.08, -0.03, 1.1, 0.04], yumusak(t, q, 4));
+  };
+} else if (n === 2) {
+  const takvim = yazi('<span style="font-size:42px">TESLİME</span><br><span style="font-size:170px;color:#2f9a58">21</span><br><span style="font-size:42px">gün var 😌</span>', "left:150px;top:200px;text-align:center;width:400px;border-top:40px solid #e76f6f");
+  const soz = yazi("“Bu sefer erken bitireceğim!”", "right:60px;top:40px;font-size:48px", "balon");
+  const a = { ...ayakta, head: [0, 0.1, -0.05] };
+  const b = { ...ayakta, rightUpperArm: [0.5, 0, -0.9], rightLowerArm: [0, 2.0, -0.3], head: [0, 0.1, -0.14] };
+  elif.scene.position.set(0.45, 0, 0.2);
+  kur = (t) => {
+    const k = yumusak(t, bas("Hatta bu sefer")), q = yumusak(t, bas("Ama o akşam"), 1.5);
+    poz(elif, karisim(a, b, k * (1 - q)));
+    if (q > 0) yuzler(elif, { happy: 0.9 }, { surprised: 0.5 }, q); else yuzler(elif, { happy: 0.25 }, { happy: 0.9 }, k);
+    belir(takvim, yumusak(t, bas("Elif takvime"))); belir(soz, k * (1 - q));
+    kamera([0.15, 1.35, 3.4, 0.1, 1.0, 0], [0.1, 1.38, 2.75, 0.15, 1.08, 0], yumusak(t, 0, son));
+  };
+} else if (n === 3) {
+  const soru = yazi("Ya kötü yazarsam?<br>Ya yetiştiremezsem?", "left:100px;top:110px;font-size:58px", "balon");
+  const bes = yazi("📱 Sadece 5 dakika…", "left:110px;top:120px;font-size:68px");
+  const dongu = yazi("Sıkıntı → telefon → rahatlama 🔁", "right:90px;top:100px;font-size:52px");
+  const a = P({ spine: [-0.08, 0, 0], head: [-0.2, 0, 0] });
+  const b = P({ spine: [0.08, 0, 0], head: [-0.28, 0, 0.1], leftLowerArm: [0.5, -1.6, 0], rightLowerArm: [0.5, 1.6, 0] });
+  poz(elif, a); oturt(elif);
+  const tel = kutu(0.085, 0.16, 0.016, 0x20202c, 0, 0, 0, { emissive: 0x4a7dff, emissiveIntensity: 0.5 });
+  tel.rotation.x = -0.5;
+  kur = (t) => {
+    const el = bas("Eli telefona"), k = yumusak(t, el, 0.9);
+    poz(elif, karisim(a, b, k));
+    yuzler(elif, { sad: 0.8 * yumusak(t, bas("İçine küçük")) }, { relaxed: 1, happy: 0.35 }, k);
+    tel.position.copy(elde(elif, "rightHand")).add(new THREE.Vector3(0.01, 0.06, 0.04));
+    tel.visible = k > 0.35;
+    belir(soru, yumusak(t, bas("Ya kötü")) * (1 - k)); belir(bes, k * (1 - yumusak(t, bas("İşte tuzak"))));
+    belir(dongu, yumusak(t, bas("Beyni bir şey")));
+    if (t < el) kamera([0.7, 1.28, 1.35, -0.05, 1.05, 0.05], [0.6, 1.26, 1.15, -0.03, 1.08, 0.05], yumusak(t, 0, el));
+    else kamera([0.95, 1.38, 1.75, -0.12, 0.98, 0.15], [1.5, 1.5, 2.25, -0.15, 0.95, 0.15], yumusak(t, el, son - el));
+  };
+} else if (n === 4) {
+  const liste = yazi(["✨ Oda toplandı", "✨ Çekmeceler dizildi", "✨ Kalemler renk renk", "⬜ Ödev"].map((x) => `<div>${x}</div>`).join(""), "left:100px;top:90px;font-size:52px");
+  const ruh = yazi("Erteleme = kötü bir duygudan<br><span style='color:#d6453b'>kısa süreli kaçış</span><br><span style='font-size:30px;font-weight:400'>Sirois &amp; Pychyl, 2013</span>", "left:80px;top:90px;font-size:50px", "balon");
+  const dik = { ...ayakta, head: [0.05, 0.2, 0] };
+  const tasi = { spine: [-0.3, 0, 0], chest: [-0.12, 0, 0], head: [0.25, 0.25, 0], leftUpperArm: [0.7, 0, 1.3], rightUpperArm: [0.7, 0, -1.3], leftLowerArm: [0, -1.2, 0], rightLowerArm: [0, 1.2, 0] };
+  elif.scene.position.set(0.15, 0, 0.1);
+  const koli = kutu(0.4, 0.2, 0.26, 0xd9a066, 0, 0, 0);
+  const kalemler = [0xe76f6f, 0x6fb3e7, 0xf2c14e, 0x7ac59a, 0xb18ae0].map((c, i) => kutu(0.03, 0.025, 0.3, c, 0.75 + i * 0.07, 0.03, 0.65));
+  for (let i = 0; i < 4; i++) kutu(0.36, 0.07, 0.27, [0x6fb3e7, 0xe76f6f, 0x7ac59a, 0xf2c14e][i], -0.75, 0.05 + i * 0.075, 0.45);
+  kur = (t) => {
+    const d0 = bas("Demek ki"), dur = yumusak(t, d0, 0.9), k = yumusak(t, bas("Ödev yerine")) * (1 - dur);
+    const p = karisim(dik, tasi, k);
+    p.spine = [(p.spine?.[0] || 0) + Math.sin(t * 3.4) * 0.07 * k, Math.sin(t * 1.3) * 0.12 * k, 0];
+    p.chest ||= [0, 0, 0];
+    poz(elif, p); yuzler(elif, { happy: 0.8 * k }, { sad: 0.5 }, dur);
+    koli.position.copy(elde(elif, "leftHand")).lerp(elde(elif, "rightHand"), 0.5).add(new THREE.Vector3(0, -0.04, 0.1));
+    koli.visible = k > 0.3;
+    kalemler.forEach((m, i) => { m.visible = t > bas("Kalemlerini") + i * 0.25; });
+    const anlar = [bas("Ödev yerine"), bas("Çekmeceleri"), bas("Kalemlerini"), bas("Tembel biri")];
+    [...liste.children].forEach((d, i) => { d.style.opacity = yumusak(t, anlar[i], 0.4); });
+    const psi = yumusak(t, bas("Psikologlar"));
+    belir(liste, yumusak(t, anlar[0]) * (1 - psi)); belir(ruh, psi);
+    if (t < d0) kamera([1.5, 1.35, 2.6, -0.05, 0.85, 0], [1.1, 1.3, 2.35, 0, 0.9, 0], yumusak(t, 0, d0));
+    else kamera([0.55, 1.35, 2.3, -0.28, 1.1, 0], [0.45, 1.38, 1.95, -0.24, 1.16, 0], yumusak(t, d0, son - d0));
+  };
+} else if (n === 5) {
+  const balon = yazi("Ben <span style='color:#2f6fd6'>yarınki</span> senim.", "right:80px;top:90px", "balon");
+  const balon2 = yazi("O sıkıntıyı bana yolladın.<br>Yok olmadı. <span style='color:#d6453b'>Birikti.</span>", "right:80px;top:90px", "balon");
+  const dongu = yazi("Kaç → birik → daha çok kaç 🔁", "right:80px;top:90px;font-size:54px");
+  const calisan = P({ spine: [-0.08, 0, 0], head: [-0.2, 0, 0] });
+  const donuk = P({ spine: [0, -0.35, 0], neck: [0, -0.35, 0], head: [0.05, -0.4, 0] });
+  poz(elif, calisan); oturt(elif);
+  yarin = await karakter();
+  yarin.scene.rotation.y += 0.55;
+  yarin.scene.traverse((o) => {
+    if (!o.isMesh) return;
+    for (const m of [o.material].flat()) {
+      m.color?.multiply(new THREE.Color(0.55, 0.68, 1.0));
+      m.shadeColorFactor?.multiply(new THREE.Color(0.45, 0.55, 0.9));
+    }
+  });
+  const isik = new THREE.PointLight(0x66ccff, 0, 2.2, 1.5); isik.position.set(-1.0, 1.2, 0.7); scene.add(isik);
+  kur = (t) => {
+    const gel = yumusak(t, 1.0, 2.2), don = yumusak(t, bas("Aynı saç"), 1.0);
+    yarin.scene.visible = gel > 0.02;
+    yarin.scene.position.set(-1.5 + 0.72 * gel, 0, 0.05);
+    isik.intensity = 2.2 * gel + (t > 1 && t < 1.8 ? 3 * Math.sin(((t - 1) / 0.8) * Math.PI) : 0);
+    poz(yarin, { ...ayakta, spine: [-0.18, 0, 0], head: [-0.2, 0.25, 0.1] }); yuzler(yarin, { sad: 0.8 });
+    poz(elif, karisim(calisan, donuk, don));
+    const gor = yumusak(t, bas("Elif ilk kez"), 1.0);
+    if (gor > 0) yuzler(elif, { surprised: 1 }, { sad: 0.9 }, gor); else yuzler(elif, { sad: 0.3 }, { surprised: 1 }, don);
+    belir(balon, yumusak(t, bas("Ben yarınki")) * (1 - yumusak(t, bas("Her beş"), 0.3)));
+    belir(balon2, yumusak(t, bas("Her beş")) * (1 - yumusak(t, bas("Elif ilk kez"), 0.3)));
+    belir(dongu, yumusak(t, bas("Ve büyüdükçe")));
+    const s0 = bas("Elif soruyor"), y0 = bas("Ben yarınki"), g0 = bas("Elif ilk kez");
+    if (t < s0) kamera([0.75, 1.35, 3.1, -0.35, 1.0, 0], [0.55, 1.35, 2.7, -0.3, 1.0, 0], yumusak(t, 0, s0));
+    else if (t < y0) kamera([0.6, 1.35, 2.0, -0.32, 1.12, 0], [0.5, 1.33, 1.75, -0.3, 1.14, 0], yumusak(t, s0, 2.5));
+    else if (t < g0) kamera([0.05, 1.4, 2.0, -0.55, 1.25, 0], [-0.1, 1.42, 1.6, -0.62, 1.3, 0], yumusak(t, y0, 8));
+    else kamera([0.55, 1.35, 2.7, -0.28, 1.0, 0], [0.9, 1.55, 3.2, -0.3, 0.95, 0], yumusak(t, g0, son - g0));
+  };
+} else if (n === 6) {
+  const kanit = yazi("Kendini affedenler<br>sonraki sınavda <span style='color:#2f9a58'>daha az erteledi</span><br><span style='font-size:30px;font-weight:400'>Wohl ve ark., 2010 · tek çalışma, kesin kanıt değil</span>", "left:50px;top:40px;font-size:44px", "balon");
+  const not_ = yazi("📝 Hedef: 2 dakika, 1 cümle<br><span style='font-weight:400;font-size:40px'>Yarın 19:00 → masaya otur → dosyayı aç</span>", "right:80px;top:110px;font-size:56px;background:#fff3a6;border-radius:6px");
+  const kizgin = P({ spine: [-0.2, 0, 0], head: [-0.35, 0, 0] });
+  const nefes = P({ spine: [0.08, 0, 0], head: [0.12, 0, 0] });
+  const yazar = P({ spine: [-0.1, 0, 0], head: [-0.2, 0.15, 0], rightLowerArm: [-0.1, 1.5, 0] });
+  poz(elif, kizgin); oturt(elif);
+  const kalem = kutu(0.012, 0.15, 0.012, 0xf2c14e, 0, 0, 0);
+  kalem.rotation.z = 0.5;
+  kur = (t) => {
+    const h = bas("Hedefi küçültüyor"), n1 = yumusak(t, bas("Elif derin"), 1.2), y = yumusak(t, h, 0.9);
+    const p = y > 0 ? karisim(nefes, yazar, y) : karisim(kizgin, nefes, n1);
+    if (y >= 1) p.rightLowerArm = [-0.1, 1.5 + Math.sin(t * 9) * 0.045, 0];
+    poz(elif, p);
+    if (y > 0) yuzler(elif, { relaxed: 1 }, { relaxed: 0.5, happy: 0.25 }, y); else yuzler(elif, { sad: 0.9 }, { relaxed: 1 }, n1);
+    kalem.position.copy(elde(elif, "rightHand")).add(new THREE.Vector3(0, 0.03, 0.06));
+    kalem.visible = y > 0.4;
+    belir(kanit, yumusak(t, bas("Bir çalışmada")) * (1 - y)); belir(not_, y, "rotate(2deg)");
+    not_.querySelector("span").style.opacity = yumusak(t, bas("Yarın için"));
+    if (t < h) kamera([-0.75, 1.25, 1.35, 0.05, 1.05, 0.05], [-0.65, 1.24, 1.15, 0.05, 1.07, 0.05], yumusak(t, 0, h));
+    else kamera([-1.35, 1.4, 1.85, 0.12, 0.95, 0.15], [-1.0, 1.32, 1.5, 0.08, 0.98, 0.15], yumusak(t, h, son - h));
+  };
+} else {
+  const metin = "Bu ödeve üç hafta önce başlamalıydım. Ama şimdi başladım.";
+  const belge = yazi('<span style="font-size:50px">Giriş</span><br><span id="yaz" style="font-weight:400"></span><i class="imlec"></i>', "left:90px;top:90px;font-size:38px;width:600px;min-height:170px");
+  const soru = yazi("Senin 2 dakikalık adımın ne? 👇", "right:90px;top:120px;font-size:56px", "balon");
+  const yazan = P({ spine: [-0.1, 0, 0], head: [-0.2, 0, 0] });
+  const bakan = P({ head: [0.02, 0.45, -0.08], neck: [0, 0.15, 0] });
+  poz(elif, yazan); oturt(elif);
+  const telefon = kutu(0.085, 0.014, 0.16, 0x20202c, 0.36, 0.737, 0.6, { emissive: 0x4a7dff, emissiveIntensity: 0 });
+  kur = (t) => {
+    const s0 = bas("Senin iki"), d0 = bas("Ama dikkat"), k = yumusak(t, s0, 1.1);
+    poz(elif, karisim(yazan, bakan, k)); yuzler(elif, { relaxed: 0.6, happy: 0.3 * yumusak(t, bas("İkinci cümle")) }, { happy: 1 }, k);
+    belir(belge, yumusak(t, 0.2));
+    belge.querySelector("#yaz").textContent = metin.slice(0, Math.max(0, Math.floor((t - 0.8) * 7)));
+    belir(soru, k * (1 - yumusak(t, d0, 0.5)));
+    telefon.visible = t >= d0;                                  // köprü: telefon geri çağırıyor
+    telefon.material.emissiveIntensity = 0.5 + 0.5 * Math.sin(t * 10);
+    if (t < d0) kamera([1.5, 1.4, 2.1, -0.2, 0.98, 0.1], [1.15, 1.3, 1.6, -0.18, 1.04, 0.1], yumusak(t, 0, d0));
+    else kamera([1.15, 1.3, 1.6, -0.18, 1.04, 0.1], [1.05, 1.45, 1.85, 0.0, 0.98, 0.25], yumusak(t, d0, 3));
+  };
+}
+
+const alt = Object.assign(document.createElement("div"), { id: "alt" });
+const kapi = Object.assign(document.createElement("div"), { id: "kapi" });
+document.body.append(alt, kapi);
+let onceki = null;
+window.kare = (t) => {
+  kur(t);
+  canli(elif, t, "E");
+  if (yarin) canli(yarin, t, "Y", 1.7, 0.3);
+  const dt = onceki === null ? 0 : Math.min(t - onceki, 1 / 30);
+  onceki = t;
+  elif.update(dt); yarin?.update(dt);
+  const c = Z.satirlar.find((x) => t >= x.t0 - 0.05 && t <= x.t1 + 0.16);
+  alt.style.display = c ? "block" : "none";
+  if (c) { alt.textContent = c.metin; alt.className = c.kim; }
+  kapi.style.opacity = Math.max(1 - t / 0.35, (t - (son - 0.35)) / 0.35, 0);
+  renderer.render(scene, camera);
+};
+// saç ve etek fiziği ilk karede oturmuş olsun
+kur(0); elif.humanoid.update();
+for (let i = 0; i < 90; i++) { elif.update(1 / 30); yarin?.update(1 / 30); }
+window.kare(0);
+window.hazir = true;
+window.kareSayisi = Z.kare;
+</script>

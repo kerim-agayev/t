@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; background: #e9e4f2; font: 600 30px "Segoe UI", sans-serif; color: #2b2540 }
+  canvas { display: block }
+  .ad { position: absolute; bottom: 24px; transform: translateX(-50%); white-space: nowrap }
+</style>
+<script type="importmap">{"imports": {
+  "three": "/node_modules/three/build/three.module.js",
+  "three/addons/": "/node_modules/three/examples/jsm/",
+  "@pixiv/three-vrm": "/node_modules/@pixiv/three-vrm/lib/three-vrm.module.js"
+}}</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0xe9e4f2);
+document.body.append(renderer.domElement);
+const scene = new THREE.Scene();
+const light = new THREE.DirectionalLight(0xffffff, 2.2);
+light.position.set(1, 2, 3);
+scene.add(light, new THREE.AmbientLight(0xffffff, 0.9));
+const camera = new THREE.PerspectiveCamera(22, innerWidth / innerHeight, 0.1, 50);
+const loader = new GLTFLoader();
+loader.register((p) => new VRMLoaderPlugin(p));
+
+const models = [["AvatarSample_A", "1"], ["AvatarSample_B", "2"], ["AvatarSample_C", "3"],
+                ["Sendagaya_Shino", "4"], ["Sendagaya_Shibu", "5"]];
+for (const [i, [name, no]] of models.entries()) {
+  const vrm = (await loader.loadAsync(`/models/${name}.vrm`)).userData.vrm;
+  VRMUtils.rotateVRM0(vrm);
+  const bone = (n) => vrm.humanoid.getNormalizedBoneNode(n);
+  const s = vrm.meta.metaVersion === "0" ? 1 : -1;      // VRM0 ve VRM1 eksenleri ters
+  bone("leftUpperArm").rotation.z = 1.25 * s;
+  bone("rightUpperArm").rotation.z = -1.25 * s;
+  vrm.scene.position.x = (i - 2) * 0.78;
+  scene.add(vrm.scene);
+  for (let k = 0; k < 60; k++) vrm.update(1 / 30);       // saç fiziği otursun
+  const label = Object.assign(document.createElement("div"), { className: "ad", textContent: no });
+  document.body.append(label);
+  models[i].push(label, vrm.scene.position.x);
+}
+camera.position.set(0, 0.92, 6.0);
+camera.lookAt(0, 0.88, 0);
+camera.updateMatrixWorld();
+for (const [, , label, x] of models) label.style.left = `${(new THREE.Vector3(x, 0, 0).project(camera).x + 1) / 2 * innerWidth}px`;
+renderer.render(scene, camera);
+window.hazir = true;
+</script>

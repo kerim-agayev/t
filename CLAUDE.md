@@ -33,6 +33,8 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 | `sprouts/` | Sprouts tarzı denemeler: SVG kareleri ve Open Peeps (`openpeeps/`: `npm ci`, `node render.js`). Sonuç henüz istenen çizer kalitesinde değil | SVG, react-peeps |
 | `trigonometri/` | **5 dk trigonometri, beyaz + siyah tahta** | Manim |
 | `yagliboya/` | 24 sn Van Gogh tarzı İstanbul gecesi, kodla fırça darbeleri | Pillow + numpy |
+| `vroid/erteleme/` | **3 dk 3D anime karakterli psikoloji hikâyesi** (hazır CC0 VRM modeli) | three.js + three-vrm |
+| `vroid/mino/` | Tamamen kodla kurulan özgün chibi karakter (video onay bekliyor) | three.js |
 | `YONTEM_RAPORU.md` | A hattının ayrıntılı raporu ve Pillow yöntemiyle karşılaştırma | |
 
 ## B hattı (yeni videolar için bunu kullan)
@@ -71,6 +73,16 @@ cd ../yagliboya
 - LaTeX yok: yalnız `Text` (`MathTex` kullanma). Segoe Print alt simge çizemez.
 - `Text` 48+ puntoda uzun satırı kaydırıyor; altyazı 32 punto çizilip küçültülür.
 - Yağlı boya: `resim.py` sahne + renk + fırça yönü; `video.py` darbeler, hareket, kamera.
+
+## 3D karakter hattı
+Ayrıntı, kurulum, model indirme ve MCP araştırması: `vroid/NASIL_YAPILDI.md`.
+```bash
+cd vroid && npm ci                 # bir kez; modelleri NASIL_YAPILDI.md'deki komutla indir
+node render.js erteleme taslak     # örnek kareler
+node render.js erteleme            # final (önce erteleme/ses.py)
+node render.js mino kare           # özgün karakter önizlemesi
+```
+Video için MCP kullanılmadı; VRoid MCP kurulmadı. Figma kullanılmaz.
 
 ## A hattı (ilk videolar)
 SVG + düz JS (`index.html`: oynatıcı, `?render` video modu) + `make_video.py`: ses → `timing.js` → headless Edge'i DevTools ile sürüp kare yakalar → ffmpeg H.264.
