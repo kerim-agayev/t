@@ -9,8 +9,17 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 - Büyük işten önce tek kare / önizleme sayfası ile onay al; render'ı arka planda çalıştır, yoklama; gereksiz alt ajan ve görsel kontrolü yok.
 - API anahtarlarını dosyaya veya commit'e yazma (**bu depo herkese açık**).
 
-## Her yeni videoda ilk adım: senaryo
-`.claude/skills/hikaye-senaryo` skill'ini kullan (başlık + kapak → kanca → sahne sırası → bitiş → onay). Onaysız üretim yok.
+## Her yeni videonun iş sırası (önce `.claude/skills/hikaye-senaryo` skill'i)
+1. **Konu** seç: niş, izleyici, konsept, görsel tarz.
+2. **Akış:** yaklaşık süre, başlık + kapak, kanca, konu sırası, bitiş.
+3. **Senaryo:** sahne sahne ne olacağı.
+4. **Seslendirme metni:** süreyle uyumlu.
+5. **Resimler:** videodan önce stil örneği ve sahne kareleri.
+6. **Video:** ses → taslak → final.
+
+- Adımlar onayla ilerler; senaryo ve resimler onaylanmadan video üretme.
+- Storytelling teknikleri her adımda uygulanır. **Tek kalıba sıkıştırma:** anlatı biçimi konuya, konsepte (matematik, Sprouts tarzı, yağlı boya...) ve kanal nişine göre değişir.
+- Genel teknikler hep aynı: güçlü ve dürüst kanca, merak boşluğu, "ama / bu yüzden" bağları, somut anlatım, görsel zirve, net bitiş, uydurma bilgi yok.
 
 ## Klasörler (kronolojik)
 | Yol | İçerik | Yöntem |

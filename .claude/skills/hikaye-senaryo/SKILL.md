@@ -1,77 +1,73 @@
 ---
 name: hikaye-senaryo
-description: Bu depoda YouTube videosu üretmeden ÖNCE kullan. Konu, video, senaryo, anlatım metni, kanca, başlık, kapak (thumbnail), bölüm sırası veya bitiş istendiğinde; çizim ve ses üretiminden önce paketleme ve senaryo çıkarır, onay alır.
+description: Bu depoda her yeni videoda İLK kullanılacak skill. Konu, video, akış, senaryo, seslendirme metni, süre, kanca, başlık, kapak, resim önizlemesi veya bitiş istendiğinde; konu → akış → senaryo → metin → resim → video sırasını ve hikâye anlatma tekniklerini yürütür.
 ---
 
 # Hikâye ve senaryo
 
-**Kural: onaylı senaryo olmadan çizim, ses ve render yok.** Sıra: paket → omurga → metin → denetim → onay → üretim.
-Kanıt düzeyi ve kaynaklar: [references/arastirma.md](references/arastirma.md). Kurallar izlenme garantisi vermez; yayından sonra ölçülür.
+Kanıt düzeyi ve kaynaklar: [references/arastirma.md](references/arastirma.md). Kurallar izlenme garantisi vermez.
 
-## 1. Brif (5 satır)
-- İzleyici kim, konuyu ne sanıyor? (**yanlış inanç**)
-- Büyük soru: tek cümle, evet/hayır değil, cevabı merak edilen.
-- Vaat: video bitince neyi yapabilecek veya görebilecek?
-- Tek fikir: unutursa geriye kalması gereken cümle.
-- Süre hedefi (varsayılan 4-6 dk).
+**Tek kalıp yok.** İş sırası ve genel teknikler her videoda aynı; anlatı biçimi konuya, konsepte ve kanal nişine göre seçilir.
 
-## 2. Önce paket: başlık ve kapak
-Metinden önce yaz; yazılamıyorsa konu zayıf.
-- 3 başlık (somut nesne + boşluk; yaklaşık 60 karakter altı; en önemli kelime başta).
-- 3 kapak eskizi: tek odak, tek çatışma, en fazla 3-4 kelime, küçük ekranda okunur, başlığı tekrar etmez, sağ alt köşe boş (süre etiketi).
-- Videoda olmayan şeyi vaat etme. Başlık ve kapağın sorusu ilk 30 saniyede açıkça karşılanır.
+## İş sırası (her adım bir öncekine dayanır, onaysız ilerleme yok)
 
-## 3. Omurga
-Tek cümle (VE-AMA-BU YÜZDEN): "X böyle **ve** şöyle, **ama** sorun şu, **bu yüzden** ..."
-Sahneler arasına yalnız **ama** veya **bu yüzden** konabiliyorsa sıra doğrudur; "ve sonra" geliyorsa sahneyi birleştir, taşı veya sil.
+| # | Adım | Çıktı | Onay |
+|---|---|---|---|
+| 1 | **Konu** | niş, izleyici, konsept, görsel tarz, büyük soru; gerekiyorsa araştırma | konu seçimi |
+| 2 | **Akış** | yaklaşık süre, başlık + kapak taslağı, kanca, konu sırası, bitiş | akış |
+| 3 | **Senaryo** | sahne tablosu: süre, ne olur, ekranda ne var, açılan/kapanan soru | |
+| 4 | **Seslendirme metni** | sahne sahne tam metin, süreyle uyumlu | senaryo + metin |
+| 5 | **Resimler** | karakter/stil örneği, sonra her sahneden kare (tek önizleme sayfası) | resimler |
+| 6 | **Video** | ses, hızlı taslak, final | taslak |
 
-| Pay | Bölüm | İşi |
-|---|---|---|
-| 0-10% | Kanca + vaat | Somut görüntü, boşluk, "sonunda ..." sözü |
-| 10-25% | Sezgi | İzleyicinin tahminini al, yanlış inancı açıkça söyle |
-| 25-45% | İlk çatlak | Sezgi bir örnekte çöker; küçük ilk ödül |
-| 45-70% | Keşif | Fikir adım adım kurulur; her adım yeni soru doğurur |
-| 70-85% | Zirve | En güçlü görsel "aha"; büyük soru cevaplanır |
-| 85-95% | Dönüş | Giriş görüntüsüne dön, artık farklı görünsün; insan veya tarih bağı |
-| 95-100% | Bitiş | Sınama sorusu + sıradaki videoya köprü |
+1-4 `<proje>/SENARYO.md` içine yazılır. Kullanıcıya özet göster, dosyanın tamamını tekrarlama.
 
-Oranlar başlangıç noktasıdır, araştırma bulgusu değil.
+## 1. Konu
+- İzleyici kim, bu konuyu zaten ne biliyor veya ne hissediyor, neden tıklasın?
+- Büyük soru veya vaat: tek cümle.
+- Tek fikir veya duygu: video bitince geriye ne kalacak?
+- Biçimi seç (aşağıda). Gerçek olay ve bilgi varsa önce araştır, kaynak yaz.
 
-## 4. Kanca
-İlk cümle selam, kanal tanıtımı veya "bu videoda" olmaz. Üç taslak yaz, birini seç:
-1. **İmkânsız görünen iş:** "Tırmanmadan bir dağın boyunu nasıl ölçersin?"
-2. **Yanlış sezgi:** "sin 30 + sin 60 kaç eder? 1 dediysen..."
-3. **Olayın ortası:** kişi + yer + ters giden şey ("Bir anne, kendi çocuklarının annesi olmadığını söyleyen test sonucunu okuyor").
-4. **Sonuç önce:** zirvedeki görüntünün 3 saniyesi, sonra "buraya nasıl geldik?"
+## Biçime göre değişen
+| Biçim | Gerilimin kaynağı | Kanca örneği | Zirve | Bitiş |
+|---|---|---|---|---|
+| Kavram anlatımı (matematik, bilim) | yanlış sezgi veya çözülemeyen soru | "sin 30 + sin 60 = 1 mi?" | görsel "aha" | yeni soruya uygulama |
+| Karakterli hikâye (Sprouts, psikoloji) | karakterin isteği ve engeli | sahnenin ortasında bir an | karakterin fark edişi veya deneyin sonucu | "sen olsan ne yapardın?" |
+| Gerçek vaka / gizem | açıklanamayan çelişki | en tuhaf olgu | gerçeğin ortaya çıkışı | sonucu ve bugünkü anlamı |
+| Tarih / biyografi | karar ve bedeli | dönüm noktasından bir an | dönüm noktası | bugüne bağ |
+| Liste ("5 yol") | her maddede küçük soru, giderek güçlenen sıra | en şaşırtıcı maddenin vaadi | son madde | maddeleri bağlayan fikir |
+| Nasıl yapılır | hedefle mevcut durum farkı | bitmiş sonuç | işe yaradığı an | ilk adım |
+| Görsel / atmosfer (yağlı boya, müzikli) | dönüşüm ve merak: ne beliriyor? | ilk fırça darbesi veya sonuçtan bir ayrıntı | resmin canlanması | sakin kapanış, döngü |
 
-İlk 30 saniye: görüntü (0-5) → boşluk (5-15) → vaat ve bedel (15-30). Boşluk orta büyüklükte olsun: izleyicinin bildiği bir şeye bağlanmalı.
+Uyan yoksa biçimleri karıştır veya yenisini kur. "Yanlış inanç" yalnız konu gerçekten bir yanılgı içeriyorsa kullanılır.
 
-## 5. Metin
-- Her sahne: **hedef/soru → engel → sonuç → yeni soru**.
-- Açık döngü: aynı anda en fazla 2; her biri kapanır. Ana soru zirveye kadar açık kalır.
-- 45-60 saniyede bir değişim: yeni soru, ters köşe, tahmin molası, tahta değişimi.
-- Somut önce, terim sonra. Yeni terim sahnede en fazla 1-2.
-- Kişi varsa: isim, istek, engel. Duygu sıfatla değil olayla.
-- Konuşma dili, "sen", kısa cümle, cümlede tek fikir.
-- Ekranda söylenen şey o anda çizilsin; vurgu rengiyle işaretle.
-- Süs bilgi testi: tek fikre hizmet etmeyen ilginç ayrıntıyı sil.
-- Olmayan olay, söz veya sayı uydurma. Her olgunun yanına kaynağı yaz; doğrulanmayanı işaretle.
+## Her videoda aynı kalan teknikler
+- **Kanca:** selam ve kanal tanıtımıyla başlama; 3 taslak yaz, birini seç. İlk 30 saniyede görüntü, merak boşluğu ve vaat.
+- **Dürüst paket:** başlık ve kapağın sorusu ilk 30 saniyede karşılanır; videoda olmayanı vaat etme.
+- **Nedensellik:** sahneler "ve sonra" ile değil **"ama"** veya **"bu yüzden"** ile bağlanır (anlatısız atmosfer videosu hariç).
+- **Sahne:** soru → engel → sonuç → yeni soru. En fazla 2 açık döngü; hepsi kapanır.
+- **Ritim:** 45-60 saniyede bir değişim (soru, ters köşe, tahmin molası, mekân).
+- **Somut önce**, terim sonra. Duygu sıfatla değil olayla.
+- **Zirve** sondan önce ve görsel; mümkünse giriş görüntüsüne dön.
+- **Süs testi:** ana fikre hizmet etmeyen ilginç ayrıntıyı sil.
+- **Bitiş:** ana cümle bir kez, izleyiciye soru veya sıradaki videoya köprü; uzun teşekkür ve abone çağrısı yok.
+- **Doğruluk:** olay, söz, sayı uydurma.
 
-## 6. Bitiş
-Son 20 saniye: ana cümle (tek kez) → izleyiciye cevabı videoda hazırlanmış bir soru → sıradaki videonun açtığı boşluk. "İzlediğiniz için teşekkürler" ve uzun abone çağrısı yok; son cümleden sonra video biter.
+## 2. Akış
+- Süreyi konu belirler; kullanıcı söylemediyse öner (anlatım videosu için 4-6 dk iyi başlangıç).
+- 3 başlık (somut, merak boşluklu, yaklaşık 60 karakter altı) ve 3 kapak eskizi (tek odak, en fazla 3-4 kelime, sağ alt köşe boş).
+- Pay önerisi: kanca 10% · kurulum 15% · gelişme 45% · zirve 15% · dönüş ve bitiş 15%. Biçime göre değiştir.
 
-## 7. Denetim (hepsi "evet" olmadan onaya gönderme)
-- [ ] Başlık ve kapağın sorusu ilk 30 saniyede duyuluyor mu?
-- [ ] Yanlış inanç açıkça söylenip çürütülüyor mu?
-- [ ] Sahne geçişleri "ama / bu yüzden" ile bağlanıyor mu?
-- [ ] Silinince bir şey kaybolmayan sahne veya cümle kaldı mı? (sil)
-- [ ] Zirve görsel mi, sondan önce mi?
-- [ ] Giriş görüntüsüne dönülüyor mu?
-- [ ] Olgular kaynaklı mı?
-- [ ] Süre: edge-tts Türkçe `+10%` hızında yaklaşık **11,5 karakter = 1 sn** (3606 karakter → 5:12).
+## 3-4. Senaryo ve metin
+- Konuşma dili, kısa cümle, cümlede tek fikir. Söylenen şey o anda ekranda.
+- Süre hesabı: edge-tts Türkçe `+10%` hızında yaklaşık **11,5 karakter = 1 sn** (3606 karakter → 5:12). Başka ses, dil veya hızda ilk sahneyi üretip ölç. Sessiz videoda süreyi hareket planı belirler.
+- Onaydan önce denetle: kanca, "ama / bu yüzden", açık döngüler, zirve, bitiş, kaynaklar, süre.
 
-## 8. Onay çıktısı
-`<proje>/SENARYO.md` yaz: brif, 3 başlık, 3 kapak, VE-AMA-BU YÜZDEN cümlesi, sahne tablosu (süre, tahta, anlatım, ekranda ne var, açılan/kapanan soru), kaynaklar. Kullanıcıya yalnız seçilen kancayı, başlığı ve sahne tablosunun özetini göster; onay bekle.
+## 5. Resimler
+Videodan önce çiz: önce stil ve karakter örneği (1-3 resim); beğenilince her sahneden bir kare, tek sayfada. Yazı çakışması ve okunurluk burada yakalanır. Beğenilmeyen resimle videoya geçme.
 
-## 9. Yayın sonrası
-YouTube Studio: ilk 30 saniyede kalma oranı, izleyici tutma grafiğindeki düşüşler, tıklanma oranı; 3 başlık/kapakla test. Öğrenileni bu dosyaya ekle.
+## 6. Video
+Seslendir → hızlı taslak → birkaç kareden kontrol → final render arka planda. Sesi dinleyemediğini ve neyi kontrol etmediğini söyle.
+
+## Yayından sonra
+İlk 30 saniyede kalma, izleyici tutma düşüşleri, tıklanma oranı; öğrenileni nişe göre bu dosyaya ekle.
