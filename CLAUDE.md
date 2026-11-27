@@ -35,6 +35,8 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 | `yagliboya/` | 24 sn Van Gogh tarzı İstanbul gecesi, kodla fırça darbeleri | Pillow + numpy |
 | `vroid/erteleme/` | **3 dk 3D anime karakterli psikoloji hikâyesi** (hazır CC0 VRM modeli) | three.js + three-vrm |
 | `vroid/mino/` | Tamamen kodla kurulan özgün chibi karakter (video onay bekliyor) | three.js |
+| `blender/` | **30 sn 3D domino zinciri (1 cm → 22 m)**, sesli ve yazılı | Blender 5.1 + Python |
+| `NIS_ARASTIRMASI.md` | Dünya geneli niş ve gelir araştırması; öneri: İngilizce görsel bilim ve matematik (onay bekliyor) | |
 | `YONTEM_RAPORU.md` | A hattının ayrıntılı raporu ve Pillow yöntemiyle karşılaştırma | |
 
 ## B hattı (yeni videolar için bunu kullan)
@@ -83,6 +85,18 @@ node render.js erteleme            # final (önce erteleme/ses.py)
 node render.js mino kare           # özgün karakter önizlemesi
 ```
 Video için MCP kullanılmadı; VRoid MCP kurulmadı. Figma kullanılmaz.
+
+## Blender hattı
+```bash
+cd blender
+B="/c/Program Files/Blender Foundation/Blender 5.1/blender.exe"
+"$B" -b --factory-startup -P domino.py -- kare 2.9 13 29.5   # örnek kareler (kare/)
+"$B" -b --factory-startup -P domino.py -- video              # 900 kare, bu PC'de yaklaşık 9 dk (Eevee)
+../trigonometri/.venv/Scripts/python son.py                  # ses + yazı + domino.mp4
+```
+- Eklenti veya MCP yok; her şey `domino.py` içinde kodla kuruluyor (`olaylar.json` zamanları `son.py`'ye taşır).
+- Ölçek 1 cm-22 m olduğu için Blender fiziği yerine basit sarkaç + temas hesabı; kamera ve odak ölçekle büyür.
+- `son.py` içinde ASS satır sonu `\N` olarak yazılmalı.
 
 ## A hattı (ilk videolar)
 SVG + düz JS (`index.html`: oynatıcı, `?render` video modu) + `make_video.py`: ses → `timing.js` → headless Edge'i DevTools ile sürüp kare yakalar → ffmpeg H.264.
