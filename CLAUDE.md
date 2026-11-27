@@ -96,7 +96,7 @@ B="/c/Program Files/Blender Foundation/Blender 5.1/blender.exe"
 ```
 - Eklenti veya MCP yok; her şey `domino.py` içinde kodla kuruluyor (`olaylar.json` zamanları `son.py`'ye taşır).
 - Ölçek 1 cm-22 m olduğu için Blender fiziği yerine basit sarkaç + temas hesabı; kamera ve odak ölçekle büyür.
-- `son.py` içinde ASS satır sonu `\N` olarak yazılmalı.
+- `son.py` içinde ASS satır sonu Python metninde `\\N` (çift ters bölü) yazılmalı.
 
 ## A hattı (ilk videolar)
 SVG + düz JS (`index.html`: oynatıcı, `?render` video modu) + `make_video.py`: ses → `timing.js` → headless Edge'i DevTools ile sürüp kare yakalar → ffmpeg H.264.
