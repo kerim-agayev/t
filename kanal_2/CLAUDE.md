@@ -10,6 +10,8 @@ Bu klasör **kanal 1'den bağımsız**. Evdeki Claude yalnız `kanal_2/` içinde
 - **Tarz:** `kalem.py` defter ve gece zemini, kalemle çizme ve yazma. Basit çöp adam, simge, kart, tablo, grafik; **ayrıntılı yüz ve çizer kalitesinde karakter hedefleme** (bu hatta ulaşılamadı). Her video öncekilerden farklı ve daha iyi olsun; kanal 1 ile aynı renk ve yazı düzeni olmasın (ilk videoda kullanıcıya 2-3 örnek kare seçtir).
 - **Ad adayları (müsaitliği bakılmadı):** Mind Margins, The Thinking Notebook, Pencil Paradox.
 
+- **Marka (hazır):** `marka/profil_800.png` ve `marka/banner_2560x1440.png` ("Mind Margins", slogan "What would you really do?"; kaynak görseller Gemini üretimi, aynı klasörde). Renkler: kâğıt #F5EEDB, mürekkep #1F2A44, turkuaz #1F8A80, mandalina #F28C28.
+
 ## Veri ve sınırları
 - Önceki API analizi (kökteki `NIS_ARASTIRMASI.md`): küçük kanallarda psikoloji medyan izlenmesi yüksek çıkmıştı; örneklem küçük, gelir ölçülmedi.
 - 2026-11-27 web taraması: bu nişte tek tek başlık talebi veya rakip izlenmesi **ölçülemedi**. İlk 8 videodan sonra sırayı YouTube Studio verisine göre değiştir.

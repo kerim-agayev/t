@@ -17,9 +17,11 @@ uv venv -p 3.13 && uv pip install -r requirements.txt                  # bir kez
 ```
 Sonra Claude Code'u `t/` klasöründe aç ve yaz: ne istiyorsan (ses değiştirme adımları: `kanal/001-black-holes/SESLENDIRME.md`). Yeni video için sıra: bu dosya → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
 
-## İki kanal
+## Üç kanal
 - **Kanal 1 = `kanal/`** (aşağıdaki "Kanal" bölümü, Chalk Orbit): kullanıcı buna bu bilgisayardaki oturumda devam ediyor.
-- **Kanal 2 = `kanal_2/`**: evde ayrı bir kanal için; talimatlar `kanal_2/CLAUDE.md`. İki klasör birbirinin dosyasını değiştirmez.
+- **Kanal 2 = `kanal_2/`**: evde ayrı bir kanal için; talimatlar `kanal_2/CLAUDE.md`. 
+- **Kanal 3 = `kanal_3/`**: "zor sanılan, kolay fikirler" (oyun teorisi, ekonomi, bilim); 50 konu ve talimatlar `kanal_3/CLAUDE.md`.
+- Klasörler birbirinin dosyasını değiştirmez.
 
 ## Kanal
 - **Marka:** ad "Chalk Orbit" (öneri; müsaitliği kontrol edilmedi). `kanal/marka/profil_800.png` ve `banner_2560x1440.png` yüklemeye hazır (kaynak görseller ChatGPT üretimi, aynı klasörde).
