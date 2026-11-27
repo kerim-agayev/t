@@ -9,6 +9,9 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 - Büyük işten önce tek kare / önizleme sayfası ile onay al; render'ı arka planda çalıştır, yoklama; gereksiz alt ajan ve görsel kontrolü yok.
 - API anahtarlarını dosyaya veya commit'e yazma (**bu depo herkese açık**).
 
+## Her yeni videoda ilk adım: senaryo
+`.claude/skills/hikaye-senaryo` skill'ini kullan (başlık + kapak → kanca → sahne sırası → bitiş → onay). Onaysız üretim yok.
+
 ## Klasörler (kronolojik)
 | Yol | İçerik | Yöntem |
 |---|---|---|
@@ -18,6 +21,9 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 | `pavlov/` | Pavlov / klasik koşullanma, hareketli karakter, zil sesi | A hattı |
 | `yetenek_testi/` | 76 sn, 6 tarz: veri yarışı, teknik akış, matematik, dev yazılı bilgi, çöp adam, whiteboard | tek `render(t)` |
 | `lydia/` | **4,5 dk Lydia Fairchild vakası, 16 tahta (güncel ve en iyi hat)** | B hattı |
+| `sprouts/` | Sprouts tarzı denemeler: SVG kareleri ve Open Peeps (`openpeeps/`: `npm ci`, `node render.js`). Sonuç henüz istenen çizer kalitesinde değil | SVG, react-peeps |
+| `trigonometri/` | **5 dk trigonometri, beyaz + siyah tahta** | Manim |
+| `yagliboya/` | 24 sn Van Gogh tarzı İstanbul gecesi, kodla fırça darbeleri | Pillow + numpy |
 | `YONTEM_RAPORU.md` | A hattının ayrıntılı raporu ve Pillow yöntemiyle karşılaştırma | |
 
 ## B hattı (yeni videolar için bunu kullan)
@@ -41,6 +47,21 @@ Yeni konu: `proje/` klasörünü kopyala; `build.py` içindeki `SCRIPT` (sahne -
 - Yazılar `H-150` üstünde kalsın (altyazı alanı). Kesikli çizgi desteklenmiyor.
 - Metin değişince yalnız o satırın `audio/<sahne>_<n>.mp3` dosyasını sil. Kendi kaydını aynı adla koyabilirsin.
 - Yapılmadı: kamera yakınlaştırma, kelime bazlı senkron (ElevenLabs `with-timestamps` ile mümkün), Rough.js.
+
+## Manim hattı (matematik) ve yağlı boya
+```bash
+cd trigonometri
+uv venv -p 3.13 && uv pip install manim==0.22.1 edge-tts==7.3.1 mutagen   # bir kez
+export PYTHONIOENCODING=utf-8 PYTHONWARNINGS=ignore
+.venv/Scripts/python video.py            # eksik sesleri üretir
+.venv/Scripts/python render.py taslak    # hızlı taslak; final: render.py
+cd ../yagliboya
+../trigonometri/.venv/Scripts/python video.py kare 10   # resim.png
+../trigonometri/.venv/Scripts/python video.py           # video.mp4 (sessiz, uzun sürer)
+```
+- LaTeX yok: yalnız `Text` (`MathTex` kullanma). Segoe Print alt simge çizemez.
+- `Text` 48+ puntoda uzun satırı kaydırıyor; altyazı 32 punto çizilip küçültülür.
+- Yağlı boya: `resim.py` sahne + renk + fırça yönü; `video.py` darbeler, hareket, kamera.
 
 ## A hattı (ilk videolar)
 SVG + düz JS (`index.html`: oynatıcı, `?render` video modu) + `make_video.py`: ses → `timing.js` → headless Edge'i DevTools ile sürüp kare yakalar → ffmpeg H.264.

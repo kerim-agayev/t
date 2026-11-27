@@ -4,3 +4,10 @@ __pycache__/
 narration.wav
 .env
 .env.*
+.venv/
+trigonometri/media/
+trigonometri/taslak.mp4
+# şirket hesabında üretilmiş görselden türeyenler
+sprouts/figma_test.png
+sprouts/video/figma.*
+sprouts/video/ses/figma/

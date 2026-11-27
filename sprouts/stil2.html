@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Batık maliyet — figür stili</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+<style>body{margin:0}svg{width:100vw;height:100vh;display:block;font-family:"Lilita One",Impact,sans-serif}</style>
+<svg id="s" viewBox="0 0 1600 900"><defs>
+  <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".012 .016" numOctaves="5" seed="9"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .3  0 0 0 0 .12  0 0 0 1.1 -.42"/></filter>
+  <radialGradient id="paper" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#fffdf6"/><stop offset=".6" stop-color="#f7ead2"/><stop offset="1" stop-color="#d9bd90"/></radialGradient>
+  <radialGradient id="blue" cx=".55" cy=".75" r=".85"><stop offset="0" stop-color="#46adff"/><stop offset=".55" stop-color="#2474c9"/><stop offset="1" stop-color="#0b0d18"/></radialGradient>
+  <radialGradient id="purple" cx=".7" cy=".35" r=".8"><stop offset="0" stop-color="#8a5a96"/><stop offset=".5" stop-color="#432a55"/><stop offset="1" stop-color="#120c1c"/></radialGradient>
+</defs></svg>
+<script>
+const S = document.getElementById('s'), INK = '#14100e';
+function el(tag, a, parent = G) { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in a) e.setAttribute(k, a[k]); parent.append(e); return e; }
+let G = S, uid = 0;
+const path = (d, fill = 'none', w = 6, stroke = INK, a = {}) => el('path', {d, fill, stroke, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...a});
+const oval = (x, y, rx, ry = rx) => `M${x-rx} ${y}a${rx} ${ry} 0 1 0 ${2*rx} 0a${rx} ${ry} 0 1 0 ${-2*rx} 0Z`;
+const poly = pts => 'M' + pts.map(p => p.map(v => v.toFixed(1)).join(' ')).join('L') + 'Z';
+
+// a -> (eklem j) -> b boyunca kalınlığı değişen uzuv
+function taper(a, j, b, w0, wj, w1) {
+  const c = [2*j[0] - (a[0]+b[0])/2, 2*j[1] - (a[1]+b[1])/2], L = [], R = [], n = 24;
+  for (let i = 0; i <= n; i++) {
+    const t = i/n, u = 1-t, p = [0,1].map(k => u*u*a[k] + 2*u*t*c[k] + t*t*b[k]), d = [0,1].map(k => 2*u*(c[k]-a[k]) + 2*t*(b[k]-c[k]));
+    const m = Math.hypot(...d) || 1, w = (u*u*w0 + 2*u*t*(2*wj - (w0+w1)/2) + t*t*w1)/2;
+    L.push([p[0] - d[1]/m*w, p[1] + d[0]/m*w]); R.push([p[0] + d[1]/m*w, p[1] - d[0]/m*w]);
+  }
+  return poly([...L, ...R.reverse()]);
+}
+// bir grup parçayı tek siluet olarak boyar: önce kalın dış çizgi, sonra gölge, sonra ana renk
+function ink(parts, color, shade, line = 13) {
+  for (const d of parts) path(d, INK, line);
+  for (const d of parts) path(d, shade, 0, 'none');
+  for (const d of parts) {
+    const id = 'c' + uid++; el('path', {d}, el('clipPath', {id}));
+    el('path', {d, fill: color, transform: 'translate(-9 -8)'}, el('g', {'clip-path': `url(#${id})`}));
+  }
+}
+const C = {orange: ['#ff9d1e', '#d96308'], blue: ['#2fc3d6', '#17808f'], green: ['#7cc93f', '#47892a'], red: ['#f0512e', '#a92a17'], grey: ['#c9c9cd', '#8c8c95']};
+
+function hand([x, y], ang, color) {
+  const at = (a, r) => [x + Math.cos(a*Math.PI/180)*r, y + Math.sin(a*Math.PI/180)*r];
+  ink([oval(x, y, 19, 17), ...[-38, 2, 40].map(d => taper(at(ang+d, 6), at(ang+d, 28), at(ang+d*1.15, 48), 17, 13, 8))], ...C[color], 10);
+}
+function figure({color, head, r = 82, neck, hip, arms, legs, mood, look = 0, tilt = 0}) {
+  const mid = [(neck[0]+hip[0])/2, (neck[1]+hip[1])/2];
+  ink([taper(neck, mid, hip, 36, 62, 52), ...legs.flatMap(([k, f, dir]) => [taper(hip, k, f, 44, 25, 18), taper([f[0]-dir*8, f[1]-2], [f[0]+dir*30, f[1]+2], [f[0]+dir*64, f[1]+8], 22, 26, 5)])], ...C[color]);
+  for (const [e, h, ang] of arms) { ink([taper([neck[0], neck[1]+26], e, h, 32, 17, 14)], ...C[color], 11); hand(h, ang, color); }
+  const [x, y] = head, old = G; G = el('g', {transform: `rotate(${tilt} ${x} ${y})`});
+  ink([oval(x, y, r, r*.95)], ...C[color]);
+  path(`M${x-r*.68} ${y-r*.3}Q${x-r*.56} ${y-r*.66} ${x-r*.18} ${y-r*.74}`, 'none', 9, '#fff', {opacity: .75});
+  const ex = x + look, ey = y - 6;
+  for (const s of [-1, 1]) {
+    const cx = ex + s*28;
+    if (mood === 'joy') path(`M${cx-18} ${ey+6}Q${cx} ${ey-24} ${cx+18} ${ey+6}`, 'none', 9);
+    else {
+      path(oval(cx, ey, 20, mood === 'wow' ? 28 : 23), '#fff', 5); path(oval(cx + look*.15, ey + (mood === 'bored' ? 9 : 3), 7.5, 9), INK, 2);
+      if (mood === 'bored') path(`M${cx-21} ${ey+1}Q${cx-20} ${ey-26} ${cx} ${ey-24}Q${cx+20} ${ey-26} ${cx+21} ${ey+1}Z`, C[color][1], 5);
+    }
+    const [o, i] = {joy: [-38,-46], wow: [-48,-52], sad: [-28,-48], bored: [-34,-34], calm: [-38,-42]}[mood];
+    path(taper([cx+s*24, ey+o], [cx, ey+(o+i)/2-5], [cx-s*18, ey+i], 5, 13, 7), INK, 2);
+  }
+  if (mood === 'joy') { path(`M${ex-38} ${y+22}Q${ex} ${y+32} ${ex+38} ${y+20}Q${ex+26} ${y+74} ${ex} ${y+72}Q${ex-28} ${y+70} ${ex-38} ${y+22}Z`, '#5a1717', 7); path(`M${ex-30} ${y+30}Q${ex} ${y+40} ${ex+30} ${y+28}l-4 9Q${ex} ${y+49} ${ex-25} ${y+39}Z`, '#fff', 0, 'none'); path(`M${ex-15} ${y+62}Q${ex} ${y+46} ${ex+17} ${y+60}Q${ex} ${y+72} ${ex-15} ${y+62}Z`, '#ff7b86', 0, 'none'); }
+  if (mood === 'wow') path(oval(ex, y+45, 15, 20), '#5a1717', 7);
+  if (mood === 'sad') path(`M${ex-30} ${y+55}Q${ex-14} ${y+30} ${ex} ${y+38}Q${ex+16} ${y+30} ${ex+30} ${y+52}`, 'none', 8);
+  if (mood === 'bored') path(`M${ex-26} ${y+45}Q${ex} ${y+36} ${ex+24} ${y+49}`, 'none', 8);
+  if (mood === 'calm') path(`M${ex-28} ${y+34}Q${ex+2} ${y+62} ${ex+30} ${y+30}`, 'none', 8);
+  G = old;
+}
+
+function background(kind) {
+  el('rect', {width: 1600, height: 900, fill: `url(#${kind})`}, S);
+  el('rect', {width: 1600, height: 900, filter: 'url(#grain)', opacity: kind === 'paper' ? .55 : .12}, S);
+  G = el('g', {filter: 'url(#w)'}, S);
+}
+function title(s, fill = '#fff', size = 112) {
+  const e = el('text', {x: 800, y: 138, 'font-size': size, 'text-anchor': 'middle', fill, stroke: fill === '#fff' ? INK : '#fff', 'stroke-width': fill === '#fff' ? 14 : 0, 'paint-order': 'stroke', 'stroke-linejoin': 'round'}, S);
+  e.textContent = s;
+}
+const label = (x, y, s, size, fill = INK, a = {}) => (el('text', {x, y, 'font-size': size, 'text-anchor': 'middle', fill, ...a}).textContent = s);
+const shadow = (x, y, rx) => path(oval(x, y, rx, rx*.12), '#000', 0, 'none', {opacity: .22});
+function bill(x, y, rot, s = 1) { const g = `translate(${x} ${y}) rotate(${rot}) scale(${s})`; const old = G; G = el('g', {transform: g}); path('M-62-32Q0-46 62-30L58 32Q0 18-64 34Z', '#8fd35a', 6); path(oval(0, 0, 18, 20), '#d4f0a8', 4); label(0, 11, '₺', 32, '#2f6b1c'); G = old; }
+
+const SCENES = {
+  1() {
+    background('paper'); title('BİLETİ ALDIM!', INK);
+    path('M60 820Q500 790 900 815T1560 800', 'none', 8);
+    // gişe
+    ink(['M1040 330H1470L1460 815H1050Z'], '#ffcf8a', '#d99a52');
+    path('M1085 400H1425V620H1085Z', '#33445e', 8);
+    figure({color: 'green', head: [1250, 490], r: 68, neck: [1250, 556], hip: [1250, 640], mood: 'calm', look: -14, legs: [], arms: [[[1180, 610], [1130, 590], 190]]});
+    ink(['M1050 615H1465V665H1050Z'], '#b8663a', '#80401f');
+    for (let i = 0; i < 5; i++) ink([`M${1012+i*98} 235h98v76q-49 58-98 0Z`], i % 2 ? '#fff' : '#f0512e', i % 2 ? '#d8d2c8' : '#a92a17', 11);
+    label(1255, 765, 'GİŞE', 84, '#fff', {stroke: INK, 'stroke-width': 11, 'paint-order': 'stroke'});
+    shadow(540, 815, 220);
+    figure({color: 'orange', head: [520, 350], r: 105, neck: [530, 455], hip: [560, 610], mood: 'joy', look: 12, tilt: -9,
+      legs: [[[455, 690], [410, 780], -1], [[670, 650], [650, 790], 1]], arms: [[[360, 440], [300, 300], -110], [[680, 540], [790, 435], -25]]});
+    const g = el('g', {transform: 'rotate(-14 870 400)'}), old = G; G = g;
+    ink(['M770 340H980V375a28 28 0 0 0 0 56V470H770V431a28 28 0 0 0 0-56Z'], '#ffe14d', '#dba80c'); label(875, 425, 'BİLET', 56); G = old;
+    bill(180, 560, -25); bill(780, 240, 18, .8); bill(250, 200, 30, .7);
+    path('M255 380l-60-24M290 250l-42-52M720 330l40-50', 'none', 9);
+  },
+  2() {
+    background('purple'); title('SIKICI... AMA PARASINI VERDİM!', '#fff', 92);
+    path('M880 230L1500 200V560L890 540Z', '#eaf6ff', 10);
+    path('M890 535L420 880H1560L1500 555Z', '#cfe8ff', 0, 'none', {opacity: .1});
+    label(1190, 305, 'bla bla bla...', 70, '#8aa0bd');
+    ink(['M230 880V470Q230 330 420 330T610 470V880Z'], '#d93a35', '#8c1c22');
+    figure({color: 'orange', head: [450, 445], r: 108, neck: [440, 550], hip: [420, 710], mood: 'bored', look: 20, tilt: 15,
+      legs: [[[610, 700], [680, 850], 1], [[540, 760], [560, 870], 1]], arms: [[[260, 640], [320, 760], 60], [[600, 610], [560, 500], -140]]});
+    ink(['M150 640Q220 600 250 650V880H150Z', 'M590 690Q660 650 700 700L690 880H590Z'], '#e8493f', '#9c2228');
+    ink(['M780 700H910L885 860H805Z'], '#fff', '#cfc8c0'); path('M815 705L828 855M868 705L860 855', 'none', 18, '#f0512e');
+    for (const [x, y] of [[795,690],[835,668],[875,688],[905,672],[950,830],[740,845]]) ink([oval(x, y, 27, 23)], '#fff1b0', '#e0bd5a', 9);
+    shadow(1210, 862, 150);
+    figure({color: 'blue', head: [1190, 435], r: 92, neck: [1205, 525], hip: [1230, 665], mood: 'wow', look: 22, tilt: 8,
+      legs: [[[1150, 760], [1090, 845], -1], [[1330, 730], [1340, 845], 1]], arms: [[[1080, 600], [1010, 540], -160], [[1330, 540], [1420, 470], -30]]});
+    ink(['M1405 640H1540V720H1405Z'], '#3bbf6a', '#1f7f42'); label(1472, 697, 'ÇIKIŞ', 44, '#fff');
+  },
+  3() {
+    background('blue'); title('BATIK MALİYET TUZAĞI');
+    path('M800 220Q780 540 815 880', 'none', 12, '#fff', {opacity: .85});
+    shadow(330, 835, 260);
+    figure({color: 'orange', head: [420, 390], r: 100, neck: [395, 488], hip: [330, 635], mood: 'sad', look: 20, tilt: 12,
+      legs: [[[270, 720], [215, 805], -1], [[430, 720], [415, 805], 1]], arms: [[[520, 570], [630, 535], -10], [[500, 650], [610, 625], 10]]});
+    for (let i = 0; i < 5; i++) path(oval(335 - i*6 - (i > 2 ? (i-2)*-70 : 0), 790 + (i % 2)*8 + (i > 2 ? 12 : 0), 30, 17), 'none', 13, '#b8bcc8');
+    ink([oval(590, 765, 105, 100)], '#565c6e', '#2b2e3a');
+    path('M530 715Q550 690 580 685', 'none', 10, '#fff', {opacity: .6});
+    label(590, 788, '250 ₺', 64, '#fff', {stroke: INK, 'stroke-width': 10, 'paint-order': 'stroke'});
+    ink([oval(1450, 330, 72)], '#ffd531', '#e89a0c');
+    path('M1450 215v-30M1450 445v30M1335 330h-30M1565 330h30M1370 250l-22-22M1530 410l22 22M1530 250l22-22M1370 410l-22 22', 'none', 12, '#ffd531');
+    path('M860 850Q1200 760 1570 830V900H860Z', '#7cc93f', 9);
+    shadow(1150, 815, 180);
+    path('M1285 420Q1330 330 1290 270', 'none', 5);
+    ink([oval(1275, 245, 58, 72)], '#ff6fa8', '#c2336e');
+    figure({color: 'blue', head: [1110, 400], r: 98, neck: [1120, 498], hip: [1130, 635], mood: 'joy', look: 6, tilt: -8,
+      legs: [[[1030, 700], [960, 755], -1], [[1240, 710], [1230, 800], 1]], arms: [[[990, 450], [940, 340], -105], [[1240, 520], [1285, 420], -60]]});
+    label(1190, 872, 'Giden gitti. Zamanın senin!', 44, '#fff', {stroke: INK, 'stroke-width': 9, 'paint-order': 'stroke'});
+  },
+};
+SCENES[new URLSearchParams(location.search).get('n') || 1]();
+</script>
+</html>

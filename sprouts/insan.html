@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+<style>body{margin:0}svg{width:100vw;height:100vh;display:block;font-family:"Lilita One",sans-serif}</style>
+<svg id="s" viewBox="0 0 1600 900"><defs>
+  <radialGradient id="skin3" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffe3cf"/><stop offset=".65" stop-color="#f7b995"/><stop offset="1" stop-color="#d48263"/></radialGradient>
+  <radialGradient id="hair3" cx=".35" cy=".25" r=".85"><stop offset="0" stop-color="#b9713f"/><stop offset=".55" stop-color="#6e3a1e"/><stop offset="1" stop-color="#331608"/></radialGradient>
+  <radialGradient id="top3" cx=".35" cy=".2" r=".95"><stop offset="0" stop-color="#7fe0d2"/><stop offset=".6" stop-color="#22a99c"/><stop offset="1" stop-color="#0d5b58"/></radialGradient>
+  <radialGradient id="iris3" cx=".5" cy=".7" r=".6"><stop offset="0" stop-color="#c98a4a"/><stop offset="1" stop-color="#3a1c0c"/></radialGradient>
+  <linearGradient id="iris2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1446"/><stop offset=".5" stop-color="#4a4fd0"/><stop offset="1" stop-color="#8fe8ff"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b6fd8"/><stop offset=".55" stop-color="#e79ac0"/><stop offset="1" stop-color="#ffd9a0"/></linearGradient>
+  <radialGradient id="room" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#ffe9c9"/><stop offset="1" stop-color="#8e5f9e"/></radialGradient>
+  <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs></svg>
+<script>
+const S = document.getElementById('s'); let G = S;
+function el(tag, a, parent = G) { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in a) e.setAttribute(k, a[k]); parent.append(e); return e; }
+// path: dolgu, çizgi rengi, kalınlık
+const P = (d, fill = 'none', stroke = 'none', w = 0, a = {}) => el('path', {d, fill, stroke, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...a});
+const E = (x, y, rx, ry, fill, a = {}) => el('ellipse', {cx: x, cy: y, rx, ry, fill, ...a});
+// sağ-sol simetrik çizim
+const both = fn => [-1, 1].forEach(fn);
+function panel(i, bg, name, fn) {
+  const id = 'p' + i; el('rect', {x: i*535+5, y: 5, width: 525, height: 890, rx: 24}, el('clipPath', {id}, S));
+  G = el('g', {'clip-path': `url(#${id})`}, S);
+  el('rect', {x: i*535, y: 0, width: 540, height: 900, fill: bg});
+  G = el('g', {transform: `translate(${i*535+267} 0)`}, G); fn();
+  el('rect', {x: -200, y: 820, width: 400, height: 58, rx: 29, fill: '#161226', opacity: .85});
+  el('text', {x: 0, y: 861, 'text-anchor': 'middle', 'font-size': 36, fill: '#fff'}).textContent = name;
+}
+function ticket(x, y, rot, fill, line, w) {
+  const old = G; G = el('g', {transform: `translate(${x} ${y}) rotate(${rot})`});
+  P('M-62-34H62V-12a12 12 0 0 0 0 24V34H-62V12a12 12 0 0 0 0-24Z', fill, line, w);
+  el('text', {y: 11, 'text-anchor': 'middle', 'font-size': 30, fill: '#7a3b00'}).textContent = 'BİLET'; G = old;
+}
+
+// A) düz modern vektör: çizgisiz, geometrik, iki tonlu
+panel(0, '#ffe3a3', 'A · Modern düz', () => {
+  E(0, 300, 215, 215, '#ffcf6b'); E(0, 790, 170, 18, '#e8b04c');
+  P('M-135 250Q-175 470-110 520H110Q175 470 135 250Z', '#33264f');
+  both(s => { P(`M${s*22} 610h${s*54}l${s*-4} 160h${s*-42}Z`, '#3d4a8f'); P(`M${s*24} 760h${s*52}q${s*34} 4 ${s*32} 28h${s*-86}Z`, '#e8574a'); });
+  P('M-26 420h52v60h-52Z', '#d98d6c');
+  P('M-96 478Q0 440 96 478L112 630H-112Z', '#ff6f61'); P('M20 466Q70 468 96 478L112 630H55Z', '#e45a50');
+  P('M-86 495Q-150 560-122 625', 'none', '#ff6f61', 40); E(-122, 632, 21, 21, '#f2ab86');
+  P('M86 495Q165 535 150 440', 'none', '#ff6f61', 40); E(150, 432, 21, 21, '#f2ab86'); ticket(163, 385, -16, '#fff', 'none', 0);
+  E(0, 310, 112, 124, '#f9bd97');
+  both(s => E(s*112, 330, 18, 26, '#f9bd97'));
+  P('M-120 320Q-145 170 0 170Q150 170 120 320Q100 235 45 225Q-20 290-120 320Z', '#33264f');
+  both(s => { E(s*44, 325, 11, 15, '#2a1f3d'); P(`M${s*24} 292q${s*20}-14 ${s*42} 0`, 'none', '#33264f', 9); E(s*70, 368, 20, 12, '#ff8f80', {opacity: .7}); });
+  P('M-34 378Q0 420 34 378Z', '#7a2233'); P('M4 325q16 34-8 38', 'none', '#d98d6c', 7);
+});
+
+// B) anime: ince çizgi, keskin gölge, büyük parlak göz
+panel(1, 'url(#sky)', 'B · Anime', () => {
+  const L = '#35203a';
+  for (const [x, y, r] of [[-190,120,4],[170,90,3],[-120,200,2],[205,260,3],[-215,330,2],[120,150,2]]) E(x, y, r, r, '#fff');
+  // arka saç
+  P('M-128 250C-205 380-150 520-222 640Q-150 615-128 570Q-135 650-100 690Q-70 610-60 560H70Q95 640 145 668Q128 610 138 570Q170 620 220 625C140 500 200 370 128 250Z', '#5a2f4e', L, 4);
+  both(s => { P(`M${s*20} 640L${s*58} 640L${s*46} 770H${s*22}Z`, '#ffe2d2', L, 4); P(`M${s*20} 712L${s*52} 712L${s*46} 790Q${s*66} 800 ${s*62} 810H${s*16}Z`, '#2d2f55', L, 4); });
+  P('M-18 430L-20 482H20L18 430Z', '#f5bfae', L, 4);
+  P('M-58 470L-20 462L0 500L20 462L58 470L70 580H-70Z', '#fff', L, 4);
+  P('M-70 575H70L108 672Q80 660 62 678Q38 660 18 680Q0 662-22 680Q-42 660-64 678Q-82 660-108 672Z', '#3c4a8c', L, 4);
+  P('M-24 464L0 500L-38 520ZM24 464L0 500L38 520Z', '#3c4a8c', L, 3); P('M-10 498L0 490L10 498L22 548L0 535L-22 548Z', '#e8456b', L, 3);
+  // kollar
+  P('M-56 476C-95 490-108 540-118 585L-96 592C-85 555-72 530-56 520Z', '#fff', L, 4); P('M-118 585L-130 628Q-122 645-104 632L-96 592Z', '#ffe2d2', L, 4);
+  P('M56 476C105 495 128 515 152 505L140 480C115 485 90 470 62 468Z', '#fff', L, 4); P('M140 480L146 428Q164 410 172 432L164 450L152 505Z', '#ffe2d2', L, 4);
+  ticket(175, 385, -18, '#ffe27a', L, 4);
+  // yüz
+  P('M-108 268C-112 350-92 398-45 432Q0 462 45 432C92 398 112 350 108 268Q100 190 0 190Q-100 190-108 268Z', '#ffe6d8', L, 4);
+  P('M-108 290Q-100 395-45 432Q-60 380-72 330Z', '#f5bfae');
+  both(s => {
+    const x = s*50;
+    P(`M${x-32} 330Q${x-28} 292 ${x} 292Q${x+28} 292 ${x+32} 330Q${x+26} 372 ${x} 374Q${x-26} 372 ${x-32} 330Z`, '#fff');
+    E(x, 336, 24, 34, 'url(#iris2)'); E(x, 340, 10, 16, '#120a2c'); E(x-9, 318, 9, 12, '#fff'); E(x+10, 356, 5, 5, '#fff');
+    P(`M${x-s*34} 316Q${x} 276 ${x+s*38} 308L${x+s*48} 300L${x+s*38} 322Q${x} 292 ${x-s*34} 316Z`, L, L, 3);
+    P(`M${x-18} 380Q${x} 386 ${x+18} 380`, 'none', L, 2);
+    P(`M${x-s*28} 266Q${x} 250 ${x+s*30} 264`, 'none', L, 5);
+    for (let i = 0; i < 3; i++) P(`M${s*(66+i*14)} ${396-i*2}l-7 14`, 'none', '#ff7a8a', 3);
+  });
+  P('M2 376l-5 10h7', 'none', '#c98275', 3); P('M-24 404Q0 410 24 404Q14 434 0 434Q-14 434-24 404Z', '#a8324a', L, 3);
+  // kakül
+  P('M-122 310C-150 170-70 128 5 130C95 128 160 180 122 312Q118 270 98 246Q100 286 84 306Q78 245 48 218Q45 262 18 290Q22 245 4 214Q-18 262-58 288Q-46 252-44 228Q-78 262-86 322Q-100 290-98 262Q-116 280-122 310Z', '#74395c', L, 4);
+  P('M-80 175Q-20 148 60 165L48 183L36 168L22 187L8 166L-8 186L-22 168L-40 188L-52 172L-72 190Z', '#d88ab0');
+  P('M8 132Q0 82 55 86Q22 98 34 136', '#74395c', L, 4);
+});
+
+// C) 3B oyuncak / animasyon filmi havası: çizgisiz, yumuşak ışık
+panel(2, 'url(#room)', 'C · 3B film havası', () => {
+  for (const [x, y, r, c] of [[-190,150,46,'#fff'],[175,230,60,'#ffd28a'],[-150,520,34,'#ffc0d8'],[200,620,30,'#fff']]) E(x, y, r, r, c, {opacity: .4, filter: 'url(#soft)'});
+  E(0, 795, 160, 24, '#2b1036', {opacity: .45, filter: 'url(#soft)'});
+  E(0, 320, 160, 168, 'url(#hair3)'); E(112, 190, 58, 58, 'url(#hair3)');
+  both(s => { P(`M${s*34} 640Q${s*44} 700 ${s*40} 760`, 'none', '#35487a', 52); E(s*50, 770, 48, 28, '#c9453b'); E(s*40, 761, 22, 9, '#ff9c8a', {opacity: .7}); });
+  P('M-30 420h60v70h-60Z', '#d9906f');
+  P('M-70 475Q0 440 70 475Q118 540 108 645Q0 682-108 645Q-118 540-70 475Z', 'url(#top3)');
+  P('M-74 500Q-150 545-126 612', 'none', 'url(#top3)', 46); E(-123, 624, 27, 27, 'url(#skin3)');
+  P('M74 500Q165 545 156 450', 'none', '#22a99c', 46); E(156, 440, 27, 27, 'url(#skin3)'); ticket(170, 392, -16, '#ffd95a', 'none', 0);
+  both(s => { E(s*126, 330, 24, 32, 'url(#skin3)'); E(s*126, 330, 10, 17, '#d48263', {opacity: .7}); });
+  E(0, 315, 128, 132, 'url(#skin3)');
+  E(0, 445, 70, 14, '#9a4d3c', {opacity: .35, filter: 'url(#soft)'});
+  both(s => {
+    const x = s*50;
+    E(x, 322, 35, 40, '#fdf8f4'); E(x - s*5, 326, 24, 27, 'url(#iris3)'); E(x - s*5, 327, 12, 14, '#120603'); E(x-14, 312, 9, 9, '#fff'); E(x+6, 340, 4, 4, '#fff');
+    P(`M${x-36} 312Q${x} 262 ${x+36} 312`, 'none', '#8a4a35', 8);
+    P(`M${x-32} 262Q${x} 238 ${x+32} 256`, 'none', '#5a2c15', 13);
+    E(s*80, 376, 28, 18, '#ff6f78', {opacity: .55, filter: 'url(#soft)'});
+  });
+  E(0, 368, 18, 14, '#e8977a'); E(-5, 363, 7, 5, '#ffe3cf', {opacity: .9});
+  P('M-40 395Q0 406 40 395Q30 440 0 440Q-30 440-40 395Z', '#8c2e38'); P('M-30 399Q0 408 30 399L26 410Q0 418-26 410Z', '#fff'); E(0, 430, 18, 7, '#f07780');
+  P('M-132 300C-150 170-60 150 20 158C110 160 145 215 132 300C100 230 60 232 20 214C-10 265-80 268-132 300Z', 'url(#hair3)');
+  P('M-80 195Q-30 165 35 178', 'none', '#e0a06a', 10, {opacity: .55});
+});
+</script>
+</html>

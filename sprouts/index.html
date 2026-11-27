@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Batık maliyet yanılgısı — 3 resim</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#000}svg{width:100vw;height:100vh;display:block;font-family:"Patrick Hand","Segoe Print",cursive}</style>
+<svg id="s" viewBox="0 0 1600 900">
+  <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+    <feTurbulence type="fractalNoise" baseFrequency=".02" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="6"/>
+  </filter>
+  <rect width="1600" height="900" fill="#fffdf7"/><g id="g" filter="url(#w)"></g><g id="t"></g>
+</svg>
+<script>
+const G = document.getElementById('g'), TG = document.getElementById('t');
+function el(tag, a, parent = G) { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in a) e.setAttribute(k, a[k]); parent.append(e); return e; }
+const INK = '#222';
+const path = (d, fill = 'none', w = 4, stroke = INK, a = {}) => el('path', {d, fill, stroke, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...a});
+// suluboya hissi: dolgu, çizginin biraz dışına taşar
+const blob = (d, color, w = 4) => { path(d, color, 0, 'none', {transform: 'translate(6 5)', opacity: .75}); return path(d, 'none', w); };
+const solid = (d, color, w = 4) => path(d, color, w);
+const oval = (x, y, rx, ry = rx) => `M${x-rx} ${y}a${rx} ${ry} 0 1 0 ${2*rx} 0a${rx} ${ry} 0 1 0 ${-2*rx} 0Z`;
+const box = (x, y, w, h) => `M${x} ${y}h${w}v${h}h${-w}Z`;
+const text = (x, y, s, size = 40, fill = INK, a = {}) => (el('text', {x, y, 'font-size': size, fill, 'text-anchor': 'middle', ...a}, TG).textContent = s);
+const limb = (d, color, w = 24) => { path(d, 'none', w + 8); path(d, 'none', w, color); };
+
+function face(x, y, mood) {
+  const eye = (dx) => {
+    if (mood === 'joy') return path(`M${x+dx-13} ${y}q13-18 26 0`, 'none', 5);
+    solid(oval(x+dx, y-2, 14, mood === 'wow' ? 18 : 15), '#fff', 3);
+    solid(oval(x+dx+(mood === 'bored' ? 4 : 1), y+(mood === 'bored' ? 5 : 0), 5.5), INK, 2);
+    if (mood === 'bored') { path(`M${x+dx-15} ${y-2}h30`, 'none', 5); }
+  };
+  eye(-24); eye(24);
+  const b = {joy: [-30,-30], wow: [-36,-36], sad: [-24,-34], bored: [-24,-24], calm: [-28,-30]}[mood];
+  path(`M${x-40} ${y+b[0]+2}L${x-12} ${y+b[1]}M${x+12} ${y+b[1]}L${x+40} ${y+b[0]+2}`, 'none', 5);
+  if (mood === 'joy') { solid(`M${x-30} ${y+22}Q${x} ${y+74} ${x+30} ${y+22}Z`, '#7c2630'); path(`M${x-14} ${y+42}q14-12 28 0`, '#f08a8a', 0, 'none'); }
+  else path({wow: oval(x, y+34, 12, 16), sad: `M${x-20} ${y+42}q20-24 40 0`, bored: `M${x-18} ${y+36}q18-5 36 3`, calm: `M${x-20} ${y+28}q20 20 40 0`}[mood], mood === 'wow' ? '#7c2630' : 'none', 4);
+  for (const dx of [-46, 46]) path(oval(x+dx, y+20, 11, 7), '#ff9d9d', 0, 'none', {opacity: .6});
+}
+
+// (x, y) = baş merkezi. hands/feet: başa göre uç noktalar
+function person(x, y, o) {
+  const {skin = '#ffd9b8', shirt, pants = '#44546a', hair, style, mood, hands, feet = [[-34,268],[34,268]], wide = 52, glasses, headW = 70, headH = 68} = o;
+  if (style === 'curly') for (const [dx, dy, r] of [[-70,-10,34],[-58,-52,36],[-18,-72,38],[28,-70,38],[64,-46,36],[74,-4,32],[-72,30,28],[74,34,28]]) solid(oval(x+dx, y+dy, r), hair, 3);
+  feet.forEach(([fx, fy], i) => { const s = i ? 1 : -1; limb(`M${x+s*24} ${y+178}Q${x+s*34} ${y+222} ${x+fx} ${y+fy}`, pants, 28); solid(oval(x+fx+s*14, y+fy+6, 28, 15), '#333'); });
+  solid(`M${x-34} ${y+62}Q${x-wide-14} ${y+110} ${x-wide} ${y+190}Q${x} ${y+208} ${x+wide} ${y+190}Q${x+wide+14} ${y+110} ${x+34} ${y+62}Z`, shirt);
+  hands.forEach(([hx, hy], i) => { const s = i ? 1 : -1; limb(`M${x+s*36} ${y+90}Q${x+s*80+(hx-s*80)*.2} ${y+(90+hy)/2+24} ${x+hx} ${y+hy}`, shirt, 22); solid(oval(x+hx, y+hy, 15), skin); });
+  solid(oval(x, y, headW, headH), skin);
+  if (style === 'spiky') solid(`M${x-70} ${y-6}L${x-80} ${y-50}L${x-48} ${y-46}L${x-44} ${y-92}L${x-10} ${y-66}L${x+14} ${y-102}L${x+32} ${y-64}L${x+70} ${y-76}L${x+62} ${y-40}L${x+82} ${y-26}L${x+68} ${y-4}Q${x+30} ${y-50} ${x-70} ${y-6}Z`, hair);
+  if (style === 'curly') solid(`M${x-66} ${y-14}Q${x-40} ${y-84} ${x+8} ${y-62}Q${x+56} ${y-82} ${x+66} ${y-14}Q${x+30} ${y-46} ${x} ${y-34}Q${x-32} ${y-52} ${x-66} ${y-14}Z`, hair);
+  if (style === 'bun') { solid(oval(x, y-90, 36, 30), hair); solid(`M${x-headW} ${y}Q${x-72} ${y-84} ${x} ${y-72}Q${x+72} ${y-84} ${x+headW} ${y}Q${x+36} ${y-48} ${x} ${y-44}Q${x-36} ${y-48} ${x-headW} ${y}Z`, hair); }
+  face(x, y, mood);
+  if (glasses) path(oval(x-24, y-2, 22) + oval(x+24, y-2, 22) + `M${x-2} ${y-4}h4`, 'none', 4);
+}
+const mert = (x, y, mood, hands, feet) => person(x, y, {shirt: '#4f9fe0', hair: '#5b3418', style: 'spiky', mood, hands, feet});
+const zeynep = (x, y, mood, hands, feet) => person(x, y, {skin: '#d99a6c', shirt: '#ffb52e', pants: '#7a4fa0', hair: '#2a1a14', style: 'curly', mood, hands, feet, wide: 46});
+
+function bubble(x, y, w, h, lines, tx, ty, thought) {
+  if (thought) { solid(oval(x, y, w/2, h/2), '#fff'); for (const [p, r] of [[.35,17],[.65,11],[.9,6]]) solid(oval(x+(tx-x)*p, y+h/2+(ty-y-h/2)*p, r), '#fff', 3); }
+  else solid(`M${x-w/2+30} ${y-h/2}H${x+w/2-30}Q${x+w/2} ${y-h/2} ${x+w/2} ${y}Q${x+w/2} ${y+h/2} ${x+w/2-30} ${y+h/2}H${x+30}L${tx} ${ty}L${x-24} ${y+h/2}H${x-w/2+30}Q${x-w/2} ${y+h/2} ${x-w/2} ${y}Q${x-w/2} ${y-h/2} ${x-w/2+30} ${y-h/2}Z`, '#fff');
+  lines.forEach((s, i) => text(x, y + 14 + (i - (lines.length-1)/2)*46, s, 42));
+}
+const ticket = (x, y, r) => { const g = `rotate(${r} ${x} ${y})`; path(box(x-46, y-26, 92, 52), '#ffe066', 4, INK, {transform: g}); text(x, y+10, 'BİLET', 28, INK, {transform: g}); };
+const title = (s, color) => { path(`M380 108q420-22 840 0`, 'none', 22, color, {opacity: .6}); text(800, 102, s, 70); };
+
+const SCENES = {
+  1() {
+    title('① "Harika bir film olacak!"', '#ffd23f');
+    blob('M90 800q700-36 1420 0v40q-700-20-1420 0Z', '#cfe8b8');
+    blob(box(980, 330, 470, 460), '#f6c9a0');
+    blob(box(1040, 400, 350, 210), '#d8f0ff');
+    person(1215, 500, {skin: '#f3c7a0', shirt: '#8fcf9b', hair: '#cfcfd6', style: 'bun', mood: 'calm', glasses: true, headW: 62, headH: 60, wide: 58, hands: [[-92,118],[92,118]], feet: [[-20,190],[20,190]]});
+    solid(box(1010, 605, 410, 60), '#b9744a');
+    for (let i = 0; i < 6; i++) solid(`M${955+i*87} 250h87v75q-43 44-87 0Z`, i % 2 ? '#fff' : '#e8574a');
+    solid(box(980, 665, 470, 125), '#e0a97c');
+    text(1150, 750, 'GİŞE', 70); solid(box(1310, 680, 150, 62), '#fff'); text(1385, 724, '250 TL', 40, '#c0392b');
+    mert(560, 440, 'joy', [[-120,-20],[150,40]], [[-70,250],[54,278]]);
+    ticket(724, 466, -14);
+    bubble(330, 250, 430, 130, ['Aylardır bu filmi', 'bekliyordum!'], 480, 360);
+    for (const [x, y] of [[400,430],[760,330],[300,560]]) path(`M${x} ${y-24}v48M${x-24} ${y}h48M${x-15} ${y-15}l30 30M${x+15} ${y-15}l-30 30`, 'none', 5, '#f2a100');
+    blob(box(140, 520, 150, 220), '#c9b6f2'); text(215, 600, 'UZAY', 40); text(215, 645, 'SAVAŞI 7', 32); solid(oval(215, 695, 24), '#ffd23f');
+  },
+  2() {
+    title('② Yarım saat sonra...', '#b7a4f0');
+    blob('M70 150q730-30 1460 0v700q-730 24-1460 0Z', '#4b4d7a');
+    solid(box(940, 200, 540, 300), '#eef6ff', 7);
+    path('M1000 430q80-120 160-20q60-90 130-10q60-70 140 30', 'none', 5, '#9aa7bd'); text(1210, 300, 'bla bla bla...', 50, '#8591a8'); text(1390, 250, 'zzz', 44, '#8591a8');
+    mert(470, 470, 'bored', [[-110,170],[96,150]]);
+    zeynep(800, 400, 'wow', [[-96,60],[110,-30]], [[-40,300],[52,300]]);
+    for (const x of [150, 330, 510, 1010, 1190, 1370]) { solid(`M${x-80} 880V690q0-50 80-50t80 50v190Z`, '#c23b3b'); path(`M${x-50} 690q50-24 100 0`, 'none', 5, '#e87070'); }
+    solid('M608 620l-14-86h86l-14 86Z', '#fff'); path('M620 540v76M637 540v76M654 540v76', 'none', 10, '#e8574a');
+    for (const [x, y] of [[606,524],[630,510],[660,522],[690,590],[560,610],[712,630]]) solid(oval(x, y, 16, 14), '#fff3c4', 3);
+    bubble(270, 275, 360, 190, ['Çok sıkıcı ama', '250 TL verdim!'], 420, 400, true);
+    bubble(715, 215, 360, 110, ['Ben çıkıyorum.'], 770, 310);
+  },
+  3() {
+    title('③ Para zaten gitti. Ya zaman?', '#7fd0a0');
+    path('M800 170q-24 330 6 670', 'none', 7);
+    blob('M70 180q340-20 680 0v650q-340 20-680 0Z', '#6a6c98');
+    mert(400, 430, 'sad', [[-100,170],[100,170]]);
+    for (const x of [220, 400, 580]) solid(`M${x-84} 825V655q0-50 84-50t84 50v170Z`, '#c23b3b');
+    solid(oval(620, 300, 68), '#fff'); path('M620 255v45l34 22', 'none', 7);
+    text(410, 232, 'kalan: 1 saat 30 dk', 40, '#fff'); text(400, 780, 'para gitti + zaman gitti', 44, '#fff');
+    blob('M850 640q340-60 690 0v190q-340 20-690 0Z', '#bfe3a0');
+    solid(oval(1450, 260, 60), '#ffd23f'); path('M1450 165v-24M1450 355v24M1355 260h-24M1545 260h24M1383 193l-18-18M1517 327l18 18M1517 193l18-18M1383 327l-18 18', 'none', 7, '#f2a100');
+    limb('M940 700V500', '#9a6a40', 40); for (const [x, y, r] of [[900,440,78],[990,420,84],[945,360,80]]) blob(oval(x, y, r), '#77c26d');
+    zeynep(1190, 430, 'joy', [[-112,-6],[120,150]], [[-60,276],[70,262]]);
+    solid('M1060 424l18 74l22-74Z', '#e6b06a'); solid(oval(1080, 402, 30, 28), '#ff9ec0'); solid(oval(1080, 368, 24, 22), '#a9e5d0');
+    text(1200, 780, 'para gitti, günü kurtardı', 44);
+    bubble(1260, 240, 260, 100, ['İyi ki çıktım!'], 1230, 330);
+  },
+};
+SCENES[new URLSearchParams(location.search).get('n') || 1]();
+</script>
+</html>
