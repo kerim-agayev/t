@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Yetenek testi: 6 video tarzı</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#000}svg{width:100vw;height:100vh;display:block;font-family:"Segoe UI",sans-serif;font-weight:700}</style>
+<svg id="s" viewBox="0 0 1600 900"></svg>
+<script>
+const S = document.getElementById('s');
+let P = S;                                  // aktif üst öğe
+function el(tag, a = {}, text) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in a) e.setAttribute(k, a[k]);
+  if (text != null) e.textContent = text;
+  P.append(e); return e;
+}
+const txt = (x, y, t, size, fill = '#fff', a = {}) => el('text', {x, y, 'font-size': size, fill, 'text-anchor': 'middle', ...a}, t);
+const rect = (x, y, w, h, fill, a = {}) => el('rect', {x, y, width: w, height: h, fill, ...a});
+const circ = (x, y, r, fill = 'none', a = {}) => el('circle', {cx: x, cy: y, r, fill, ...a});
+const path = (d, stroke = '#222', w = 4, fill = 'none', a = {}) => el('path', {d, stroke, 'stroke-width': w, fill, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...a});
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v*v*(3-2*v); };
+const pop = v => { v = clamp(v); return 1 + 2.7*(v-1)**3 + 1.7*(v-1)**2; };
+const lerp = (a, b, p) => a + (b-a)*p;
+function group(a, fn) { const old = P; P = el('g', a); fn(); const g = P; P = old; return g; }
+
+// 1 — veri yarışı
+function race(t) {
+  rect(0, 0, 1600, 900, '#101322');
+  txt(800, 110, 'Programlama dilleri yarışı', 60);
+  txt(800, 160, 'örnek veri (gerçek istatistik değildir)', 28, '#8b90ad');
+  const D = [['Java','#e8734a',[70,88,74,55,42]], ['C','#6c8cff',[82,66,52,40,32]], ['C++','#b57bff',[55,48,38,33,30]],
+             ['JavaScript','#f5d547',[20,42,62,80,76]], ['Python','#43c59e',[10,22,45,74,98]]];
+  const at = (v, u) => { const i = Math.min(3, Math.floor(u)); return lerp(v[i], v[i+1], u-i); };
+  const u = t => 4*clamp((t-.6)/8.2);
+  const rank = (j, s) => D.filter(d => at(d[2], u(s)) > at(D[j][2], u(s))).length;
+  D.forEach(([n, c, v], j) => {
+    let r = 0; for (let k = 0; k < 15; k++) r += rank(j, t - k*.022)/15;    // sıra değişimi yumuşak
+    const y = 215 + r*115, val = at(v, u(t));
+    txt(290, y+55, n, 38, '#fff', {'text-anchor': 'end'});
+    rect(320, y, val*11, 84, c, {rx: 12});
+    txt(345 + val*11, y+55, Math.round(val), 38, c, {'text-anchor': 'start'});
+  });
+  txt(1450, 830, Math.floor(2005 + u(t)*5), 120, '#ffffff55');
+}
+
+// 2 — teknik akış
+function flow(t) {
+  rect(0, 0, 1600, 900, '#0d1117');
+  txt(800, 110, "Tarayıcıya adres yazınca ne olur?", 58);
+  const N = {web: [250, 520, 'Tarayıcı', '#58a6ff'], dns: [800, 290, 'DNS', '#d2a8ff'], srv: [800, 650, 'Sunucu', '#7ee787'], db: [1350, 650, 'Veritabanı', '#ffa657']};
+  const L = [['web','dns','① "ornek.com nerede?"'], ['dns','web','② IP adresi geri gelir'], ['web','srv','③ Sunucuya istek gider'],
+             ['srv','db','④ Veri sorulur'], ['db','srv','⑤ Veri döner'], ['srv','web','⑥ Sayfa ekrana gelir']];
+  const step = Math.min(5, Math.floor((t-.4)/1.5)), q = clamp((t-.4)/1.5 - step);
+  L.forEach(([a, b], i) => { const A = N[a], B = N[b]; path(`M${A[0]} ${A[1]}L${B[0]} ${B[1]}`, i === step ? '#fff' : '#30363d', i === step ? 4 : 3, 'none', {'stroke-dasharray': '10 10', 'stroke-dashoffset': -t*40}); });
+  for (const [k, [x, y, name, c]] of Object.entries(N)) {
+    const on = step >= 0 && L[step].slice(0, 2).includes(k);
+    rect(x-130, y-65, 260, 130, '#161b22', {rx: 18, stroke: c, 'stroke-width': on ? 8 : 3});
+    txt(x, y+15, name, 42, c);
+  }
+  if (step >= 0) {
+    const [a, b, label] = L[step], A = N[a], B = N[b];
+    for (let k = 5; k >= 0; k--) { const p = .2 + .6*ease(q*1.15 - k*.025); circ(lerp(A[0], B[0], p), lerp(A[1], B[1], p), 20 - k*2.5, '#fff', {opacity: 1 - k*.16}); }
+    txt(800, 830, label, 46);
+  }
+}
+
+// 3 — matematik: çemberlerden dalga
+function waves(t) {
+  rect(0, 0, 1600, 900, '#000');
+  const n = Math.min(6, 1 + Math.floor(t/1.6));
+  txt(800, 100, 'Çemberlerden kare dalga', 56);
+  txt(800, 160, `${n} çember`, 36, '#58c4dd');
+  const tip = s => { let x = 380, y = 500, c = []; for (let i = 0; i < n; i++) { const k = 2*i+1, r = 190*4/(Math.PI*k)*.8, a = k*s*2.2; c.push([x, y, r]); x += r*Math.cos(a); y += r*Math.sin(a); } return {x, y, c}; };
+  const now = tip(t);
+  const col = ['#58c4dd','#83c167','#ffff00','#ff862f','#fc6255','#9a72ac'];
+  now.c.forEach(([x, y, r], i) => { circ(x, y, r, 'none', {stroke: col[i], 'stroke-width': 2, opacity: .7}); const nx = now.c[i+1] || [now.x, now.y]; path(`M${x} ${y}L${nx[0]} ${nx[1]}`, '#fff', 2.5); });
+  let d = ''; for (let k = 0; k <= 300; k++) { const s = t - k*.012; if (s < 0) break; d += `${k ? 'L' : 'M'}${740 + k*2.6} ${tip(s).y}`; }
+  path(`M${now.x} ${now.y}L740 ${now.y}`, '#888', 2, 'none', {'stroke-dasharray': '6 6'});
+  path(d, '#ffff00', 5);
+  circ(now.x, now.y, 8, '#fff');
+}
+
+// 4 — dev yazılı bilgi videosu
+function facts(t) {
+  const F = [['#6a2cf5', '3 GERÇEK', 'BEYNİN', 'hakkında'], ['#ff4d6d', '%20', 'ENERJİ', 'ağırlığın ~%2\'si ama enerjinin ~%20\'si'],
+             ['#00a896', '86 MİLYAR', 'NÖRON', 'yaklaşık sayı'], ['#f77f00', 'ACI YOK', 'BEYİN DOKUSU', 'kendisi acıyı hissetmez']];
+  const i = Math.min(3, Math.floor(t/2.5)), q = t - i*2.5, [bg, big, top, sub] = F[i];
+  rect(0, 0, 1600, 900, bg);
+  for (let k = 0; k < 14; k++) circ((k*271 + t*60) % 1700 - 50, (k*397) % 900, 30 + k*7 % 60, '#fff', {opacity: .08});
+  const word = (y, s, size, delay, fill) => group({transform: `translate(800 ${y}) scale(${Math.max(0, pop((q-delay)*2.6))})`}, () => txt(0, 0, s, size, fill, {'font-weight': 900, stroke: '#111', 'stroke-width': size/14, 'paint-order': 'stroke'}));
+  word(260, top, 110, 0, '#fff'); word(530, big, 230, .25, '#ffe600'); word(710, sub, 56, .6, '#fff');
+  rect(0, 880, 1600*t/10, 20, '#fff');
+}
+
+// 5 — çöp adam macerası
+function stick(t) {
+  rect(0, 0, 1600, 900, t < 6.5 ? '#bfe8ff' : '#ffd9a8');
+  circ(1380, 160, 80, '#ffd23f');
+  for (let k = 0; k < 4; k++) group({transform: `translate(${(k*470 + t*35) % 1900 - 150} ${130 + k%2*110})`}, () => [[0,0,45],[55,-20,55],[110,0,40]].forEach(c => circ(...c, '#fff')));
+  rect(0, 740, 1600, 160, '#7bc96f');
+  const walk = clamp(t/3), jump = clamp((t-3.6)/.8), fly = ease((t-4.4)/3.6), land = ease((t-8)/1.2);
+  let x = lerp(80, 620, walk), y = 740 - Math.sin(Math.PI*jump)*130;
+  if (t > 4.4) { x = lerp(620, 1150, fly); y = lerp(740, 360, Math.sin(fly*Math.PI/2)); y = lerp(y, 740, land); }
+  const bx = t < 4.1 ? 680 : x + 55, by = t < 4.1 ? 450 + Math.sin(t*3)*15 : y - 290 - land*(t-8)*260;
+  const swing = t < 3 ? Math.sin(t*10)*40 : t > 4.4 && t < 8 ? Math.sin(t*4)*20 : 0;
+  path(`M${bx} ${by+62}Q${bx-25} ${by+120} ${t > 4.1 && t < 8 ? x+48 : bx} ${t > 4.1 && t < 8 ? y-165 : by+180}`, '#555', 3);
+  el('ellipse', {cx: bx, cy: by, rx: 52, ry: 64, fill: '#e8402f', stroke: '#222', 'stroke-width': 4});
+  const arm = t > 3.6 && t < 8 ? `M${x} ${y-125}L${x+48} ${y-165}` : `M${x} ${y-125}L${x+45-swing*.4} ${y-80}`;
+  path(`M${x} ${y-155}V${y-70}M${x} ${y-70}L${x-30-swing} ${y}M${x} ${y-70}L${x+30+swing} ${y}M${x} ${y-125}L${x-45+swing*.4} ${y-80}${arm}`, '#222', 9);
+  circ(x, y-195, 40, '#fff', {stroke: '#222', 'stroke-width': 8});
+  const wow = t > 2.8 && t < 4.4;
+  circ(x+5, y-202, wow ? 6 : 4, '#222'); circ(x+24, y-202, wow ? 6 : 4, '#222');
+  path(wow ? `M${x+8} ${y-180}a8 9 0 1 0 16 0a8 9 0 1 0-16 0` : `M${x+2} ${y-183}q12 12 26 0`, '#222', 4);
+  const say = t < 2.8 ? '' : t < 4.4 ? 'Bir balon!' : t < 8 ? 'Uçuyoruuum!' : 'Güle güle!';
+  if (say) txt(800, 835, say, 64, '#222');
+}
+
+// 6 — whiteboard hikâye: spot ışığı etkisi
+function person(x, y, shirt, mood, hair = '#4a2c17', look = 0) {
+  if (hair === '#4a2c17') path(`M${x-60} ${y-20}Q${x-100} ${y+90} ${x-62} ${y+112}Q${x} ${y+60} ${x+62} ${y+112}Q${x+100} ${y+90} ${x+60} ${y-20}Z`, '#222', 4, hair);   // Elif: uzun saç
+  path(`M${x-62} ${y+190}Q${x-66} ${y+62} ${x} ${y+58}Q${x+66} ${y+62} ${x+62} ${y+190}Z`, '#222', 4, shirt);
+  path(`M${x-58} ${y}a58 60 0 1 0 116 0a58 60 0 1 0-116 0`, '#222', 4, '#ffe0c2');
+  path(`M${x-60} ${y+8}Q${x-70} ${y-82} ${x} ${y-74}Q${x+72} ${y-80} ${x+60} ${y+8}Q${x+38} ${y-42} ${x+8} ${y-40}Q${x-18} ${y-8} ${x-60} ${y+8}Z`, '#222', 4, hair);
+  for (const d of [-21, 21]) path(`M${x+d-4+look} ${y+2}a4 5 0 1 0 8 0a4 5 0 1 0-8 0`, '#222', 3, '#222');
+  const m = {happy: `M${x-20} ${y+26}q20 22 40 0`, sad: `M${x-18} ${y+38}q18-18 36 0`, flat: `M${x-15} ${y+31}h30`, shock: `M${x-11} ${y+32}a11 13 0 1 0 22 0a11 13 0 1 0-22 0`}[mood];
+  path(m, '#222', 4);
+}
+function board(t) {
+  rect(0, 0, 1600, 900, '#fffdf8');
+  const items = []; let part = 0;
+  const filt = el('filter', {id: 'w', filterUnits: 'userSpaceOnUse', x: 0, y: 0, width: 1600, height: 900});
+  P = filt; el('feTurbulence', {type: 'fractalNoise', baseFrequency: .022, numOctaves: 2, seed: 7}); el('feDisplacementMap', {in: 'SourceGraphic', scale: 5}); P = S;
+  const shapes = el('g', {filter: 'url(#w)'}), words = el('g', {'font-family': 'Caveat, Segoe Print'});
+  const draw = fn => { P = shapes; const n = P.children.length; fn(); for (const e of [...shapes.children].slice(n)) items.push({e, part}); P = S; };
+  const say = (x, y, s, size = 40, fill = '#1c1c1c') => { P = words; items.push({e: txt(x, y, s, size, fill), part, text: s}); P = S; };
+
+  say(800, 85, 'Spot Işığı Etkisi', 76);
+  draw(() => path('M560 108q240-14 480 0', '#ffd23f', 12));
+  part = 1;                                                   // Elif kahveyi döker
+  say(270, 195, '① Eyvah!', 48);
+  draw(() => { person(260, 340, '#fff', 'shock');
+    path('M236 428q-22 14-6 34q-14 28 20 24q16 26 36 0q34 2 20-26q16-24-18-26q-12-22-30-2q-14-14-22-4Z', '#6b3a12', 3, '#a8672e');
+    path('M350 480l62-22 20 56-62 22Z', '#222', 4, '#e8594a'); path('M344 470q-24-6-30-24M338 495q-24 8-44-4', '#a8672e', 6); });
+  say(270, 600, 'Elif kahvesini üstüne döktü.');
+  part = 2;                                                   // herkes bakıyor sanır
+  say(800, 195, '② "Herkes bakıyor!"', 48);
+  draw(() => { path('M800 220L650 545H950Z', 'none', 0, '#fff3b0', {opacity: .8});
+    person(800, 340, '#fff', 'sad');
+    path('M766 455q34-26 68 0q8 30-34 30t-34-30Z', '#6b3a12', 3, '#a8672e');
+    for (const [x, y] of [[610,300],[990,300],[600,440],[1000,440]]) { const dx = Math.sign(800-x)*6;
+      path(`M${x-34} ${y}q34-34 68 0q-34 34-68 0Z`, '#222', 4, '#fff'); path(`M${x+dx-8} ${y}a8 8 0 1 0 16 0a8 8 0 1 0-16 0`, '#222', 3, '#222'); } });
+  say(800, 600, 'Sanki sahnede, ışık altında.');
+  part = 3;                                                   // gerçek
+  say(1330, 195, '③ Gerçekte...', 48);
+  draw(() => [[1190,'#8ecae6','#222'],[1330,'#b7e4a8','#c9822b'],[1470,'#d7bdf0','#555']].forEach(([x, c, h], i) => {
+    group({transform: `translate(${x} 360) scale(.8) translate(${-x} -360)`}, () => { person(x, 360, c, i === 1 ? 'happy' : 'flat', h, i === 2 ? -6 : 0);
+      path(`M${x-24} 470h48v76h-48Z`, '#222', 4, '#555'); }); }));
+  say(1330, 600, 'Herkes kendi işinde.');
+  part = 4;                                                   // araştırma
+  draw(() => { path('M250 650h1100v215h-1100Z', '#222', 4, '#fff6d6');
+    path('M300 760h430', '#e8594a', 30); path('M300 825h215', '#3aa66a', 30); });
+  say(800, 695, 'Araştırma: utandıran bir tişört giyenler kaç kişinin fark ettiğini sandı?', 36, '#6a35c9');
+  say(900, 772, 'tahmin: yaklaşık %50', 42, '#c0392b');
+  say(900, 838, 'gerçek: yaklaşık %25', 42, '#207a48');
+  say(1225, 808, 'Rahat ol! 🙂', 52);
+
+  const win = [[0,1.6],[1.8,6.2],[7,11.8],[12.8,17.6],[18.8,23.5]];
+  let tip;
+  win.forEach(([a, b], k) => {
+    const list = items.filter(i => i.part === k);
+    for (const i of list) i.w = i.text ? .3 + i.text.length*.045 : .15 + (i.e.getTotalLength ? i.e.getTotalLength() : 600)/1500;
+    const sum = list.reduce((s, i) => s + i.w, 0); let s = a;
+    for (const i of list) {
+      const d = i.w/sum*(b-a), p = clamp((t-s)/d); s += d;
+      if (!p) { i.e.style.visibility = 'hidden'; continue; }
+      if (p === 1) continue;
+      if (i.text) { i.e.style.clipPath = `inset(-20px ${(1-p)*100}% -20px -20px)`; const r = i.e.getBBox(); tip = [r.x + r.width*p, r.y + r.height*.7]; }
+      else if (i.e.tagName === 'path') { const len = i.e.getTotalLength(), q = i.e.getPointAtLength(len*p); i.e.style.strokeDasharray = `${len} ${len}`; i.e.style.strokeDashoffset = len*(1-p); i.e.style.fillOpacity = clamp(p*2-1); tip = [q.x, q.y]; }
+      else i.e.style.opacity = p;
+    }
+  });
+  if (tip) group({transform: `translate(${tip})`}, () => { path('M0 0l8-22 40-40 14 14-40 40Z', '#222', 3, '#ffc83d'); path('M0 0l8-22 14 14Z', '#222', 2, '#222'); });
+}
+
+const SCENES = [[race, 10, 'Veri yarışı'], [flow, 10, 'Teknik akış'], [waves, 10, 'Matematik görselleştirme'],
+                [facts, 10, 'Dev yazılı kısa bilgi'], [stick, 10, 'Çöp adam hikâyesi'], [board, 26, 'Whiteboard karakterli hikâye']];
+const TOTAL = SCENES.reduce((s, c) => s + c[1], 0);
+function render(t) {
+  S.textContent = ''; P = S;
+  let i = 0, q = t; while (i < 5 && q >= SCENES[i][1]) q -= SCENES[i++][1];
+  const [fn, dur, name] = SCENES[i];
+  fn(q);
+  rect(20, 20, 70 + name.length*14, 46, '#000', {rx: 23, opacity: .65});
+  txt(42, 52, `${i+1} · ${name}`, 24, '#fff', {'text-anchor': 'start'});
+  const fade = Math.max(1 - q/.3, i < 5 ? 1 - (dur-q)/.3 : 0);
+  if (fade > 0) rect(0, 0, 1600, 900, '#000', {opacity: fade});
+}
+if (!location.search) { const t0 = performance.now(); (function loop(now) { render(((now - t0)/1000 || 0) % TOTAL); requestAnimationFrame(loop); })(t0); }
+</script>
+</html>

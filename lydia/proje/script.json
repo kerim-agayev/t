@@ -1,0 +1,247 @@
+[
+ {
+  "id": "kapak",
+  "lines": [
+   {
+    "t": "Bir anne düşünün. Çocuklarını kendisi doğurdu, onları kendisi büyüttü."
+   },
+   {
+    "t": "Ama bir gün, DNA testi ona şunu söyledi: Bu çocukların annesi sen değilsin."
+   },
+   {
+    "t": "Bu, Lydia Fairchild vakası. Bilimin en güvendiği kanıtın yanıldığı sanılan an."
+   }
+  ]
+ },
+ {
+  "id": "baslangic",
+  "lines": [
+   {
+    "t": "Yıl iki bin iki. Amerika'nın Washington eyaleti."
+   },
+   {
+    "t": "Lydia Fairchild, iki çocuk annesiydi ve üçüncü çocuğuna hamileydi."
+   },
+   {
+    "t": "Çocuklarının babası Jamie Townsend ile ayrılmışlardı."
+   },
+   {
+    "t": "Lydia, nafaka işlemleri ve devlet desteği için başvurdu."
+   }
+  ]
+ },
+ {
+  "id": "test",
+  "lines": [
+   {
+    "t": "Bu başvuruda babalığı kanıtlamak için DNA testi istemek, sıradan bir işlemdi."
+   },
+   {
+    "t": "Anne, baba ve çocuklardan örnek alındı."
+   },
+   {
+    "t": "Herkes bunun yalnızca bir formalite olduğunu düşünüyordu."
+   }
+  ]
+ },
+ {
+  "id": "sonuc",
+  "lines": [
+   {
+    "t": "Sonuçlar geldiğinde, babalık tarafında sürpriz yoktu. Jamie gerçekten babaydı."
+   },
+   {
+    "t": "Fakat annelik tarafı, tam tersini söylüyordu."
+   },
+   {
+    "t": "Rapora göre Lydia, kendi çocuklarının genetik annesi olamazdı."
+   }
+  ]
+ },
+ {
+  "id": "dna",
+  "lines": [
+   {
+    "t": "Peki bu test nasıl çalışır? Her çocuk, DNA'sının yarısını annesinden, yarısını babasından alır."
+   },
+   {
+    "t": "Laboratuvar, DNA üzerindeki belirli bölgeleri karşılaştırır."
+   },
+   {
+    "t": "Çocuktaki işaretlerin yarısı annede de bulunmalıdır."
+   },
+   {
+    "t": "Lydia'nın örneklerinde ise bu eşleşme yoktu."
+   }
+  ]
+ },
+ {
+  "id": "suclama",
+  "lines": [
+   {
+    "t": "Yetkililerin gözünde DNA yalan söylemezdi."
+   },
+   {
+    "t": "O halde Lydia yalan söylüyor olmalıydı."
+   },
+   {
+    "t": "Dolandırıcılıkla suçlandı. Ya başkasının çocukları için yardım alıyordu, ya da gizli bir taşıyıcı annelik düzeni vardı."
+   },
+   {
+    "t": "Geçmiş doğum kayıtları bile şüpheyle karşılandı."
+   }
+  ]
+ },
+ {
+  "id": "tehdit",
+  "lines": [
+   {
+    "t": "İş yalnızca para meselesi değildi."
+   },
+   {
+    "t": "Savcılık, çocukların ondan alınmasını istiyordu."
+   },
+   {
+    "t": "Lydia ne kadar anlatırsa anlatsın, karşısında tek bir kâğıt vardı: test sonucu."
+   }
+  ]
+ },
+ {
+  "id": "dogum",
+  "lines": [
+   {
+    "t": "Üçüncü çocuğun doğumu yaklaşırken, yargıç alışılmadık bir karar verdi."
+   },
+   {
+    "t": "Doğumda resmî bir gözlemci bulunacaktı."
+   },
+   {
+    "t": "Bebekten ve anneden kan örnekleri hemen, gözlemcinin önünde alınacaktı."
+   },
+   {
+    "t": "Artık hiçbir hile ihtimali kalmayacaktı."
+   }
+  ]
+ },
+ {
+  "id": "soku",
+  "lines": [
+   {
+    "t": "İki hafta sonra sonuç geldi."
+   },
+   {
+    "t": "Test, Lydia'nın az önce doğurduğu bebeğin de annesi olmadığını gösteriyordu."
+   },
+   {
+    "t": "Gözlemcinin gördüğü bir doğum vardı. Ama DNA, başka bir şey söylüyordu."
+   },
+   {
+    "t": "Demek ki sorun Lydia'da değil, varsayımda olabilirdi."
+   }
+  ]
+ },
+ {
+  "id": "avukat",
+  "lines": [
+   {
+    "t": "Dönüm noktası, avukatı Alan Tindell ile geldi."
+   },
+   {
+    "t": "Tindell, Boston'da yaşayan Karen Keegan adlı bir kadının hikâyesini öğrendi."
+   },
+   {
+    "t": "Keegan'ın testlerinde de kendi oğullarıyla genetik bir uyuşmazlık çıkmıştı."
+   },
+   {
+    "t": "Bu vaka, saygın bir tıp dergisinde yayımlanmıştı. Açıklaması tek bir kelimeydi: kimerizm."
+   }
+  ]
+ },
+ {
+  "id": "kimera",
+  "lines": [
+   {
+    "t": "Kimera, vücudunda iki farklı DNA'ya sahip hücreler taşıyan kişi demektir."
+   },
+   {
+    "t": "Bunun yollarından biri anne karnında yaşanır. İki ayrı yumurta döllenir ve iki ikiz embriyo oluşur."
+   },
+   {
+    "t": "Gelişimin çok erken döneminde bu iki embriyo birleşebilir."
+   },
+   {
+    "t": "Sonuçta tek bir bebek doğar. Ama bedeninde iki farklı hücre topluluğu yaşar."
+   }
+  ]
+ },
+ {
+  "id": "gizli",
+  "lines": [
+   {
+    "t": "Bu kişiler çoğu zaman hiçbir şey fark etmez."
+   },
+   {
+    "t": "Bir organ bir DNA'yı, başka bir doku diğer DNA'yı taşıyabilir."
+   },
+   {
+    "t": "Yani kandan ya da yanaktan alınan örnek, bütün bedeni temsil etmeyebilir."
+   }
+  ]
+ },
+ {
+  "id": "kanit",
+  "lines": [
+   {
+    "t": "Araştırmacılar bu kez ailenin diğer üyelerinden de örnek aldı."
+   },
+   {
+    "t": "Lydia'nın annesinin DNA'sı, çocuklarla tam bir büyükanneden beklendiği ölçüde uyuşuyordu."
+   },
+   {
+    "t": "Lydia'nın deri ve saç örnekleri çocuklarla eşleşmiyordu."
+   },
+   {
+    "t": "Ama rahim ağzından alınan sürüntüdeki DNA, çocuklarla eşleşti."
+   }
+  ]
+ },
+ {
+  "id": "karar",
+  "lines": [
+   {
+    "t": "Böylece tablo netleşti. Lydia iki farklı DNA taşıyordu."
+   },
+   {
+    "t": "Çocukların genetik mirası, onun bedeninde baştan beri oradaydı."
+   },
+   {
+    "t": "Suçlamalar düştü. Lydia, çocuklarının annesi olduğunu kanıtlamıştı."
+   }
+  ]
+ },
+ {
+  "id": "ders",
+  "lines": [
+   {
+    "t": "Bu vaka DNA testlerinin işe yaramadığını göstermez. Test, aldığı örneği doğru okumuştu."
+   },
+   {
+    "t": "Yanlış olan, tek bir örneğin bütün insanı anlattığı varsayımıydı."
+   },
+   {
+    "t": "Güçlü bir kanıt bile, doğru soruyla birlikte değerlendirilmelidir."
+   }
+  ]
+ },
+ {
+  "id": "son",
+  "lines": [
+   {
+    "t": "Kim bilir, belki sizin de bedeninizde sessizce yaşayan ikinci bir DNA vardır."
+   },
+   {
+    "t": "Sizce mahkemeler DNA kanıtına ne kadar güvenmeli? Yorumlarda buluşalım."
+   }
+  ]
+ }
+]

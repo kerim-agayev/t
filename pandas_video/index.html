@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>pandas groupby — anlatımlı</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0620;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:100vh;font:16px system-ui;color:#fff}
+  svg{width:min(96vw,150vh);background:#fff;border-radius:8px;font-family:Caveat,"Segoe Print",cursive;font-weight:700;fill:#1c1c1c;cursor:pointer}
+  nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:min(96vw,150vh)}
+  button{background:#2b1d5c;color:#fff;border:0;border-radius:6px;padding:8px 12px;font:inherit;cursor:pointer}
+  button.on{background:#7b4ae0}
+  input{flex:1;min-width:150px}
+  .render{display:block;min-height:0}
+  .render svg{width:100vw;height:100vh;border-radius:0;display:block}
+  .render nav{display:none}
+</style>
+<svg id="s" viewBox="0 0 1600 900" role="img" aria-label="pandas groupby: veriyi şehre göre böl, her grubu topla, sonuçları birleştir">
+  <defs>
+    <filter id="w" x="-5%" y="-15%" width="110%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="6"/>
+    </filter>
+  </defs>
+</svg>
+<nav><button id="play">▶ Oynat</button><input id="bar" type="range" min="0" step="0.05" value="0" aria-label="Video konumu"></nav>
+<nav id="chapters"></nav>
+<audio id="audio" src="narration.mp3" preload="auto"></audio>
+<script src="timing.js"></script>
+<script>
+const S = document.getElementById('s');
+const items = [];
+let seg = 0;
+function el(tag, attrs, text) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  S.append(e); items.push({e, tag, seg}); return e;
+}
+const txt = (x, y, t, size = 30, extra = {}) => el('text', {x, y, 'font-size': size, 'text-anchor': 'middle', ...extra}, t);
+const path = (d, stroke = '#222', width = 2.5, fill = 'none', extra = {}) =>
+  el('path', {d, stroke, 'stroke-width': width, fill, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', filter: 'url(#w)', ...extra});
+const box = (x, y, w, h, fill = 'none') => {
+  path(`M${x+5} ${y+h+5}h${w}v${-h}`, '#0002', 5);
+  path(`M${x} ${y}h${w}v${h}h${-w}Z`, '#222', 2.5, fill);
+};
+// hafif eğri: tam yatay çizginin yüksekliği 0 olur ve filtre onu yok eder
+const marker = (x, y, w, color) => path(`M${x-w/2} ${y}q${w/2} -5 ${w} 0`, color, 14, 'none', {opacity: .55});
+function arrow(x1, y1, x2, y2, color = '#f2a100', dash = '12 9') {
+  const cx = (x1+x2)/2, cy = (y1+y2)/2 - 25, a = Math.atan2(y2-cy, x2-cx);
+  path(`M${x1} ${y1}Q${cx} ${cy} ${x2} ${y2}`, color, 5, 'none', {'stroke-dasharray': dash});
+  path(`M${x2-20*Math.cos(a-.5)} ${y2-20*Math.sin(a-.5)}L${x2} ${y2}L${x2-20*Math.cos(a+.5)} ${y2-20*Math.sin(a+.5)}`, color, 5);
+}
+function person(x, y, hair, shirt, glasses) {
+  path(`M${x-34} ${y+62}q6-30 34-30t34 30Z`, '#222', 2.5, shirt);
+  path(`M${x-30} ${y}a30 34 0 1 0 60 0a30 34 0 1 0-60 0`, '#222', 2.5, '#fff');
+  path(`M${x-33} ${y+4}q-8-48 33-46t33 46q-12-30-30-28q-6 20-36 28Z`, '#222', 2.5, hair);
+  for (const dx of [-11, 11]) {
+    el('circle', {cx: x+dx, cy: y+3, r: 3});
+    if (glasses) path(`M${x+dx-9} ${y+3}a9 9 0 1 0 18 0a9 9 0 1 0-18 0`, '#222', 2);
+  }
+  path(`M${x-10} ${y+18}q10 9 20 0`);
+}
+function table(x, y, head, rows, colors, w = 130, h = 42) {
+  const W = w * head.length;
+  box(x, y, W, h*(rows.length+1), '#fff');
+  path(`M${x} ${y}h${W}v${h}h${-W}Z`, '#222', 2.5, '#e8e8e8');
+  head.forEach((c, j) => txt(x+w*j+w/2, y+h*.72, c, 28));
+  rows.forEach((r, i) => {
+    path(`M${x} ${y+h*(i+1)}h${W}v${h}h${-W}Z`, '#555', 1.5, colors[i]);
+    r.forEach((c, j) => txt(x+w*j+w/2, y+h*(i+1)+h*.72, c, 28));
+  });
+  path(`M${x+w} ${y}q3 ${h*(rows.length+1)/2} 0 ${h*(rows.length+1)}`, '#555', 1.5);
+}
+const header = (x, a, b) => { marker(x, 205, 180, '#bfe3ff'); txt(x, 212, a, 46); txt(x, 245, b, 28, {fill: '#666'}); };
+
+const data = [['İstanbul',120],['Ankara',80],['İzmir',50],['İstanbul',200],['Ankara',40],['İzmir',90]];
+// anahtar sırası = pandas'ın sıralı groupby çıktısı
+const color = {'Ankara':'#cdeafd', 'İstanbul':'#ffd4cc', 'İzmir':'#d8f3cf'};
+const cities = Object.keys(color);
+const parts = c => data.filter(r => r[0] === c).map(r => r[1]);
+const sum = c => parts(c).reduce((a, b) => a + b, 0);
+
+// 0: giriş
+seg = 0;
+marker(800, 82, 520, '#ffd84d');
+txt(800, 88, 'pandas  groupby()', 76);
+person(90, 90, '#f4c542', '#e8594a', true);
+marker(90, 190, 120, '#ffe6a8'); txt(90, 196, 'Analist', 32);
+box(165, 40, 255, 90, '#fff');
+txt(292, 78, 'Hangi şehir', 32); txt(292, 114, 'ne kadar sattı?', 32);
+// 1: ham veri
+seg = 1;
+marker(190, 252, 160, '#ffc9c0'); txt(190, 258, 'df (ham veri)', 38);
+table(60, 285, ['sehir','satis'], data, data.map(r => color[r[0]]));
+// 2: böl
+seg = 2;
+txt(800, 140, '"böl → uygula → birleştir"', 38, {fill: '#6a35c9'});
+header(540, '① Böl', 'sehir sütununa göre');
+cities.forEach((c, i) => {
+  const y = 275 + i*160;
+  arrow(335, 395 + i*45, 440, y+65);
+  table(455, y, ['sehir','satis'], parts(c).map(v => [c, v]), [color[c], color[c]], 95);
+});
+// 3: uygula
+seg = 3;
+header(920, '② Uygula', 'her gruba sum()');
+cities.forEach((c, i) => {
+  const y = 275 + i*160;
+  arrow(660, y+65, 775, y+65);
+  box(790, y+25, 260, 80, color[c]);
+  txt(920, y+76, `Σ  ${parts(c).join(' + ')} = ${sum(c)}`, 32);
+});
+// 4: birleştir
+seg = 4;
+header(1380, '③ Birleştir', 'tek tablo');
+cities.forEach((c, i) => arrow(1065, 340 + i*160, 1220, 400 + i*50, '#e8402f'));
+table(1235, 325, ['sehir','satis'], cities.map(c => [c, sum(c)]), cities.map(c => color[c]), 145, 50);
+// 5: kod
+seg = 5;
+box(60, 765, 800, 85, '#fff8e6');
+txt(460, 820, 'df.groupby("sehir")["satis"].sum()', 32, {style: 'font-family:Consolas,monospace'});
+person(1300, 610, '#333', '#4aa8e0', false);
+path('M1268 582q2-34 32-34t32 34Z', '#222', 2.5, '#4aa8e0');
+marker(1445, 628, 190, '#bff0d8'); txt(1445, 634, 'Data Engineer', 34);
+txt(1445, 672, '"tek satır yeter!"', 30, {fill: '#6a35c9'});
+// 6: alternatifler
+seg = 6;
+arrow(870, 805, 940, 805, '#e8402f', 'none');
+txt(1250, 785, 'sum() yerine dene:', 34);
+['mean()', 'count()', 'max()', 'agg([...])'].forEach((f, i) => {
+  const x = 975 + i*150;
+  box(x, 805, 130, 50, ['#ffd4cc','#cdeafd','#d8f3cf','#eadcff'][i]);
+  txt(x+65, 839, f, 30);
+});
+
+console.assert(sum('İstanbul') === 320 && sum('Ankara') === 120 && sum('İzmir') === 140, 'toplamlar yanlış');
+
+// --- zaman çizelgesi: her bölümün öğeleri, o bölümün sesinin ilk %80'inde sırayla çizilir
+const starts = DUR.map((_, i) => DUR.slice(0, i).reduce((a, b) => a + b, 0));
+const TOTAL = DUR.reduce((a, b) => a + b, 0);
+for (const it of items) {
+  it.len = it.tag === 'path' ? it.e.getTotalLength() : 0;
+  it.dashed = (it.e.getAttribute('stroke-dasharray') || 'none') !== 'none';
+  it.weight = it.tag === 'text' ? .3 + it.e.textContent.length*.05 : .15 + it.len/1500;
+}
+DUR.forEach((d, i) => {
+  const list = items.filter(it => it.seg === i);
+  const total = list.reduce((a, it) => a + it.weight, 0);
+  let t = starts[i] + .2;
+  for (const it of list) { it.start = t; it.dur = it.weight/total*d*.8; t += it.dur; }
+});
+
+const pen = el('g', {}); items.pop();
+pen.innerHTML = '<path d="M0 0l8-22 34-34 14 14-34 34Z" fill="#ffc83d" stroke="#222" stroke-width="2.5"/><path d="M0 0l8-22 14 14Z" fill="#222"/>';
+
+function render(t) {
+  let tip = null;
+  for (const it of items) {
+    const p = Math.min(1, Math.max(0, (t - it.start) / it.dur)), s = it.e.style;
+    s.visibility = p ? 'visible' : 'hidden';
+    const wipe = it.tag !== 'path' || it.dashed;
+    s.clipPath = wipe && p < 1 ? `inset(-30px ${(1-p)*100}% -30px -30px)` : '';
+    if (!wipe) {
+      s.strokeDasharray = p < 1 ? `${it.len} ${it.len}` : '';
+      s.strokeDashoffset = p < 1 ? it.len*(1-p) : '';
+      s.fillOpacity = Math.max(0, p*2 - 1);
+    }
+    if (p > 0 && p < 1) {
+      if (it.tag === 'path') tip = it.e.getPointAtLength(it.len*p);
+      else { const b = it.e.getBBox(); tip = {x: b.x + b.width*p, y: b.y + b.height*.7}; }
+    }
+  }
+  pen.style.visibility = tip ? 'visible' : 'hidden';
+  if (tip) pen.setAttribute('transform', `translate(${tip.x} ${tip.y})`);
+}
+
+// --- oynatıcı
+const $ = id => document.getElementById(id);
+const audio = $('audio'), bar = $('bar'), play = $('play');
+bar.max = TOTAL;
+const chapters = ['Soru', 'Veri', 'Böl', 'Uygula', 'Birleştir', 'Kod', 'Diğerleri'].map((name, i) => {
+  const b = document.createElement('button');
+  b.textContent = name;
+  b.onclick = () => { audio.currentTime = starts[i]; audio.play(); };
+  $('chapters').append(b); return b;
+});
+const toggle = () => audio.paused ? audio.play() : audio.pause();
+play.onclick = S.onclick = toggle;
+addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); toggle(); } });
+bar.oninput = () => { audio.currentTime = bar.value; render(+bar.value); };
+audio.onplay = audio.onpause = () => play.textContent = audio.paused ? '▶ Oynat' : '⏸ Duraklat';
+if (location.search === '?render') document.body.className = 'render';
+else (function loop() {
+  const t = audio.currentTime;
+  render(t); bar.value = t;
+  chapters.forEach((b, i) => b.classList.toggle('on', t >= starts[i] && t < starts[i] + DUR[i]));
+  requestAnimationFrame(loop);
+})();
+</script>
+</html>

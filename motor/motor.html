@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Araba motoru nasıl çalışır?</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0620;display:grid;place-items:center;min-height:100vh}
+  svg{width:min(96vw,170vh);background:#fff;border-radius:8px;font-family:Caveat,"Segoe Print",cursive;font-weight:700;fill:#1c1c1c}
+</style>
+<svg id="s" viewBox="0 0 1600 900" role="img" aria-label="Dört zamanlı motor: emme, sıkıştırma, ateşleme ve egzoz">
+  <defs>
+    <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+      <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="5"/>
+    </filter>
+  </defs>
+</svg>
+<script>
+const S = document.getElementById('s');
+function el(tag, attrs, text) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  S.append(e); return e;
+}
+const txt = (x, y, t, size = 30, extra = {}) => el('text', {x, y, 'font-size': size, 'text-anchor': 'middle', ...extra}, t);
+const path = (d, stroke = '#222', width = 2.5, fill = 'none', extra = {}) =>
+  el('path', {d, stroke, 'stroke-width': width, fill, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', filter: 'url(#w)', ...extra});
+const circle = (x, y, r, fill = 'none', stroke = '#222', width = 2.5) =>
+  path(`M${x-r} ${y}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0`, stroke, width, fill);
+const rect = (x, y, w, h, fill = 'none', stroke = '#222', width = 2.5) => path(`M${x} ${y}h${w}v${h}h${-w}Z`, stroke, width, fill);
+const marker = (x, y, w, color) => path(`M${x-w/2} ${y}q${w/2} -5 ${w} 0`, color, 14, 'none', {opacity: .55});
+function arrow(x1, y1, x2, y2, color = '#f2a100', bend = 0, dash = '11 8') {
+  const cx = (x1+x2)/2, cy = (y1+y2)/2 + bend, a = Math.atan2(y2-cy, x2-cx);
+  path(`M${x1} ${y1}Q${cx} ${cy} ${x2} ${y2}`, color, 5, 'none', {'stroke-dasharray': dash});
+  path(`M${x2-17*Math.cos(a-.55)} ${y2-17*Math.sin(a-.55)}L${x2} ${y2}L${x2-17*Math.cos(a+.55)} ${y2-17*Math.sin(a+.55)}`, color, 5);
+}
+function person(x, y, hair, shirt) {
+  path(`M${x-34} ${y+62}q6-30 34-30t34 30Z`, '#222', 2.5, shirt);
+  circle(x, y, 32, '#fff');
+  path(`M${x-33} ${y+4}q-8-48 33-46t33 46q-12-30-30-28q-6 20-36 28Z`, '#222', 2.5, hair);
+  for (const dx of [-11, 11]) el('circle', {cx: x+dx, cy: y+3, r: 3});
+  path(`M${x-10} ${y+17}q10 9 20 0`);
+}
+
+// bir silindir; angle: krank açısı (0 = üst ölü nokta, saat yönü)
+function engine(cx, s) {
+  const CY = 640, R = 52, L = 145, rad = s.angle*Math.PI/180;
+  const px = cx + R*Math.sin(rad), py = CY - R*Math.cos(rad);
+  const wy = py - Math.sqrt(L*L - (px-cx)**2);   // piston pimi: biyel boyu sabit
+  const top = wy - 40, HEAD = 360;
+
+  // emme (sol) ve egzoz (sağ) kanalları
+  path(`M${cx-150} 292H${cx-62}Q${cx-30} 296 ${cx-24} ${HEAD}H${cx-80}Q${cx-82} 336 ${cx-105} 336H${cx-150}`, '#222', 2.5, '#d6efff');
+  path(`M${cx+150} 292H${cx+62}Q${cx+30} 296 ${cx+24} ${HEAD}H${cx+80}Q${cx+82} 336 ${cx+105} 336H${cx+150}`, '#222', 2.5, '#e4e4e4');
+  // karter, yanma odası, silindir duvarları
+  path(`M${cx-95} 580Q${cx-125} 735 ${cx} 730Q${cx+125} 735 ${cx+95} 580`, '#222', 3, '#f3f3f3');
+  rect(cx-85, HEAD, 170, top-HEAD, s.gas, 'none');
+  for (const x of [cx-95, cx+85]) rect(x, HEAD, 10, 220, '#bbb');
+  path(`M${cx-95} ${HEAD}h43M${cx-20} ${HEAD}h40M${cx+52} ${HEAD}h43`, '#222', 5);
+  s.dots.forEach(([dx, f]) => circle(cx+dx, HEAD + 8 + f*(top-HEAD-16), 4, s.dot, 'none'));
+  // supaplar
+  for (const [dx, open] of [[-36, s.intake], [36, s.exhaust]]) {
+    const y = HEAD + (open ? 24 : 2);
+    path(`M${cx+dx} 262q2 ${(y-262)/2} 0 ${y-262}`, '#222', 6);
+    path(`M${cx+dx-20} ${y+6}L${cx+dx-5} ${y-5}h10L${cx+dx+20} ${y+6}Z`, '#222', 2.5, open ? '#ffd84d' : '#999');
+  }
+  // buji
+  rect(cx-10, 292, 20, 42, '#fff'); rect(cx-14, 334, 28, 16, '#999');
+  path(`M${cx} 350q2 8 0 18`, '#222', 4);
+  if (s.fire) path(`M${cx} 368l9 12 22-7-9 18 24 8-25 7 8 18-20-10-9 19-8-20-22 9 11-18-24-7 25-7-9-18 19 9Z`, '#e8402f', 3, '#ffd23f');
+  // piston, biyel, krank
+  rect(cx-83, top, 166, 70, '#c9d2dc');
+  path(`M${cx-83} ${top+14}q83 3 166 0M${cx-83} ${top+25}q83 3 166 0`, '#555', 2);
+  circle(cx, CY, 68, 'none', '#bbb', 2);
+  path(`M${cx} ${CY}L${px} ${py}`, '#555', 24);
+  path(`M${cx} ${wy}L${px} ${py}`, '#222', 17); path(`M${cx} ${wy}L${px} ${py}`, '#f2b84b', 11);
+  circle(cx, wy, 11, '#fff'); circle(px, py, 12, '#fff'); circle(cx, CY, 15, '#888');
+  // dönüş ve piston yönü
+  path(`M${cx-76} ${CY+34}A83 83 0 0 1 ${cx-62} ${CY-55}`, '#6a35c9', 5);
+  path(`M${cx-80} ${CY-52}L${cx-62} ${CY-55}L${cx-60} ${CY-36}`, '#6a35c9', 5);
+  const down = s.angle < 180;
+  arrow(cx+122, down ? 420 : 535, cx+122, down ? 535 : 420, '#e8402f', 0, 'none');
+}
+
+const strokes = [
+  {name: '① Emme',      mark: '#bfe3ff', angle: 110, intake: true,  gas: '#d6efff', dot: '#2f8fd8', info: ['Piston iner,', 'hava + benzin içeri dolar']},
+  {name: '② Sıkıştırma', mark: '#e2d2ff', angle: 325, gas: '#c7b2f2', dot: '#5a3bb0', info: ['Piston çıkar,', 'karışım ≈10 kat sıkışır']},
+  {name: '③ Ateşleme',   mark: '#ffd0a8', angle: 65,  fire: true, gas: '#ffe2b3', dot: '#e8402f', info: ['Buji kıvılcım çakar,', 'patlama pistonu iter']},
+  {name: '④ Egzoz',      mark: '#d9d9d9', angle: 245, exhaust: true, gas: '#e4e4e4', dot: '#777', info: ['Piston çıkar,', 'yanmış gaz dışarı atılır']},
+];
+const cloud = [[-60,.2],[-35,.65],[-5,.35],[30,.75],[55,.25],[65,.6],[-65,.85],[10,.9]];
+
+marker(800, 82, 640, '#ffd84d');
+txt(800, 86, 'Araba motoru nasıl çalışır?', 72);
+txt(800, 132, '4 zamanlı benzinli motor: em → sıkıştır → patlat → at', 36, {fill: '#6a35c9'});
+
+person(85, 70, '#7a4a21', '#e8594a');
+rect(140, 28, 220, 90, '#fff');
+txt(250, 65, 'Gaza basınca', 30); txt(250, 100, 'içeride ne oluyor?', 30);
+marker(85, 160, 90, '#ffe6a8'); txt(85, 166, 'Sürücü', 28);
+
+person(1515, 70, '#333', '#4aa8e0');
+path('M1483 42q2-34 32-34t32 34Z', '#222', 2.5, '#4aa8e0');
+rect(1205, 28, 260, 90, '#fff');
+txt(1335, 65, 'Güç sadece', 30); txt(1335, 100, '③. zamanda üretilir!', 30, {fill: '#e8402f'});
+marker(1515, 160, 70, '#bff0d8'); txt(1515, 166, 'Usta', 28);
+
+strokes.forEach((s, i) => {
+  const cx = 230 + i*380;
+  marker(cx, 205, 210, s.mark); txt(cx, 210, s.name, 46);
+  s.dots = s.fire ? [] : cloud;
+  engine(cx, s);
+  s.info.forEach((t, j) => txt(cx, 768 + j*32, t, 31));
+  if (i < 3) arrow(cx+130, 205, cx+250, 205, '#f2a100', -22);
+});
+
+// akış okları: emmede içeri, egzozda dışarı
+arrow(88, 314, 190, 345, '#2f8fd8', -20);
+arrow(1410, 345, 1515, 314, '#777', -20);
+// parça adları (ilk silindir)
+for (const [t, x, y, tx, ty] of [['supap',66,270,186,270], ['piston',60,455,150,492], ['biyel',60,555,222,560], ['krank mili',64,712,214,648]]) {
+  txt(x, y, t, 28, {fill: '#555'});
+  path(`M${x+38} ${y-8}Q${(x+tx)/2+15} ${y-12} ${tx} ${ty}`, '#999', 2);
+}
+txt(1010 + 80, 272, 'buji', 28, {fill: '#555'});
+path('M1062 268Q1030 268 1004 298', '#999', 2);
+
+// alt şerit
+rect(300, 835, 1000, 52, '#fff8e6');
+txt(800, 871, '4 zaman = krank milinin 2 turu → pistonun git-geli dönmeye çevrilir → tekerlek', 31);
+</script>
+</html>

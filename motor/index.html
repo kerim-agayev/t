@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Araba motoru nasıl çalışır? — anlatımlı</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0620;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:100vh;font:16px system-ui;color:#fff}
+  svg{width:min(96vw,150vh);background:#fff;border-radius:8px;font-family:Caveat,"Segoe Print",cursive;font-weight:700;fill:#1c1c1c;cursor:pointer}
+  nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;width:min(96vw,150vh)}
+  button{background:#2b1d5c;color:#fff;border:0;border-radius:6px;padding:8px 12px;font:inherit;cursor:pointer}
+  button.on{background:#7b4ae0}
+  input{flex:1;min-width:150px}
+  .render{display:block;min-height:0}
+  .render svg{width:100vw;height:100vh;border-radius:0;display:block}
+  .render nav{display:none}
+  .dark svg{background:#15102e;fill:#f1eefc}
+</style>
+<svg id="s" viewBox="0 0 1600 900" role="img" aria-label="Dört zamanlı motor: emme, sıkıştırma, ateşleme ve egzoz">
+  <defs>
+    <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+      <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="5"/>
+    </filter>
+  </defs>
+</svg>
+<nav><button id="play">▶ Oynat</button><input id="bar" type="range" min="0" step="0.05" value="0" aria-label="Video konumu"></nav>
+<nav id="chapters"></nav>
+<audio id="audio" src="narration.mp3" preload="auto"></audio>
+<script src="timing.js"></script>
+<script>
+const S = document.getElementById('s');
+const items = [];
+let seg = 0;
+// koyu tema (?dark): yalnızca nötr ve pastel renkler değişir, canlı vurgular aynı kalır
+const DARK = new URLSearchParams(location.search).has('dark');
+const PALETTE = {
+  '#222':'#e8e4f5', '#fff':'#241c48', '#555':'#b4acd0', '#777':'#aaa6bc', '#bbb':'#6d6690', '#c9d2dc':'#7f8ba3',
+  '#f3f3f3':'#1f1940', '#e4e4e4':'#3a3a52', '#d6efff':'#164a78', '#c7b2f2':'#5b3f99', '#ffe2b3':'#8a4716', '#fff8e6':'#2a2150',
+  '#6a35c9':'#b794ff', '#5a3bb0':'#ddd0ff',
+  '#bfe3ff':'#2f86d8', '#e2d2ff':'#8554e8', '#ffd0a8':'#e06a1f', '#d9d9d9':'#75758c', '#ffe6a8':'#b8860b', '#bff0d8':'#1f9a6c', '#ffd84d':'#a87f00',
+};
+const c = v => DARK && PALETTE[v] || v;
+function make(tag, attrs, parent) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) e.setAttribute(k, k === 'fill' || k === 'stroke' ? c(attrs[k]) : attrs[k]);
+  parent.append(e); return e;
+}
+// titreme filtresi tek grupta: kare başına bir kez çalışır, yazılar net kalır
+const G = make('g', {filter: 'url(#w)'}, S);
+function el(tag, attrs, text) {
+  const e = make(tag, attrs, tag === 'text' ? S : G);
+  if (text != null) e.textContent = text;
+  items.push({e, tag, seg}); return e;
+}
+const txt = (x, y, t, size = 30, extra = {}) => el('text', {x, y, 'font-size': size, 'text-anchor': 'middle', ...extra}, t);
+const path = (d, stroke = '#222', width = 2.5, fill = 'none', extra = {}) =>
+  el('path', {d, stroke, 'stroke-width': width, fill, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...extra});
+const circleD = (x, y, r) => `M${x-r} ${y}a${r} ${r} 0 1 0 ${2*r} 0a${r} ${r} 0 1 0 ${-2*r} 0`;
+const circle = (x, y, r, fill = 'none', stroke = '#222', width = 2.5) => path(circleD(x, y, r), stroke, width, fill);
+const rect = (x, y, w, h, fill = 'none', stroke = '#222', width = 2.5) => path(`M${x} ${y}h${w}v${h}h${-w}Z`, stroke, width, fill);
+const marker = (x, y, w, color) => path(`M${x-w/2} ${y}q${w/2} -5 ${w} 0`, color, 14, 'none', {opacity: .55});
+function arrow(x1, y1, x2, y2, color = '#f2a100', bend = 0) {
+  const cx = (x1+x2)/2, cy = (y1+y2)/2 + bend, a = Math.atan2(y2-cy, x2-cx);
+  return [
+    path(`M${x1} ${y1}Q${cx} ${cy} ${x2} ${y2}`, color, 5, 'none', {'stroke-dasharray': '11 8'}),
+    path(`M${x2-17*Math.cos(a-.55)} ${y2-17*Math.sin(a-.55)}L${x2} ${y2}L${x2-17*Math.cos(a+.55)} ${y2-17*Math.sin(a+.55)}`, color, 5),
+  ];
+}
+function person(x, y, hair, shirt) {
+  path(`M${x-34} ${y+62}q6-30 34-30t34 30Z`, '#222', 2.5, shirt);
+  circle(x, y, 32, '#f6efe6');
+  path(`M${x-33} ${y+4}q-8-48 33-46t33 46q-12-30-30-28q-6 20-36 28Z`, '#222', 2.5, hair);
+  for (const dx of [-11, 11]) el('circle', {cx: x+dx, cy: y+3, r: 3, fill: '#111'});
+  path(`M${x-10} ${y+17}q10 9 20 0`, '#111');
+}
+
+// phi: krank açısı. 0-180 emme, 180-360 sıkıştırma, 360-540 ateşleme, 540-720 egzoz
+const CY = 640, R = 52, L = 145, HEAD = 360;
+const strokes = [
+  {name: '① Emme',       mark: '#bfe3ff', phi: 110, gas: '#d6efff', dot: '#2f8fd8', info: ['Piston iner,', 'hava + benzin içeri dolar']},
+  {name: '② Sıkıştırma', mark: '#e2d2ff', phi: 325, gas: '#c7b2f2', dot: '#5a3bb0', info: ['Piston çıkar,', 'karışım ≈10 kat sıkışır']},
+  {name: '③ Ateşleme',   mark: '#ffd0a8', phi: 425, gas: '#ffe2b3', dot: '#e8402f', info: ['Buji kıvılcım çakar,', 'patlama pistonu iter']},
+  {name: '④ Egzoz',      mark: '#d9d9d9', phi: 605, gas: '#e4e4e4', dot: '#777',    info: ['Piston çıkar,', 'yanmış gaz dışarı atılır']},
+];
+const cloud = [[-60,.2],[-35,.65],[-5,.35],[30,.75],[55,.25],[65,.6],[-65,.85],[10,.9]];
+function state(phi, cx = 0) {
+  const k = Math.floor(phi/180) % 4, rad = phi*Math.PI/180;
+  const px = cx + R*Math.sin(rad), py = CY - R*Math.cos(rad);
+  const wy = py - Math.sqrt(L*L - (px-cx)**2);   // piston pimi: biyel boyu sabit
+  return {k, px, py, wy, top: wy - 40, intake: k === 0, exhaust: k === 3,
+          fire: k === 2 && phi % 720 < 450, dots: k !== 2, down: k % 2 === 0};
+}
+
+// bir silindir: parçaları kurar; dönen pose(phi) hareketli olanları günceller
+function engine(cx, first) {
+  const now = state(first, cx), moving = [], toggles = [];
+  const part = (d, ...style) => { const e = path(d(now), ...style); moving.push([e, d]); return e; };
+  // koşula bağlı parça; ilk karede görünmüyorsa çizim sırasına girmez
+  const when = (flag, ...es) => es.forEach(e => {
+    const opt = !now[flag];
+    if (opt) items.find(i => i.e === e).opt = true;
+    toggles.push({e, flag, opt});
+  });
+
+  path(`M${cx-150} 292H${cx-62}Q${cx-30} 296 ${cx-24} ${HEAD}H${cx-80}Q${cx-82} 336 ${cx-105} 336H${cx-150}`, '#222', 2.5, '#d6efff');
+  path(`M${cx+150} 292H${cx+62}Q${cx+30} 296 ${cx+24} ${HEAD}H${cx+80}Q${cx+82} 336 ${cx+105} 336H${cx+150}`, '#222', 2.5, '#e4e4e4');
+  path(`M${cx-95} 580Q${cx-125} 735 ${cx} 730Q${cx+125} 735 ${cx+95} 580`, '#222', 3, '#f3f3f3');
+  const gas = part(s => `M${cx-85} ${HEAD}h170v${s.top-HEAD}h-170Z`, 'none', 0, strokes[now.k].gas);
+  for (const x of [cx-95, cx+85]) rect(x, HEAD, 10, 220, '#bbb');
+  path(`M${cx-95} ${HEAD}h43M${cx-20} ${HEAD}h40M${cx+52} ${HEAD}h43`, '#222', 5);
+  const dots = cloud.map(([dx, f]) => part(s => circleD(cx+dx, HEAD + 8 + f*(s.top-HEAD-16), 4), 'none', 2.5, strokes[now.k].dot));
+  when('dots', ...dots);
+  const valves = [[-36, 'intake'], [36, 'exhaust']].map(([dx, key]) => {
+    const y = s => HEAD + (s[key] ? 24 : 2);
+    part(s => `M${cx+dx} 262q2 ${(y(s)-262)/2} 0 ${y(s)-262}`, '#222', 6);
+    return [key, part(s => `M${cx+dx-20} ${y(s)+6}L${cx+dx-5} ${y(s)-5}h10L${cx+dx+20} ${y(s)+6}Z`, '#222', 2.5, now[key] ? '#ffd84d' : '#999')];
+  });
+  rect(cx-10, 292, 20, 42, '#fff'); rect(cx-14, 334, 28, 16, '#999');
+  path(`M${cx} 350q2 8 0 18`, '#222', 4);
+  when('fire', path(`M${cx} 368l9 12 22-7-9 18 24 8-25 7 8 18-20-10-9 19-8-20-22 9 11-18-24-7 25-7-9-18 19 9Z`, '#e8402f', 3, '#ffd23f'));
+  part(s => `M${cx-83} ${s.top}h166v70h-166Z`, '#222', 2.5, '#c9d2dc');
+  part(s => `M${cx-83} ${s.top+14}q83 3 166 0M${cx-83} ${s.top+25}q83 3 166 0`, '#555', 2);
+  circle(cx, CY, 68, 'none', '#bbb', 2);
+  part(s => `M${cx} ${CY}L${s.px} ${s.py}`, '#555', 24);
+  part(s => `M${cx} ${s.wy}L${s.px} ${s.py}`, '#111', 17);
+  part(s => `M${cx} ${s.wy}L${s.px} ${s.py}`, '#f2b84b', 11);
+  part(s => circleD(cx, s.wy, 11), '#222', 2.5, '#fff');
+  part(s => circleD(s.px, s.py, 12), '#222', 2.5, '#fff');
+  circle(cx, CY, 15, '#888');
+  path(`M${cx-76} ${CY+34}A83 83 0 0 1 ${cx-62} ${CY-55}`, '#6a35c9', 5);
+  path(`M${cx-80} ${CY-52}L${cx-62} ${CY-55}L${cx-60} ${CY-36}`, '#6a35c9', 5);
+  const x = cx + 122;
+  part(s => `M${x} ${s.down ? 420 : 535}q3 ${s.down ? 58 : -58} 0 ${s.down ? 115 : -115}`, '#e8402f', 5);
+  part(s => s.down ? `M${x-10} 521L${x} 535L${x+10} 521` : `M${x-10} 434L${x} 420L${x+10} 434`, '#e8402f', 5);
+  when('intake', ...arrow(cx-142, 314, cx-40, 345, '#2f8fd8', -20));
+  when('exhaust', ...arrow(cx+40, 345, cx+145, 314, '#777', -20));
+
+  return (phi, drawn) => {
+    const s = state(phi, cx);
+    for (const [e, d] of moving) e.setAttribute('d', d(s));
+    gas.setAttribute('fill', c(strokes[s.k].gas));
+    dots.forEach(e => e.setAttribute('fill', c(strokes[s.k].dot)));
+    valves.forEach(([key, e]) => e.setAttribute('fill', s[key] ? '#ffd84d' : '#999'));
+    for (const t of toggles) {
+      if (t.opt) t.e.style.visibility = drawn && s[t.flag] ? 'visible' : 'hidden';
+      else if (!s[t.flag]) t.e.style.visibility = 'hidden';
+    }
+    return s.k;
+  };
+}
+
+// 0: giriş
+seg = 0;
+marker(800, 82, 640, '#ffd84d');
+txt(800, 86, 'Araba motoru nasıl çalışır?', 72);
+txt(800, 132, '4 zamanlı benzinli motor: em → sıkıştır → patlat → at', 36, {fill: '#6a35c9'});
+person(85, 70, '#7a4a21', '#e8594a');
+rect(140, 28, 220, 90, '#fff');
+txt(250, 65, 'Gaza basınca', 30); txt(250, 100, 'içeride ne oluyor?', 30);
+marker(85, 160, 90, '#ffe6a8'); txt(85, 166, 'Sürücü', 28);
+
+// 1-4: dört zaman
+const label = (t, x, y, tx, ty) => { txt(x, y, t, 28, {fill: '#555'}); path(`M${x+38} ${y-8}Q${(x+tx)/2+15} ${y-12} ${tx} ${ty}`, '#999', 2); };
+const cyl = strokes.map((s, i) => {
+  seg = i + 1;
+  const cx = 230 + i*380;
+  if (i) arrow(cx-250, 205, cx-130, 205, '#f2a100', -22);
+  const mark = marker(cx, 205, 210, s.mark), head = txt(cx, 210, s.name, 46);
+  const pose = engine(cx, s.phi);
+  if (i === 0) {
+    label('supap', 66, 270, 186, 270); label('piston', 60, 455, 150, 492);
+    label('biyel', 60, 555, 222, 560); label('krank mili', 64, 712, 214, 648);
+  }
+  if (i === 2) { txt(1090, 272, 'buji', 28, {fill: '#555'}); path('M1062 268Q1030 268 1004 298', '#999', 2); }
+  const info = s.info.map((t, j) => txt(cx, 768 + j*32, t, 31));
+  return {pose, mark, head, info, phi: s.phi};
+});
+
+// 5: özet
+seg = 5;
+person(1515, 70, '#333', '#4aa8e0');
+path('M1483 42q2-34 32-34t32 34Z', '#222', 2.5, '#4aa8e0');
+rect(1205, 28, 260, 90, '#fff');
+txt(1335, 65, 'Güç sadece', 30); txt(1335, 100, '③. zamanda üretilir!', 30, {fill: '#e8402f'});
+marker(1515, 160, 70, '#bff0d8'); txt(1515, 166, 'Usta', 28);
+rect(300, 835, 1000, 52, '#fff8e6');
+txt(800, 871, '4 zaman = krank milinin 2 turu → pistonun git-geli dönmeye çevrilir → tekerlek', 31);
+// 6: yeni çizim yok, motor çalışır
+
+// --- zaman çizelgesi: önce çizim, sonra (silindir bölümlerinde) hareket
+const starts = DUR.map((_, i) => DUR.slice(0, i).reduce((a, b) => a + b, 0));
+const TOTAL = DUR.reduce((a, b) => a + b, 0);
+const share = i => i >= 1 && i <= 4 ? .55 : .8;   // sesin ne kadarı çizime ayrılır
+const drawList = items.filter(i => !i.opt);
+for (const it of drawList) {
+  it.len = it.tag === 'path' ? it.e.getTotalLength() : 0;
+  it.dashed = (it.e.getAttribute('stroke-dasharray') || 'none') !== 'none';
+  it.weight = it.tag === 'text' ? .3 + it.e.textContent.length*.05 : .15 + it.len/1500;
+}
+DUR.forEach((d, i) => {
+  const list = drawList.filter(it => it.seg === i);
+  const total = list.reduce((a, it) => a + it.weight, 0);
+  let t = starts[i] + .2;
+  for (const it of list) { it.start = t; it.dur = it.weight/total*d*share(i); t += it.dur; }
+});
+
+const pen = make('g', {}, S);
+pen.innerHTML = '<path d="M0 0l8-22 34-34 14 14-34 34Z" fill="#ffc83d" stroke="#222" stroke-width="2.5"/><path d="M0 0l8-22 14 14Z" fill="#222"/>';
+const clamp = v => Math.min(1, Math.max(0, v));
+
+function render(t) {
+  let tip = null;
+  for (const it of drawList) {
+    const p = clamp((t - it.start) / it.dur), s = it.e.style;
+    s.visibility = p ? 'visible' : 'hidden';
+    const wipe = it.tag !== 'path' || it.dashed;
+    s.clipPath = wipe && p < 1 ? `inset(-30px ${(1-p)*100}% -30px -30px)` : '';
+    if (!wipe) {
+      s.strokeDasharray = p < 1 ? `${it.len} ${it.len}` : '';
+      s.strokeDashoffset = p < 1 ? it.len*(1-p) : '';
+      s.fillOpacity = p < 1 ? Math.max(0, p*2 - 1) : '';
+    }
+    if (p > 0 && p < 1) {
+      if (it.tag === 'path') tip = it.e.getPointAtLength(it.len*p);
+      else { const b = it.e.getBBox(); tip = {x: b.x + b.width*p, y: b.y + b.height*.7}; }
+    }
+  }
+  pen.style.visibility = tip ? 'visible' : 'hidden';
+  if (tip) pen.setAttribute('transform', `translate(${tip.x} ${tip.y})`);
+
+  const phis = cyl.map((cy, i) => {
+    const n = i + 1;
+    let phi = cy.phi;
+    // kendi bölümünde: o zamanı baştan sona bir kez oynat, resimdeki pozda bitir
+    const own = clamp(((t - starts[n])/DUR[n] - .6) / .37);
+    if (own > 0 && own < 1) { const base = Math.floor(cy.phi/180)*180; phi = base + (cy.phi - base + 180*own) % 180; }
+    // finalde: tam çevrimler, silindirler tam 180° aralıklı (her an dördü farklı zamanda)
+    const all = clamp(((t - starts[6])/DUR[6] - .02) / .96);
+    if (all > 0) phi = (i*180 + 90 + 720*Math.max(2, Math.round(DUR[6]/4))*all) % 720;
+    const k = cy.pose(phi, t >= starts[n] + DUR[n]*.57);
+    cy.head.textContent = strokes[k].name;
+    cy.mark.setAttribute('stroke', c(strokes[k].mark));
+    cy.info.forEach((e, j) => e.textContent = strokes[k].info[j]);
+    return phi.toFixed(1);
+  });
+  // kare anahtarı: aynıysa video üretici ekran görüntüsünü yeniden kullanır
+  return [drawList.filter(i => t > i.start).length, tip ? t : '', ...phis].join();
+}
+
+// --- oynatıcı
+const $ = id => document.getElementById(id);
+const audio = $('audio'), bar = $('bar'), play = $('play');
+bar.max = TOTAL;
+const chapters = ['Soru', 'Emme', 'Sıkıştırma', 'Ateşleme', 'Egzoz', 'Özet', 'Çalışırken'].map((name, i) => {
+  const b = document.createElement('button');
+  b.textContent = name;
+  b.onclick = () => { audio.currentTime = starts[i]; audio.play(); };
+  $('chapters').append(b); return b;
+});
+const theme = document.createElement('button');
+theme.textContent = DARK ? '☀ Açık tema' : '🌙 Koyu tema';
+theme.onclick = () => location.search = DARK ? '' : 'dark';
+$('chapters').append(theme);
+const toggle = () => audio.paused ? audio.play() : audio.pause();
+play.onclick = S.onclick = toggle;
+addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); toggle(); } });
+bar.oninput = () => { audio.currentTime = bar.value; render(+bar.value); };
+audio.onplay = audio.onpause = () => play.textContent = audio.paused ? '▶ Oynat' : '⏸ Duraklat';
+const RENDER = new URLSearchParams(location.search).has('render');
+document.body.className = [RENDER && 'render', DARK && 'dark'].filter(Boolean).join(' ');
+if (!RENDER) (function loop() {
+  const t = audio.currentTime;
+  render(t); bar.value = t;
+  chapters.forEach((b, i) => b.classList.toggle('on', t >= starts[i] && t < starts[i] + DUR[i]));
+  requestAnimationFrame(loop);
+})();
+</script>
+</html>

@@ -1,0 +1,392 @@
+{
+ "total": 269.5416666666667,
+ "scenes": [
+  {
+   "id": "kapak",
+   "start": 0.0,
+   "end": 18.25,
+   "lines": [
+    {
+     "text": "Bir anne d\u00fc\u015f\u00fcn\u00fcn. \u00c7ocuklar\u0131n\u0131 kendisi do\u011furdu, onlar\u0131 kendisi b\u00fcy\u00fctt\u00fc.",
+     "start": 0.35,
+     "end": 5.887
+    },
+    {
+     "text": "Ama bir g\u00fcn, DNA testi ona \u015funu s\u00f6yledi: Bu \u00e7ocuklar\u0131n annesi sen de\u011filsin.",
+     "start": 6.107,
+     "end": 11.466
+    },
+    {
+     "text": "Bu, Lydia Fairchild vakas\u0131. Bilimin en g\u00fcvendi\u011fi kan\u0131t\u0131n yan\u0131ld\u0131\u011f\u0131 san\u0131lan an.",
+     "start": 11.686,
+     "end": 17.702
+    }
+   ]
+  },
+  {
+   "id": "baslangic",
+   "start": 18.25,
+   "end": 35.333,
+   "lines": [
+    {
+     "text": "Y\u0131l iki bin iki. Amerika'n\u0131n Washington eyaleti.",
+     "start": 18.6,
+     "end": 22.887
+    },
+    {
+     "text": "Lydia Fairchild, iki \u00e7ocuk annesiydi ve \u00fc\u00e7\u00fcnc\u00fc \u00e7ocu\u011funa hamileydi.",
+     "start": 23.107,
+     "end": 27.371
+    },
+    {
+     "text": "\u00c7ocuklar\u0131n\u0131n babas\u0131 Jamie Townsend ile ayr\u0131lm\u0131\u015flard\u0131.",
+     "start": 27.591,
+     "end": 30.86
+    },
+    {
+     "text": "Lydia, nafaka i\u015flemleri ve devlet deste\u011fi i\u00e7in ba\u015fvurdu.",
+     "start": 31.08,
+     "end": 34.789
+    }
+   ]
+  },
+  {
+   "id": "test",
+   "start": 35.333,
+   "end": 47.792,
+   "lines": [
+    {
+     "text": "Bu ba\u015fvuruda babal\u0131\u011f\u0131 kan\u0131tlamak i\u00e7in DNA testi istemek, s\u0131radan bir i\u015flemdi.",
+     "start": 35.683,
+     "end": 40.788
+    },
+    {
+     "text": "Anne, baba ve \u00e7ocuklardan \u00f6rnek al\u0131nd\u0131.",
+     "start": 41.008,
+     "end": 43.57
+    },
+    {
+     "text": "Herkes bunun yaln\u0131zca bir formalite oldu\u011funu d\u00fc\u015f\u00fcn\u00fcyordu.",
+     "start": 43.79,
+     "end": 47.251
+    }
+   ]
+  },
+  {
+   "id": "sonuc",
+   "start": 47.792,
+   "end": 62.5,
+   "lines": [
+    {
+     "text": "Sonu\u00e7lar geldi\u011finde, babal\u0131k taraf\u0131nda s\u00fcrpriz yoktu. Jamie ger\u00e7ekten babayd\u0131.",
+     "start": 48.142,
+     "end": 54.7
+    },
+    {
+     "text": "Fakat annelik taraf\u0131, tam tersini s\u00f6yl\u00fcyordu.",
+     "start": 54.92,
+     "end": 57.894
+    },
+    {
+     "text": "Rapora g\u00f6re Lydia, kendi \u00e7ocuklar\u0131n\u0131n genetik annesi olamazd\u0131.",
+     "start": 58.114,
+     "end": 61.959
+    }
+   ]
+  },
+  {
+   "id": "dna",
+   "start": 62.5,
+   "end": 82.292,
+   "lines": [
+    {
+     "text": "Peki bu test nas\u0131l \u00e7al\u0131\u015f\u0131r? Her \u00e7ocuk, DNA's\u0131n\u0131n yar\u0131s\u0131n\u0131 annesinden, yar\u0131s\u0131n\u0131 babas\u0131ndan al\u0131r.",
+     "start": 62.85,
+     "end": 70.695
+    },
+    {
+     "text": "Laboratuvar, DNA \u00fczerindeki belirli b\u00f6lgeleri kar\u015f\u0131la\u015ft\u0131r\u0131r.",
+     "start": 70.915,
+     "end": 75.021
+    },
+    {
+     "text": "\u00c7ocuktaki i\u015faretlerin yar\u0131s\u0131 annede de bulunmal\u0131d\u0131r.",
+     "start": 75.241,
+     "end": 78.487
+    },
+    {
+     "text": "Lydia'n\u0131n \u00f6rneklerinde ise bu e\u015fle\u015fme yoktu.",
+     "start": 78.707,
+     "end": 81.738
+    }
+   ]
+  },
+  {
+   "id": "suclama",
+   "start": 82.292,
+   "end": 101.042,
+   "lines": [
+    {
+     "text": "Yetkililerin g\u00f6z\u00fcnde DNA yalan s\u00f6ylemezdi.",
+     "start": 82.642,
+     "end": 85.623
+    },
+    {
+     "text": "O halde Lydia yalan s\u00f6yl\u00fcyor olmal\u0131yd\u0131.",
+     "start": 85.844,
+     "end": 88.352
+    },
+    {
+     "text": "Doland\u0131r\u0131c\u0131l\u0131kla su\u00e7land\u0131. Ya ba\u015fkas\u0131n\u0131n \u00e7ocuklar\u0131 i\u00e7in yard\u0131m al\u0131yordu, ya da gizli bir ta\u015f\u0131y\u0131c\u0131 annelik d\u00fczeni vard\u0131.",
+     "start": 88.572,
+     "end": 97.286
+    },
+    {
+     "text": "Ge\u00e7mi\u015f do\u011fum kay\u0131tlar\u0131 bile \u015f\u00fcpheyle kar\u015f\u0131land\u0131.",
+     "start": 97.506,
+     "end": 100.481
+    }
+   ]
+  },
+  {
+   "id": "tehdit",
+   "start": 101.042,
+   "end": 113.167,
+   "lines": [
+    {
+     "text": "\u0130\u015f yaln\u0131zca para meselesi de\u011fildi.",
+     "start": 101.392,
+     "end": 103.64
+    },
+    {
+     "text": "Savc\u0131l\u0131k, \u00e7ocuklar\u0131n ondan al\u0131nmas\u0131n\u0131 istiyordu.",
+     "start": 103.86,
+     "end": 107.041
+    },
+    {
+     "text": "Lydia ne kadar anlat\u0131rsa anlats\u0131n, kar\u015f\u0131s\u0131nda tek bir k\u00e2\u011f\u0131t vard\u0131: test sonucu.",
+     "start": 107.261,
+     "end": 112.611
+    }
+   ]
+  },
+  {
+   "id": "dogum",
+   "start": 113.167,
+   "end": 129.25,
+   "lines": [
+    {
+     "text": "\u00dc\u00e7\u00fcnc\u00fc \u00e7ocu\u011fun do\u011fumu yakla\u015f\u0131rken, yarg\u0131\u00e7 al\u0131\u015f\u0131lmad\u0131k bir karar verdi.",
+     "start": 113.517,
+     "end": 117.98
+    },
+    {
+     "text": "Do\u011fumda resm\u00ee bir g\u00f6zlemci bulunacakt\u0131.",
+     "start": 118.2,
+     "end": 120.815
+    },
+    {
+     "text": "Bebekten ve anneden kan \u00f6rnekleri hemen, g\u00f6zlemcinin \u00f6n\u00fcnde al\u0131nacakt\u0131.",
+     "start": 121.035,
+     "end": 125.77
+    },
+    {
+     "text": "Art\u0131k hi\u00e7bir hile ihtimali kalmayacakt\u0131.",
+     "start": 125.99,
+     "end": 128.702
+    }
+   ]
+  },
+  {
+   "id": "soku",
+   "start": 129.25,
+   "end": 146.792,
+   "lines": [
+    {
+     "text": "\u0130ki hafta sonra sonu\u00e7 geldi.",
+     "start": 129.6,
+     "end": 131.345
+    },
+    {
+     "text": "Test, Lydia'n\u0131n az \u00f6nce do\u011furdu\u011fu bebe\u011fin de annesi olmad\u0131\u011f\u0131n\u0131 g\u00f6steriyordu.",
+     "start": 131.565,
+     "end": 136.196
+    },
+    {
+     "text": "G\u00f6zlemcinin g\u00f6rd\u00fc\u011f\u00fc bir do\u011fum vard\u0131. Ama DNA, ba\u015fka bir \u015fey s\u00f6yl\u00fcyordu.",
+     "start": 136.416,
+     "end": 142.652
+    },
+    {
+     "text": "Demek ki sorun Lydia'da de\u011fil, varsay\u0131mda olabilirdi.",
+     "start": 142.872,
+     "end": 146.259
+    }
+   ]
+  },
+  {
+   "id": "avukat",
+   "start": 146.792,
+   "end": 167.542,
+   "lines": [
+    {
+     "text": "D\u00f6n\u00fcm noktas\u0131, avukat\u0131 Alan Tindell ile geldi.",
+     "start": 147.142,
+     "end": 150.231
+    },
+    {
+     "text": "Tindell, Boston'da ya\u015fayan Karen Keegan adl\u0131 bir kad\u0131n\u0131n hik\u00e2yesini \u00f6\u011frendi.",
+     "start": 150.451,
+     "end": 155.065
+    },
+    {
+     "text": "Keegan'\u0131n testlerinde de kendi o\u011fullar\u0131yla genetik bir uyu\u015fmazl\u0131k \u00e7\u0131km\u0131\u015ft\u0131.",
+     "start": 155.285,
+     "end": 159.511
+    },
+    {
+     "text": "Bu vaka, sayg\u0131n bir t\u0131p dergisinde yay\u0131mlanm\u0131\u015ft\u0131. A\u00e7\u0131klamas\u0131 tek bir kelimeydi: kimerizm.",
+     "start": 159.731,
+     "end": 166.978
+    }
+   ]
+  },
+  {
+   "id": "kimera",
+   "start": 167.542,
+   "end": 190.917,
+   "lines": [
+    {
+     "text": "Kimera, v\u00fccudunda iki farkl\u0131 DNA'ya sahip h\u00fccreler ta\u015f\u0131yan ki\u015fi demektir.",
+     "start": 167.892,
+     "end": 172.928
+    },
+    {
+     "text": "Bunun yollar\u0131ndan biri anne karn\u0131nda ya\u015fan\u0131r. \u0130ki ayr\u0131 yumurta d\u00f6llenir ve iki ikiz embriyo olu\u015fur.",
+     "start": 173.148,
+     "end": 180.405
+    },
+    {
+     "text": "Geli\u015fimin \u00e7ok erken d\u00f6neminde bu iki embriyo birle\u015febilir.",
+     "start": 180.625,
+     "end": 184.111
+    },
+    {
+     "text": "Sonu\u00e7ta tek bir bebek do\u011far. Ama bedeninde iki farkl\u0131 h\u00fccre toplulu\u011fu ya\u015far.",
+     "start": 184.331,
+     "end": 190.378
+    }
+   ]
+  },
+  {
+   "id": "gizli",
+   "start": 190.917,
+   "end": 204.5,
+   "lines": [
+    {
+     "text": "Bu ki\u015filer \u00e7o\u011fu zaman hi\u00e7bir \u015fey fark etmez.",
+     "start": 191.267,
+     "end": 194.294
+    },
+    {
+     "text": "Bir organ bir DNA'y\u0131, ba\u015fka bir doku di\u011fer DNA'y\u0131 ta\u015f\u0131yabilir.",
+     "start": 194.514,
+     "end": 199.029
+    },
+    {
+     "text": "Yani kandan ya da yanaktan al\u0131nan \u00f6rnek, b\u00fct\u00fcn bedeni temsil etmeyebilir.",
+     "start": 199.249,
+     "end": 203.937
+    }
+   ]
+  },
+  {
+   "id": "kanit",
+   "start": 204.5,
+   "end": 223.375,
+   "lines": [
+    {
+     "text": "Ara\u015ft\u0131rmac\u0131lar bu kez ailenin di\u011fer \u00fcyelerinden de \u00f6rnek ald\u0131.",
+     "start": 204.85,
+     "end": 208.62
+    },
+    {
+     "text": "Lydia'n\u0131n annesinin DNA's\u0131, \u00e7ocuklarla tam bir b\u00fcy\u00fckanneden beklendi\u011fi \u00f6l\u00e7\u00fcde uyu\u015fuyordu.",
+     "start": 208.84,
+     "end": 214.658
+    },
+    {
+     "text": "Lydia'n\u0131n deri ve sa\u00e7 \u00f6rnekleri \u00e7ocuklarla e\u015fle\u015fmiyordu.",
+     "start": 214.878,
+     "end": 218.446
+    },
+    {
+     "text": "Ama rahim a\u011fz\u0131ndan al\u0131nan s\u00fcr\u00fcnt\u00fcdeki DNA, \u00e7ocuklarla e\u015fle\u015fti.",
+     "start": 218.666,
+     "end": 222.828
+    }
+   ]
+  },
+  {
+   "id": "karar",
+   "start": 223.375,
+   "end": 240.042,
+   "lines": [
+    {
+     "text": "B\u00f6ylece tablo netle\u015fti. Lydia iki farkl\u0131 DNA ta\u015f\u0131yordu.",
+     "start": 223.725,
+     "end": 229.201
+    },
+    {
+     "text": "\u00c7ocuklar\u0131n genetik miras\u0131, onun bedeninde ba\u015ftan beri oradayd\u0131.",
+     "start": 229.421,
+     "end": 233.501
+    },
+    {
+     "text": "Su\u00e7lamalar d\u00fc\u015ft\u00fc. Lydia, \u00e7ocuklar\u0131n\u0131n annesi oldu\u011funu kan\u0131tlam\u0131\u015ft\u0131.",
+     "start": 233.721,
+     "end": 239.484
+    }
+   ]
+  },
+  {
+   "id": "ders",
+   "start": 240.042,
+   "end": 256.583,
+   "lines": [
+    {
+     "text": "Bu vaka DNA testlerinin i\u015fe yaramad\u0131\u011f\u0131n\u0131 g\u00f6stermez. Test, ald\u0131\u011f\u0131 \u00f6rne\u011fi do\u011fru okumu\u015ftu.",
+     "start": 240.392,
+     "end": 247.424
+    },
+    {
+     "text": "Yanl\u0131\u015f olan, tek bir \u00f6rne\u011fin b\u00fct\u00fcn insan\u0131 anlatt\u0131\u011f\u0131 varsay\u0131m\u0131yd\u0131.",
+     "start": 247.644,
+     "end": 251.754
+    },
+    {
+     "text": "G\u00fc\u00e7l\u00fc bir kan\u0131t bile, do\u011fru soruyla birlikte de\u011ferlendirilmelidir.",
+     "start": 251.974,
+     "end": 256.028
+    }
+   ]
+  },
+  {
+   "id": "son",
+   "start": 256.583,
+   "end": 269.542,
+   "lines": [
+    {
+     "text": "Kim bilir, belki sizin de bedeninizde sessizce ya\u015fayan ikinci bir DNA vard\u0131r.",
+     "start": 256.933,
+     "end": 261.903
+    },
+    {
+     "text": "Sizce mahkemeler DNA kan\u0131t\u0131na ne kadar g\u00fcvenmeli? Yorumlarda bulu\u015fal\u0131m.",
+     "start": 262.123,
+     "end": 268.189
+    }
+   ]
+  }
+ ]
+}

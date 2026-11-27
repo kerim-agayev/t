@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<title>Pavlov'un köpeği: klasik koşullanma</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0620;display:grid;place-items:center;min-height:100vh}
+  svg{width:min(96vw,170vh);background:#fffdf8;border-radius:8px;font-family:Caveat,"Segoe Print",cursive;font-weight:700;fill:#1c1c1c}
+</style>
+<svg id="s" viewBox="0 0 1600 900" role="img" aria-label="Klasik koşullanmanın dört aşaması: yemek salya yapar, zil tepki yaratmaz, ikisi eşleştirilir, sonunda zil tek başına salya yaptırır">
+  <defs>
+    <filter id="w" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+      <feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="5"/>
+    </filter>
+  </defs>
+</svg>
+<script>
+const S = document.getElementById('s');
+function el(tag, attrs, text) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  S.append(e); return e;
+}
+const txt = (x, y, t, size = 30, extra = {}) => el('text', {x, y, 'font-size': size, 'text-anchor': 'middle', ...extra}, t);
+const path = (d, stroke = '#222', width = 3, fill = 'none', extra = {}) =>
+  el('path', {d, stroke, 'stroke-width': width, fill, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', filter: 'url(#w)', ...extra});
+const oval = (x, y, rx, ry, fill = 'none', stroke = '#222', width = 3) =>
+  path(`M${x-rx} ${y}a${rx} ${ry} 0 1 0 ${2*rx} 0a${rx} ${ry} 0 1 0 ${-2*rx} 0`, stroke, width, fill);
+const marker = (x, y, w, color) => path(`M${x-w/2} ${y}q${w/2} -5 ${w} 0`, color, 16, 'none', {opacity: .55});
+function arrow(x1, y1, x2, y2, color = '#f2a100', bend = -30) {
+  const cx = (x1+x2)/2, cy = (y1+y2)/2 + bend, a = Math.atan2(y2-cy, x2-cx);
+  path(`M${x1} ${y1}Q${cx} ${cy} ${x2} ${y2}`, color, 5, 'none', {'stroke-dasharray': '12 9'});
+  path(`M${x2-18*Math.cos(a-.55)} ${y2-18*Math.sin(a-.55)}L${x2} ${y2}L${x2-18*Math.cos(a+.55)} ${y2-18*Math.sin(a+.55)}`, color, 5);
+}
+
+// köpek: (x, y) = kafa merkezi
+function dog(x, y, drool) {
+  const fur = '#e9b46a', dark = '#8a5a2b';
+  path(`M${x+38} ${y+118}q62 6 ${drool ? 66 : 54} ${drool ? -52 : -8}`, dark, 13);       // kuyruk
+  path(`M${x-52} ${y+135}Q${x-62} ${y+45} ${x} ${y+42}Q${x+62} ${y+45} ${x+52} ${y+135}Z`, '#222', 3, fur);
+  oval(x, y+108, 24, 28, '#fff1da', 'none', 0);
+  for (const d of [-24, 24]) oval(x+d, y+134, 18, 10, fur);
+  oval(x, y, 56, 52, fur);
+  for (const s of [-1, 1]) path(`M${x+s*40} ${y-38}Q${x+s*92} ${y-40} ${x+s*74} ${y+30}Q${x+s*56} ${y+36} ${x+s*50} ${y-4}Z`, '#222', 3, dark);
+  oval(x, y+22, 30, 22, '#fff1da');
+  oval(x, y+10, 11, 8, '#222');
+  path(`M${x} ${y+18}v10M${x-15} ${y+27}q8 10 15 1q7 9 15-1`);
+  for (const d of [-21, 21]) {
+    if (drool) path(`M${x+d-9} ${y-13}q9-13 18 0`, '#222', 4);          // mutlu gözler
+    else { oval(x+d, y-15, 6, 7, '#222'); }
+  }
+  if (drool) {
+    path(`M${x-9} ${y+34}q-2 24 10 24t9-24Z`, '#222', 2.5, '#f2808a');
+    for (const [dx, dy, r] of [[-22, 48, 7], [-30, 74, 9], [24, 60, 6]])
+      path(`M${x+dx} ${y+dy-r*2}q${r*1.4} ${r*2} 0 ${r*2.6}q${-r*1.4}-${r*.6} 0-${r*2.6}Z`, '#2f8fd8', 2.5, '#a9dcff');
+  }
+}
+function food(x, y) {
+  for (const [dx, dy] of [[-34,-8],[-10,-16],[16,-10],[36,-4],[2,-2],[-20,2]]) oval(x+dx, y+dy, 15, 12, '#a8642a');
+  path(`M${x-68} ${y}H${x+68}L${x+48} ${y+45}H${x-48}Z`, '#222', 3, '#e8594a');
+  txt(x, y+33, 'MAMA', 26, {fill: '#fff'});
+}
+function bell(x, y) {
+  oval(x, y-52, 10, 10, '#ffd84d');
+  path(`M${x-50} ${y+30}Q${x-34} ${y+18} ${x-34} ${y-8}Q${x-32} ${y-44} ${x} ${y-44}Q${x+32} ${y-44} ${x+34} ${y-8}Q${x+34} ${y+18} ${x+50} ${y+30}Z`, '#222', 3, '#ffd84d');
+  oval(x, y+40, 11, 10, '#c98a00');
+  for (const s of [-1, 1]) path(`M${x+s*58} ${y-28}q${s*14} 16 0 34M${x+s*76} ${y-40}q${s*22} 28 0 58`, '#f2a100', 4);
+  txt(x+88, y-55, 'DİNG!', 32, {fill: '#c98a00'});
+}
+
+// başlık + Pavlov
+marker(800, 78, 600, '#ffd84d');
+txt(800, 82, "Pavlov'un Köpeği", 78);
+txt(800, 132, 'Klasik koşullanma: beyin iki şeyi birbirine nasıl bağlar?', 38, {fill: '#6a35c9'});
+path('M76 150q4-34 34-34t34 34Z', '#222', 3, '#8da0b8');
+oval(110, 74, 32, 36, '#ffe3c8');
+path('M80 80Q76 130 110 134Q144 130 140 80Q126 102 110 94Q94 102 80 80Z', '#222', 3, '#eee');
+path('M82 54q28-30 56 0', '#bbb', 8);
+for (const d of [-12, 12]) { oval(110+d, 70, 10, 10, '#fff', '#222', 2); el('circle', {cx: 110+d, cy: 70, r: 3}); }
+txt(215, 80, 'Pavlov', 36); txt(215, 112, '(yaklaşık 1900)', 24, {fill: '#666'});
+
+const panels = [
+  [40, 165, '① Önce', '#d8f3cf', 'yemek → salya', 'koşulsuz uyarıcı → koşulsuz tepki'],
+  [815, 165, '② Zil tek başına', '#e4e4e4', 'zil → tepki yok', 'nötr uyarıcı'],
+  [40, 495, '③ Eşleştirme', '#ffd0a8', 'zil + yemek → salya', 'defalarca tekrarlanır'],
+  [815, 495, '④ Sonra', '#bfe3ff', 'sadece zil → salya!', 'koşullu uyarıcı → koşullu tepki'],
+];
+panels.forEach(([x, y, name, color, formula, term], i) => {
+  path(`M${x} ${y}h745v315h-745Z`, '#222', 2.5, '#fff');
+  marker(x+160, y+42, 270, color); txt(x+160, y+48, name, 44);
+  txt(x+215, y+265, formula, 40, {fill: i === 3 ? '#e8402f' : '#1c1c1c'});
+  txt(x+215, y+298, term, 27, {fill: '#6a35c9'});
+  dog(x+590, y+135, i !== 1);
+});
+
+food(255, 300);
+arrow(350, 300, 500, 295);
+bell(1030, 305);
+arrow(1125, 300, 1275, 295, '#999');
+txt(1515, 285, '?', 90, {fill: '#999'});
+bell(150, 630); txt(240, 645, '+', 70); food(345, 628);
+arrow(425, 590, 530, 600);
+path('M545 524a20 20 0 1 1-17 30', '#e8402f', 5); path('M522 538l6 17 17-7', '#e8402f', 5);
+txt(645, 552, '× tekrar', 34, {fill: '#e8402f'});
+bell(1030, 635);
+arrow(1125, 630, 1275, 625, '#e8402f');
+txt(1440, 548, 'Yemek yok!', 34, {fill: '#e8402f'});
+
+// günlük hayat
+path('M190 830h1220v55h-1220Z', '#222', 2.5, '#fff3cf');
+txt(800, 868, 'Sende de var: telefonun "bip" sesini duyunca elin kendiliğinden telefona gidiyor mu?', 33);
+</script>
+</html>
