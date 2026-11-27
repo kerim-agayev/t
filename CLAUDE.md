@@ -28,6 +28,7 @@ Sonra Claude Code'u `t/` klasöründe aç ve yaz: ne istiyorsan (ses değiştirm
 - **Niş:** İngilizce "uzay ve ölçek, tahtada": evrenle ilgili merak sorularını çizerek anlatmak. Veri ve sınırları: `NIS_ARASTIRMASI.md`.
 - **Tarz:** varsayılan beyaz + siyah tahta animasyonu. Sahne için başka tarz açıkça daha iyiyse kullan: seçim kuralı ve tarz anlatımı **`STIL_REHBERI.md`**.
 - **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). Video sesi: ElevenLabs `eleven_v4` + duygu etiketleri (`kanal/eleven.py`, `sahneler.DUYGU`); video 1 sesi Daniel (`onwK4e9ZLuTAKqWW03F9`).
+- **Video 4 durumu (2026-11-27):** `kanal/004-star-distance/` üretildi (kapak A, Daniel sesi, 8:35). Kullanıcı izleyip yayınlayacak; yayın günü Gaia DR4'ü kontrol et. Sıradaki: video 5. Final 100 MB'ı geçerse `ffmpeg -crf 24 -tune animation` ile küçült (GitHub sınırı).
 - **Video 3 durumu (2026-11-27):** `kanal/003-moon/` üretildi (kapak A, Daniel sesi). Kullanıcı izleyip yayınlayacak. Sıradaki: video 4.
 - **Yeni görsel tarz (video 3'ten itibaren, kullanıcı: her video öncekilerden farklı ve daha iyi olsun, gereken yerde kalemle çizme/yazma efekti):** `kanal/kalem.py`, ayrıntı `STIL_REHBERI.md`.
 - **Video 2 durumu (2026-11-27):** `kanal/002-voyager/` üretildi (kapak A). Yayın günü veri kesintisinin son durumunu kontrol et. Belgeler `kanal/belge.py` ile üretilir.

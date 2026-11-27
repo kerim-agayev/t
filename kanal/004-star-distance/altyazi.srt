@@ -1,0 +1,275 @@
+1
+00:00:00,000 --> 00:00:07,811
+No ship can reach a star. No tape measure is long enough. Yet we know how far away many of them are.
+
+2
+00:00:08,533 --> 00:00:14,803
+To see how, hold one finger up at arm's length. Close one eye, then switch.
+
+3
+00:00:15,133 --> 00:00:18,137
+Your finger jumps against the wall behind it.
+
+4
+00:00:18,733 --> 00:00:21,973
+Now bring it closer. The jump gets bigger.
+
+5
+00:00:22,667 --> 00:00:30,373
+That small jump is the idea that first measured the distance to a star. But making it work took centuries.
+
+6
+00:00:31,267 --> 00:00:36,256
+Here is why it works. Your two eyes look from two different places.
+
+7
+00:00:36,533 --> 00:00:43,926
+A nearby object seems to move against things far behind it. The nearer it is, the more it moves.
+
+8
+00:00:44,200 --> 00:00:52,559
+So if you know how far apart your two viewpoints are, and you measure the size of the jump, geometry gives you the distance.
+
+9
+00:00:52,833 --> 00:00:58,789
+No ruler has to touch anything. Astronomers call this shift parallax.
+
+10
+00:00:59,666 --> 00:01:07,790
+For a star, your eyes are hopelessly close together. We need a wider pair. Luckily, we are riding on one.
+
+11
+00:01:08,466 --> 00:01:12,437
+Look at a star today. Then wait six months.
+
+12
+00:01:12,733 --> 00:01:18,767
+Earth has moved to the other side of its orbit, about three hundred million kilometers away.
+
+13
+00:01:19,066 --> 00:01:24,395
+A nearby star should now sit in a slightly different spot against the distant ones.
+
+14
+00:01:24,666 --> 00:01:30,465
+Simple. Except that, for a very long time, nobody saw it move at all.
+
+15
+00:01:31,331 --> 00:01:40,814
+In the late fifteen hundreds, Tycho Brahe was the finest observer alive. He had no telescope, but his instruments were superb.
+
+16
+00:01:41,098 --> 00:01:45,225
+He found no shift. So he faced a choice.
+
+17
+00:01:45,898 --> 00:01:54,989
+Either Earth does not travel around the Sun, or the stars are unbelievably far away, with an enormous emptiness in between.
+
+18
+00:01:55,265 --> 00:02:01,456
+That emptiness seemed absurd to him. It was one of his main objections to a moving Earth.
+
+19
+00:02:02,131 --> 00:02:10,882
+The shift was real. It was just far too small for him. Even his best work was at least twenty times too coarse.
+
+20
+00:02:11,765 --> 00:02:19,732
+Telescopes raised hopes. In sixteen sixty-nine, Robert Hooke built one into his rooms at a London college.
+
+21
+00:02:20,031 --> 00:02:28,939
+It looked straight up, through holes in a floor and the roof. He lay on the floor beneath it and watched a star called Gamma Draconis.
+
+22
+00:02:29,231 --> 00:02:34,560
+It passes almost directly overhead, where the air bends starlight least.
+
+23
+00:02:35,131 --> 00:02:43,255
+In sixteen seventy-four, he announced success. But he had only four observations, from a troublesome instrument.
+
+24
+00:02:43,531 --> 00:02:47,580
+Other astronomers were not convinced. They were right.
+
+25
+00:02:48,463 --> 00:02:57,214
+In seventeen twenty-five, Samuel Molyneux and James Bradley set out to repeat Hooke's work. And the star moved!
+
+26
+00:02:57,497 --> 00:03:06,822
+Back and forth, in a smooth yearly cycle. But the timing was wrong. It was three months off from what parallax predicts.
+
+27
+00:03:07,497 --> 00:03:12,251
+Bradley found the answer. Imagine walking through falling rain.
+
+28
+00:03:12,563 --> 00:03:18,754
+You tilt your umbrella forward, because your own motion changes where the rain seems to come from.
+
+29
+00:03:19,463 --> 00:03:29,181
+Light does the same to a moving Earth. This is called the aberration of starlight, and it is direct evidence that we really are moving.
+
+30
+00:03:29,863 --> 00:03:36,707
+Parallax was still hiding underneath. Bradley concluded it was probably less than half an arcsecond.
+
+31
+00:03:36,997 --> 00:03:42,718
+That put his star more than four hundred thousand times farther away than the Sun.
+
+32
+00:03:43,596 --> 00:03:52,426
+An arcsecond is one three-thousand-six-hundredth of a degree. To catch something that small, you must pick the right star.
+
+33
+00:03:52,730 --> 00:03:58,372
+Which ones are close? Brightness can fool you. But there is a better clue.
+
+34
+00:03:59,096 --> 00:04:06,176
+Watch from a passing train: nearby trees rush by, while far hills barely move.
+
+35
+00:04:07,163 --> 00:04:17,272
+In the sky, a faint double star called Sixty-one Cygni was drifting unusually fast from year to year. That suggested it was near.
+
+36
+00:04:17,596 --> 00:04:25,877
+And from his observatory, the German astronomer Friedrich Bessel could follow it all year. He made it his target.
+
+37
+00:04:26,796 --> 00:04:34,607
+Bessel had a special instrument, a heliometer, the last design of the great lens maker Joseph Fraunhofer.
+
+38
+00:04:35,596 --> 00:04:43,877
+Its main lens was sliced into two halves. Slide one half, and every star splits into two images.
+
+39
+00:04:44,163 --> 00:04:48,996
+Bessel slid the glass until the image of his target met a faint neighbor.
+
+40
+00:04:49,263 --> 00:04:55,950
+A fine screw told him how far the lens had moved, and so, the angle between the stars.
+
+41
+00:04:56,630 --> 00:05:04,336
+Comparing neighbors was the clever part. Bradley's effect shifts them both almost equally, so it cancels out.
+
+42
+00:05:05,030 --> 00:05:08,504
+A shift that belongs only to the nearer star remains.
+
+43
+00:05:09,196 --> 00:05:17,085
+He did this again and again, about a hundred times against each of two faint stars, across a whole year.
+
+44
+00:05:17,962 --> 00:05:21,358
+Then came the arithmetic, all by hand.
+
+45
+00:05:21,729 --> 00:05:28,416
+He had to separate the star's steady drift across the sky from anything that repeated once a year.
+
+46
+00:05:28,762 --> 00:05:33,908
+Point by point, a pattern appeared. Forward, then back.
+
+47
+00:05:34,195 --> 00:05:39,524
+A gentle wave, keeping time with Earth's orbit. There it was.
+
+48
+00:05:40,095 --> 00:05:47,906
+Astronomers define parallax as half of the full swing, the shift caused by one Earth to Sun distance.
+
+49
+00:05:48,195 --> 00:05:55,118
+In eighteen thirty-eight, Bessel announced a value of about zero point three one four arcseconds.
+
+50
+00:05:55,395 --> 00:06:03,833
+For the first time, a star had a convincing distance. And the shift that Tycho had looked for was finally there.
+
+51
+00:06:04,729 --> 00:06:13,819
+How small is that? Picture a one euro coin about fifteen kilometers away. Its width covers about the angle Bessel measured.
+
+52
+00:06:14,495 --> 00:06:25,806
+Now draw the triangle. Its short side is the distance from Earth to the Sun, which astronomers had estimated by watching Venus cross the Sun in the seventeen sixties.
+
+53
+00:06:26,095 --> 00:06:34,376
+Its sharp tip is at the star. The rule is beautifully simple. Half the angle means twice the distance.
+
+54
+00:06:35,062 --> 00:06:43,108
+Bessel's angle gives about ten light years. Today's value, measured from space, is about eleven point four.
+
+55
+00:06:43,395 --> 00:06:48,724
+With a split lens and patient eyes, he came within about ten percent.
+
+56
+00:06:48,995 --> 00:06:54,560
+A later study suggests that temperature changes in the instrument can explain the gap.
+
+57
+00:06:55,461 --> 00:07:05,179
+But Bessel was not alone. In eighteen thirty-seven, Wilhelm Struve had already reported a tentative parallax for the bright star Vega.
+
+58
+00:07:05,461 --> 00:07:13,977
+It was remarkably close to the modern value. Then he added more data, and his answer roughly doubled, away from the truth.
+
+59
+00:07:14,261 --> 00:07:22,699
+Meanwhile, Thomas Henderson had observed Alpha Centauri from South Africa years earlier, but he published after Bessel.
+
+60
+00:07:22,995 --> 00:07:29,839
+Who was first is still discussed. Bessel usually gets the credit for the first convincing measurement.
+
+61
+00:07:30,528 --> 00:07:41,761
+And Henderson's target belongs to the closest star system of all. Yet even its nearest member, Proxima Centauri, has a parallax of less than one arcsecond.
+
+62
+00:07:42,028 --> 00:07:44,379
+No wonder it took so long.
+
+63
+00:07:45,260 --> 00:07:48,186
+The same idea now flies in space.
+
+64
+00:07:48,494 --> 00:07:58,133
+From twenty fourteen to early twenty twenty-five, Europe's Gaia spacecraft observed about two billion stars and other objects.
+
+65
+00:07:58,760 --> 00:08:05,108
+Its finest measurements are like spotting the width of a human hair from about a thousand kilometers.
+
+66
+00:08:05,827 --> 00:08:13,794
+And those distances help calibrate special pulsing stars, which carry the ruler much farther, to other galaxies.
+
+67
+00:08:14,527 --> 00:08:18,080
+It all starts with your finger and two eyes.
+
+68
+00:08:18,794 --> 00:08:26,761
+So, which would have been harder for you: a year of careful measuring, or the math by hand? Tell me in the comments.
+
+69
+00:08:27,094 --> 00:08:33,860
+Next time: the day in eighteen fifty-nine when the Sun made telegraph wires spark.
