@@ -61,3 +61,54 @@ Niş dışı: formül ezberi dersi, sınav sorusu çözümü, kaynaksız "şaş�
 **Başlangıç önerisi:** ölçek, üstel büyüme ve sezgi tuzakları; domino videosu ilk Shorts adayı.
 
 Durum: öneri sunuldu, niş kararı ve ilk 5 video konusu henüz onaylanmadı.
+
+## 7. İstatistik analizi (yayımlanmış veri setleri, 2026-11-27)
+- İzlenme: [TubeAI](https://tubeai.app/blog/youtube-niches/how-many-views-is-good-on-youtube): 10.000+ abonelik 75.440 kanal, 2,59 milyon uzun video, Ocak-Haziran 2026, Shorts hariç. Pazarlama sitesi; sayfanın yazarı yapay zekâ ajanı olarak tanıtılıyor.
+- RPM: [AIR](https://air.io/en/air-data-findings/which-youtube-niche-makes-the-most-money-in-2026-ranked-by-real-rpm-and-cpm): kendi ağındaki 300 para kazanan kanal, Mayıs 2025-Mayıs 2026.
+- Çapraz kontrol: [OutlierKit](https://outlierkit.com/resources/youtube-subscriber-benchmarks-by-niche/): 112.562 kanal, yalnız en az bir videosu öne çıkmış olanlar.
+
+Video başı tahmini reklam geliri = medyan izlenme × medyan RPM / 1000. **İki ayrı örneklemin çarpımıdır; ölçülmüş gelir değildir.** Nişler iki kaynakta aynı tanımlanmıyor.
+
+| Niş (TubeAI / AIR eşlemesi) | İzlenme 10-100 bin abone | İzlenme 100 bin-1 milyon | RPM | Video başı (10-100 bin) | Video başı (100 bin-1 milyon) |
+|---|---|---|---|---|---|
+| **Bilim** / Eğitim ve Bilim | 2.800 | 22.000 | 10,22 | 29 $ | **225 $** |
+| Otomotiv / Ulaşım (7 kanal) | 3.100 | 18.000 | 5,69 | 18 $ | 102 $ |
+| Eğlence | 4.100 | 23.000 | 2,43 | 10 $ | 56 $ |
+| Yaşam | 3.500 | 18.000 | 2,98 | 10 $ | 54 $ |
+| Teknoloji | 3.200 | 17.000 | 2,33 | 7 $ | 40 $ |
+| Eğitim-öğrenme / Eğitim ve Bilim | 902 | 3.639 | 10,22 | 9 $ | 37 $ |
+| Oyun | 3.200 | 18.000 | 2,05 | 7 $ | 37 $ |
+| Finans piyasaları / İş ve Finans (3 kanal) | 2.500 | 14.000 | 2,01 | 5 $ | 28 $ |
+
+OutlierKit kanal başı medyan ortalama izlenme: bilim anlatımı 21 bin (7.186 kanal), yemek 17 bin, otomotiv 17 bin, ev tadilatı 16 bin; yapay zekâ araçları 6 bin, kişisel finans 6 bin, programlama 3 bin, iş ve girişim 2 bin.
+
+AIR'de niş içi fark büyük: Eğitim ve Bilim 2,31 $ (alt çeyrek) ile 19,50 $ (üst çeyrek).
+
+**Sonuç:** bakılan veride en iyi aday **bilim anlatımı** ("nasıl çalışır", "ne olurdu"). Ders tarzı eğitim, programlama ve yapay zekâ araçları belirgin biçimde daha az izleniyor.
+
+Yapılmadı: alt niş düzeyinde YouTube'dan doğrudan veri çekme (komut izin denetiminde reddedildi).
+
+## 8. Alt niş analizi (YouTube Data API v3, 2026-11-27)
+Yöntem: niş başına 2 İngilizce arama, her biri en çok 50 sonuç; 4-20 dk videolar; 30 gün ile 12 ay önce yayımlananlar; İngilizce süzgeci. Betik: `analiz/altnis.py`. Küçük kanal = 100.000 abonenin altı (bugünkü sayı).
+
+| Alt niş | Video | Medyan izlenme | Küçük kanal videosu | Küçük kanal medyanı | Küçükte 100 bin üstü | İlk 5 kanalın payı |
+|---|---|---|---|---|---|---|
+| Ölçek karşılaştırma | 93 | 191.284 | 55 | **111.162** | 55% | 64% |
+| Psikoloji bilimi | 97 | 340.086 | 26 | **76.356** | 46% | 55% |
+| Uzay ve astronomi | 96 | 79.275 | 68 | **8.720** | 32% | 74% |
+| Dünya ve coğrafya | 99 | 46.007 | 45 | 5.171 | 7% | 92% |
+| Ekonomi (kıyas) | 86 | 497.990 | 29 | 1.247 | 7% | 93% |
+| Canlılar ve evrim | 93 | 4.653 | 67 | 1.025 | 18% | 64% |
+| Görsel matematik | 91 | 9.498 | 63 | 694 | 17% | 61% |
+| "Ne olurdu" | 96 | 4.286 | 76 | 634 | 16% | 66% |
+| Mühendislik | 75 | 4.416 | 50 | 295 | 24% | 54% |
+| Bilim tarihi | 96 | 2.682 | 67 | 262 | 10% | 72% |
+| Olasılık ve paradoks | 97 | 271 | 87 | 187 | 11% | 56% |
+| Yapay zekâ anlatımı | 96 | 581 | 72 | 133 | 10% | 65% |
+| Bilgisayar ve internet | 84 | 115 | 76 | 100 | 4% | 93% |
+| Fizik kavramları | 95 | 895 | 62 | 76 | 8% | 62% |
+| İnsan vücudu | 93 | 69 | 87 | 61 | 7% | 90% |
+
+Öne çıkan küçük kanal örnekleri: "Universe Size Comparison... True Scale" (4,5 milyon, 54.800 abone), "Every Type Of Black Hole Explained in 11 Minutes" (1,9 milyon, 50.800), "The RAREST Astronomical Events..." (1,6 milyon, 11.400), "People who are ADDICTED to imagining Fake Scenarios" (1,8 milyon, 14.300).
+
+**Sınırlar:** arama sonuçları alaka sıralaması; sonuçlar sorgu kelimelerine duyarlı; küçük örneklem; abone sayısı videonun başarısından sonra artmış olabilir; ölçek aramasında oyun ve canavar videoları da var; RPM bu API'den alınamıyor; izlenme talebi garantisi vermez.

@@ -3,11 +3,94 @@
 Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Code buradan aynen devam edebilsin diye yazıldı.
 
 ## Amaç ve kullanıcı tercihleri
-- Hedef: YouTube kanalı. Hangi video tarzında iyi sonuç alındığını ölçüyoruz.
-- İzleyici gözüyle en beğenilen tarz: **whiteboard karakterli hikâye** (Sprouts tarzı). Yön bu.
-- Türkçe ve **kısa** cevap. **En az token** ile en iyi sonuç.
+- Hedef: YouTube kanalı. **Tarz ve niş seçildi (2026-11-27), aşağıdaki "Kanal" bölümü.** Önceki klasörler deneme çalışmaları.
+- Kullanıcıyla Türkçe ve **kısa** cevap. **En az token** ile en iyi sonuç. Video dili İngilizce.
 - Büyük işten önce tek kare / önizleme sayfası ile onay al; render'ı arka planda çalıştır, yoklama; gereksiz alt ajan ve görsel kontrolü yok.
 - API anahtarlarını dosyaya veya commit'e yazma (**bu depo herkese açık**).
+
+## Evde sıfırdan başlama (git clone sonrası)
+Gerekenler (PATH'te): [uv](https://docs.astral.sh/uv/), ffmpeg, internet; Windows (Segoe Print yazı tipi). Blender yalnız 3D sahne gerekirse.
+```bash
+git clone https://github.com/kerim-agayev/t.git && cd t/kanal
+uv venv -p 3.13 && uv pip install -r requirements.txt                  # bir kez
+.venv/Scripts/python render.py ornek taslak                            # kurulum denemesi -> ornek/onizleme.png
+```
+Sonra Claude Code'u `t/` klasöründe aç ve yaz: **"001-black-holes videosuna başla"**. Claude sırayla: bu dosya → `kanal/001-black-holes/BRIF.md` → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
+
+## Kanal
+- **Niş:** İngilizce "uzay ve ölçek, tahtada": evrenle ilgili merak sorularını çizerek anlatmak. Veri ve sınırları: `NIS_ARASTIRMASI.md`.
+- **Tarz:** varsayılan beyaz + siyah tahta animasyonu. Sahne için başka tarz açıkça daha iyiyse kullan: seçim kuralı ve tarz anlatımı **`STIL_REHBERI.md`**.
+- **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). İngilizce ses henüz onaylanmadı.
+- **Yayın:** haftada 1 uzun video (6-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
+- **Kurallar:** her sayı ve iddia kaynaklı, yazmadan önce doğrulanır; kapakta videoda olmayan vaat yok; art arda aynı başlık kalıbı yok.
+- İlk 8 videodan sonra YouTube Studio verisine göre sıra ve türler güncellenir.
+
+### Türler ve hikâye omurgaları
+| Kod | Tür | Süre | Omurga |
+|---|---|---|---|
+| Tur | Küçükten büyüğe tur | 8-10 dk | tek ana soru; her durak "ama daha tuhafı var" ile bağlanır |
+| Ö | Gerçek ölçek | 6-8 dk | tek tanıdık referans; her adımda sezgi kırılır; zirvede hepsi tek karede |
+| N | Ne olurdu? | 6-8 dk | "bu yüzden... ama..." zinciri; saniyeden milyon yıla |
+| B | Nasıl biliyoruz? | 6-8 dk | dedektif: imkânsız görünen soru → yetmeyen fikir → zekice çözüm → sınama |
+| O | Olay ve nadirlikler | 8-10 dk | olayın ortasından sahne → ne gördüler → açıklama → bugün ne demek |
+
+### İlk 50 video (yayın sırası)
+Başlıklar taslak. 2, 5, 16, 25, 30, 35, 40, 41, 50 numaralardaki temel iddialar 2026-11-27'de arama özetlerinden kontrol edildi; 17'deki toplam, bilinen ortalama çaplardan hesaplandı. Diğerleri doğrulanmadı; her videodan önce birincil kaynaktan kontrol et. Talep tek tek ölçülmedi.
+
+| # | Tür | Başlık | Kanca / görsel fikir |
+|---|---|---|---|
+| 1 | Tur | Every Type of Black Hole, From Tiny to Monstrous | bir kara delik ne kadar küçük veya büyük olabilir? |
+| 2 | Ö | The Farthest Thing Humans Ever Sent | Voyager 1: 18 Kasım 2026'da bir ışık günü uzakta (güncel) |
+| 3 | N | What If the Moon Disappeared? | gelgit, gece, eksen: adım adım kayıplar |
+| 4 | B | How Do You Measure a Star You Can Never Reach? | parmak denemesiyle paralaks |
+| 5 | O | In 1859, a Solar Storm Made Telegraphs Spark | olayın ortasından: kıvılcım saçan telgraf |
+| 6 | Tur | Every Type of Star, and What Makes Them Different | renk ve sıcaklık merdiveni |
+| 7 | Ö | How Big Is the Solar System, Really? | Güneş küçülünce gezegenler nerede kalır? |
+| 8 | N | What If the Sun Vanished Right Now? | ilk 8 dakika hiçbir şey fark edilmez |
+| 9 | B | How Did Someone Measure Earth With a Stick? | Eratosthenes'in gölgesi |
+| 10 | O | Sky Events You May Only See Once | nadirlik merdiveni |
+| 11 | O | The Last Seconds of a Dying Star | saniye saniye çöküş |
+| 12 | B | Why Is the Night Sky Dark? | "sonsuz yıldız varsa neden karanlık?" |
+| 13 | N | What If You Fell Into a Black Hole? | iki gözlemci, iki farklı hikâye |
+| 14 | B | What Is a Star Made Of? We Never Touched One | ışığın barkodu |
+| 15 | O | The Explosion That Flattened a Forest | Tunguska 1908 |
+| 16 | N | Will We Really Crash Into Andromeda? | yazı tura: 10 milyar yılda yaklaşık yarı yarıya (2025 çalışması) |
+| 17 | Ö | Can All the Planets Fit Between Earth and the Moon? | ortalama çaplarla sığar (~380.000 km); ekvator çapıyla sığmaz, söyle |
+| 18 | N | What If Earth Stopped Spinning? | atmosfer dönmeye devam eder |
+| 19 | B | The Universe Has an Age. How Did We Find It? | filmi geriye sarmak |
+| 20 | O | The Signal That Made an Astronomer Write "Wow!" | tek satırlık kâğıt çıktısı |
+| 21 | B | Why Did Pluto Stop Being a Planet? | üç şart, biri eksik |
+| 22 | Ö | One Light-Year: A Trip Nobody Could Finish | video 2'ye geri bağ: bir ışık günü bile yaklaşık 49 yıl sürdü |
+| 23 | N | What Would Your Sky Look Like If Earth Had Rings? | farklı şehirlerden gökyüzü |
+| 24 | B | How Do You Weigh a Planet? | Cavendish'in burulma düzeneği |
+| 25 | O | Three Visitors From Another Star | 1I, 2I, 3I (yayın öncesi sayıyı yeniden kontrol et) |
+| 26 | N | How Would We Stop an Asteroid? | bir çarpışma denemesi: DART |
+| 27 | Ö | Space Is Full of Stars. So Why Is It So Empty? | yıldızlar arası ölçek |
+| 28 | N | Does Jupiter Really Protect Earth? | kalkan mı, sapan mı? |
+| 29 | B | How Do We Know What's Inside Earth? | deprem dalgalarıyla röntgen |
+| 30 | O | Billions of Planets May Be Drifting Without a Sun | tahminler trilyonlara çıkıyor, belirsizliği söyle |
+| 31 | N | What If a Star Exploded Near Earth? | uzaklığa göre sonuç halkaları |
+| 32 | Ö | If the Universe Were One Year Old, When Did You Appear? | takvim yaprakları |
+| 33 | N | Could Life Survive Under Two Suns? | kararlı yörünge şartı |
+| 34 | B | Galaxies Are Rushing Away. How Do We Know? | kızıla kayma |
+| 35 | O | Betelgeuse Will Explode. Will We See It? | NASA: büyük olasılıkla ~100.000 yıl içinde |
+| 36 | Tur | The Strangest Planets We've Found | giderek tuhaflaşan sıra |
+| 37 | Ö | What Would a Teaspoon of Neutron Star Weigh? | terazide dağlar |
+| 38 | N | Could You Stand Up on an Earth Twice as Big? | yerçekimi ve beden |
+| 39 | B | How Do You Find a Planet You Can't See? | yıldız ışığındaki minik düşüş |
+| 40 | O | The Explosion So Bright It Overwhelmed Our Detectors | GRB 221009A |
+| 41 | B | Where Did the Gold in Your Ring Come From? | çarpışan nötron yıldızları; magnetar payı tartışmalı |
+| 42 | Ö | How Big Can a Star Get? | tahtaya sığmayan çember |
+| 43 | N | What If You Dug a Tunnel Through Earth? | düşüp geri gelen yolcu |
+| 44 | B | Why Do Scientists Fire Lasers at the Moon? | Ay'daki aynalar |
+| 45 | O | In 2015, We Heard Two Black Holes Collide | "duyduk" benzetmesini açıkla |
+| 46 | B | Why Don't We Get an Eclipse Every Month? | eğik yörünge |
+| 47 | Ö | Does the Universe Have an Edge? | gözlenebilir sınır ile gerçek kenar farkı |
+| 48 | N | What Would You See Near Light Speed? | ışık hızına neden ulaşılamaz |
+| 49 | B | How Did We Photograph a Black Hole? | Dünya boyunda teleskop |
+| 50 | O | One Day, Total Solar Eclipses Will End | NASA: yaklaşık 600 milyon yıl sonra (tahminler değişiyor) |
+
+Kontrol kaynakları: [Carrington](https://www.history.com/articles/a-perfect-solar-superstorm-the-1859-carrington-event), [Voyager 1 ışık günü](https://svs.gsfc.nasa.gov/15120), [Andromeda 2025](https://esahubble.org/news/heic2508/), [yıldızlararası cisimler](https://arxiv.org/abs/2602.08956), [başıboş gezegenler](https://universetoday.com/162522/there-could-be-trillions-of-rogue-planets-wandering-the-milky-way), [Betelgeuse](https://science.nasa.gov/universe/what-is-betelgeuse-inside-the-strange-volatile-star), [GRB 221009A](https://www.nasa.gov/universe/nasa-missions-study-what-may-be-a-1-in-10000-year-gamma-ray-burst), [altın ve magnetarlar](https://www.simonsfoundation.org/2025/04/29/flares-from-magnetized-stars-can-forge-planets-worth-of-gold-other-heavy-elements/), [son tam tutulma](https://www.space.com/37627-total-solar-eclipse-earth-moon-alignment-future.html).
 
 ## Her yeni videonun iş sırası (önce `.claude/skills/hikaye-senaryo` skill'i)
 1. **Konu** seç: niş, izleyici, konsept, görsel tarz.
@@ -36,10 +119,13 @@ Bu depo 2026-11-26/27 çalışmasının tamamı. Başka bilgisayardaki Claude Co
 | `vroid/erteleme/` | **3 dk 3D anime karakterli psikoloji hikâyesi** (hazır CC0 VRM modeli) | three.js + three-vrm |
 | `vroid/mino/` | Tamamen kodla kurulan özgün chibi karakter (video onay bekliyor) | three.js |
 | `blender/` | **30 sn 3D domino zinciri (1 cm → 22 m)**, sesli ve yazılı | Blender 5.1 + Python |
-| `NIS_ARASTIRMASI.md` | Dünya geneli niş ve gelir araştırması; öneri: İngilizce görsel bilim ve matematik (onay bekliyor) | |
+| `NIS_ARASTIRMASI.md` | Dünya geneli niş, gelir ve alt niş araştırması | |
+| `kanal/` | **Kanal videoları: ortak tahta şablonu, örnek, 001 brifi** | Manim |
+| `STIL_REHBERI.md` | Tahta tarzı kuralları ve hangi sahnede hangi tarz | |
+| `analiz/` | Alt niş istatistik betiği (`YOUTUBE_API_KEY` ortam değişkeni) | YouTube Data API |
 | `YONTEM_RAPORU.md` | A hattının ayrıntılı raporu ve Pillow yöntemiyle karşılaştırma | |
 
-## B hattı (yeni videolar için bunu kullan)
+## B hattı (elle çizim hikâyeleri; kanal videolarında `kanal/` kullanılır)
 Motor: [whiteboard-video-skill](https://github.com/Matteoikarieth96/whiteboard-video-skill) (MIT, commit `8358f53`), `lydia/skill/` içine kopyalandı; kodu gözden geçirildi, global kurulmadı. Üzerine kendi karakter setimiz eklendi.
 
 ```bash
