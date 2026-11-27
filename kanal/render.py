@@ -19,7 +19,7 @@ if kip == "ses":
 res, fps, dizin, cikti = ("640,360", "10", "360p10", "taslak.mp4") if kip == "taslak" else ("2560,1440", "30", "1440p30", "video.mp4")
 dosyalar = []
 for ad in sahneler.TEXT:
-    r = subprocess.run([sys.executable, "-m", "manim", "--resolution", res, "--frame_rate", fps, "sahneler.py", ad], cwd=klasor,
+    r = subprocess.run([sys.executable, "-m", "manim", "--disable_caching", "--resolution", res, "--frame_rate", fps, "sahneler.py", ad], cwd=klasor,
                        env=env, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode:
         sys.exit(f"{ad} HATA:\n{(r.stderr or r.stdout)[-2500:]}")

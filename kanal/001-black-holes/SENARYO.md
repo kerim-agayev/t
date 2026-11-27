@@ -5,25 +5,25 @@ Durum: **onaylandı (2026-11-27), video üretildi.** Bu dosya `belge.py` ile `sa
 - İzleyici: uzayı merak eden, fizik bilmeyen İngilizce izleyici.
 - Büyük soru: Bir kara delik ne kadar küçük veya büyük olabilir?
 - Akılda kalacak: aynı fizik, atom altı (teori) ile onlarca milyar Güneş arası; boyutu kütle belirler.
-- Biçim: küçükten büyüğe tur. Süre 6:21, 1071 kelime, video sesi geçici (en-US-AndrewNeural), ElevenLabs ile değişecek: SESLENDIRME.md.
+- Biçim: küçükten büyüğe tur. Süre 7:59, 1071 kelime, video sesi ElevenLabs eleven_v4, Daniel (SESLENDIRME.md).
 - Kanca: seçilen "nokta ile tahtaya sığmayan daire". Elenen: "yıldızın çöküş anı" (soru geç geliyor), "Güneş yerine kara delik koysak?" (asıl soruyu karşılamıyor).
 - Sapma: küçükten büyüğe sıra, arada tek ters köşe (düşme sahnesi) ritim için.
 
 ## Sahne tablosu
 | # | Başlangıç | Süre | Sahne | Tahta | Ekranda | Soru / bağ |
 |---|---|---|---|---|---|---|
-| 1 | 0:00 | 23 sn | How small? How big? | siyah | nokta kadar delik, tahtaya sığmayan delik, Voyager izi | AÇ: ne kadar küçük/büyük? AÇ: Voyager |
-| 2 | 0:23 | 33 sn | What is a black hole? | siyah | top atışı, olay ufku, Güneş yerine kara delik | ama süpürge değil |
-| 3 | 0:56 | 24 sn | One rule for size | beyaz | 1 ve 2 Güneş yarıçapı, Dünya -> bilye | bu yüzden boyut = kütle |
-| 4 | 1:20 | 37 sn | Primordial (hypothetical) | siyah | hayalet daire, ilk saniye, atom | ama kanıt yok |
-| 5 | 1:56 | 41 sn | Stellar mass | siyah | yıldız çöküşü, şehir ölçeği, eşlik yıldızı | ışık yok, nasıl bulunur? |
-| 6 | 2:38 | 30 sn | Falling in | beyaz | çöp adam uzar; devde tek parça | ters köşe; AÇ: nasıl bu kadar büyür? |
-| 7 | 3:08 | 41 sn | Intermediate mass | siyah | kayıp halka, 2023 birleşmesi, Omega Centauri | ama hâlâ aday |
-| 8 | 3:48 | 40 sn | Sagittarius A* | siyah | yıldız yörüngeleri, Merkür yörüngesi, halka | büyüme sorusu açık kalır (dürüstçe) |
-| 9 | 4:28 | 30 sn | M87* | siyah | Neptün yörüngesi içeride | ama daha büyüğü var |
-| 10 | 4:57 | 37 sn | TON 618 | siyah | Voyager yarıçapın 1/5'inde | KAPAT: Voyager |
-| 11 | 5:34 | 22 sn | The whole ladder | beyaz | tüm basamaklar tek tahtada | görsel zirve |
-| 12 | 5:57 | 25 sn | So how small, how big? | siyah | iki uç yan yana, Voyager köprüsü | KAPAT: ana soru; izleyiciye soru; video 2 |
+| 1 | 0:00 | 29 sn | How small? How big? | siyah | nokta kadar delik, tahtaya sığmayan delik, Voyager izi | AÇ: ne kadar küçük/büyük? AÇ: Voyager |
+| 2 | 0:28 | 39 sn | What is a black hole? | siyah | top atışı, olay ufku, Güneş yerine kara delik | ama süpürge değil |
+| 3 | 1:08 | 31 sn | One rule for size | beyaz | 1 ve 2 Güneş yarıçapı, Dünya -> bilye | bu yüzden boyut = kütle |
+| 4 | 1:38 | 48 sn | Primordial (hypothetical) | siyah | hayalet daire, ilk saniye, atom | ama kanıt yok |
+| 5 | 2:26 | 52 sn | Stellar mass | siyah | yıldız çöküşü, şehir ölçeği, eşlik yıldızı | ışık yok, nasıl bulunur? |
+| 6 | 3:18 | 36 sn | Falling in | beyaz | çöp adam uzar; devde tek parça | ters köşe; AÇ: nasıl bu kadar büyür? |
+| 7 | 3:54 | 51 sn | Intermediate mass | siyah | kayıp halka, 2023 birleşmesi, Omega Centauri | ama hâlâ aday |
+| 8 | 4:45 | 51 sn | Sagittarius A* | siyah | yıldız yörüngeleri, Merkür yörüngesi, halka | büyüme sorusu açık kalır (dürüstçe) |
+| 9 | 5:36 | 36 sn | M87* | siyah | Neptün yörüngesi içeride | ama daha büyüğü var |
+| 10 | 6:12 | 47 sn | TON 618 | siyah | Voyager yarıçapın 1/5'inde | KAPAT: Voyager |
+| 11 | 6:58 | 30 sn | The whole ladder | beyaz | tüm basamaklar tek tahtada | görsel zirve |
+| 12 | 7:28 | 30 sn | So how small, how big? | siyah | iki uç yan yana, Voyager köprüsü | KAPAT: ana soru; izleyiciye soru; video 2 |
 
 ## Seslendirme metni
 
@@ -66,15 +66,15 @@ So how small can a black hole be? In theory, smaller than an atom. In evidence, 
 ## Bölümler (açıklamaya)
 ```
 0:00 How small? How big?
-0:23 What is a black hole?
-0:56 One rule for size
-1:20 Primordial (hypothetical)
-1:56 Stellar mass
-2:38 Falling in
-3:08 Intermediate mass
-3:48 Sagittarius A*
-4:28 M87*
-4:57 TON 618
-5:34 The whole ladder
-5:57 So how small, how big?
+0:28 What is a black hole?
+1:08 One rule for size
+1:38 Primordial (hypothetical)
+2:26 Stellar mass
+3:18 Falling in
+3:54 Intermediate mass
+4:45 Sagittarius A*
+5:36 M87*
+6:12 TON 618
+6:58 The whole ladder
+7:28 So how small, how big?
 ```

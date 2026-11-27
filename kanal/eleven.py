@@ -1,5 +1,6 @@
 """python eleven.py <video-klasörü>  -> sahneler.TEXT'i ElevenLabs ile ses/<Sahne>_<n>.mp3 olarak yazar (üstüne).
-Ortam: ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID. Üretilen satırlar ses/eleven.json'a işlenir; tekrar çalıştırınca kredi harcamaz."""
+Ortam: ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID. Model eleven_v4; duygu etiketleri sahneler.DUYGU
+(yalnız sese gider, altyazıda görünmez). Üretilen satırlar ses/eleven.json'a işlenir; tekrar çalıştırınca kredi harcamaz."""
 import hashlib
 import json
 import os
@@ -10,7 +11,9 @@ from pathlib import Path
 
 klasor = (Path(__file__).parent / sys.argv[1]).resolve()
 sys.path[:0] = [str(Path(__file__).parent), str(klasor)]
-from sahneler import TEXT  # noqa: E402
+import sahneler  # noqa: E402
+
+TEXT, DUYGU = sahneler.TEXT, getattr(sahneler, "DUYGU", {})
 
 key, ses = os.environ.get("ELEVENLABS_API_KEY"), os.environ.get("ELEVENLABS_VOICE_ID")
 if not key or not ses:
@@ -19,12 +22,13 @@ hedef = klasor / "ses"
 hedef.mkdir(exist_ok=True)
 kayit = hedef / "eleven.json"
 yapilan = json.loads(kayit.read_text()) if kayit.exists() else {}
-satir = [(f"{ad}_{i}.mp3", s) for ad, v in TEXT.items() for i, s in enumerate(v)]
-for n, (dosya, s) in enumerate(satir):
-    iz = hashlib.sha1(f"{ses}|{s}".encode()).hexdigest()
+satir = [(f"{ad}_{i}.mp3", s, DUYGU.get(f"{ad}_{i}", "")) for ad, v in TEXT.items() for i, s in enumerate(v)]
+for n, (dosya, s, duygu) in enumerate(satir):
+    soylenen = f"{duygu} {s}".strip()
+    iz = hashlib.sha1(f"{ses}|eleven_v4|{soylenen}".encode()).hexdigest()
     if yapilan.get(dosya) == iz and (hedef / dosya).exists():
         continue
-    govde = {"text": s, "model_id": "eleven_multilingual_v2",       # önceki/sonraki cümle tonlamayı tutarlı yapar
+    govde = {"text": soylenen, "model_id": "eleven_v4",            # önceki/sonraki cümle tonlamayı tutarlı yapar
              "previous_text": satir[n - 1][1] if n else "", "next_text": satir[n + 1][1] if n + 1 < len(satir) else ""}
     istek = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{ses}?output_format=mp3_44100_128",
                                    data=json.dumps(govde).encode(), headers={"xi-api-key": key, "Content-Type": "application/json"})

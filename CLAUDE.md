@@ -15,14 +15,14 @@ git clone https://github.com/kerim-agayev/t.git && cd t/kanal
 uv venv -p 3.13 && uv pip install -r requirements.txt                  # bir kez
 .venv/Scripts/python render.py ornek taslak                            # kurulum denemesi -> ornek/onizleme.png
 ```
-Sonra Claude Code'u `t/` klasöründe aç ve yaz: **"001 videosunun sesini ElevenLabs ile değiştir"**. Claude `kanal/001-black-holes/SESLENDIRME.md` dosyasını izler. Yeni video için sıra: bu dosya → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
+Sonra Claude Code'u `t/` klasöründe aç ve yaz: ne istiyorsan (ses değiştirme adımları: `kanal/001-black-holes/SESLENDIRME.md`). Yeni video için sıra: bu dosya → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
 
 ## Kanal
 - **Marka:** ad "Chalk Orbit" (öneri; müsaitliği kontrol edilmedi). `kanal/marka/profil_800.png` ve `banner_2560x1440.png` yüklemeye hazır (kaynak görseller ChatGPT üretimi, aynı klasörde).
 - **Niş:** İngilizce "uzay ve ölçek, tahtada": evrenle ilgili merak sorularını çizerek anlatmak. Veri ve sınırları: `NIS_ARASTIRMASI.md`.
 - **Tarz:** varsayılan beyaz + siyah tahta animasyonu. Sahne için başka tarz açıkça daha iyiyse kullan: seçim kuralı ve tarz anlatımı **`STIL_REHBERI.md`**.
-- **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). Video sesi şimdilik geçici (edge-tts); kullanıcı ElevenLabs ile değiştirecek (`kanal/eleven.py`).
-- **Video 1 durumu (2026-11-27):** üretildi (kapak C). **Bekleyen: ses değişimi** → `kanal/001-black-holes/SESLENDIRME.md` adımları, sonra izle ve yayınla (`PAKET.md`).
+- **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). Video sesi: ElevenLabs `eleven_v4` + duygu etiketleri (`kanal/eleven.py`, `sahneler.DUYGU`); video 1 sesi Daniel (`onwK4e9ZLuTAKqWW03F9`).
+- **Video 1 durumu (2026-11-27):** üretildi (kapak C). **Bekleyen:** kullanıcı izleyip dinleyecek, sonra yayın (`kanal/001-black-holes/PAKET.md`).
 - **Yayın:** haftada 1 uzun video (5-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
 - **Kurallar:** her sayı ve iddia kaynaklı, yazmadan önce doğrulanır; kapakta videoda olmayan vaat yok; art arda aynı başlık kalıbı yok.
 - İlk 8 videodan sonra YouTube Studio verisine göre sıra ve türler güncellenir.

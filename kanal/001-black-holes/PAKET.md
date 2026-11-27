@@ -1,4 +1,4 @@
-# Yayın paketi: video 1 (onaylandı; ses değişimi bekliyor)
+# Yayın paketi: video 1 (ElevenLabs sesli; izleme ve yayın bekliyor)
 
 ## Başlık
 1. **Every Type of Black Hole, From Tiny to Monstrous** (öneri)
@@ -16,17 +16,17 @@ Size figures are approximate and assume a non-spinning black hole. Primordial bl
 
 CHAPTERS
 0:00 How small? How big?
-0:23 What is a black hole?
-0:56 One rule for size
-1:20 Primordial (hypothetical)
-1:56 Stellar mass
-2:38 Falling in
-3:08 Intermediate mass
-3:48 Sagittarius A*
-4:28 M87*
-4:57 TON 618
-5:34 The whole ladder
-5:57 So how small, how big?
+0:28 What is a black hole?
+1:08 One rule for size
+1:38 Primordial (hypothetical)
+2:26 Stellar mass
+3:18 Falling in
+3:54 Intermediate mass
+4:45 Sagittarius A*
+5:36 M87*
+6:12 TON 618
+6:58 The whole ladder
+7:28 So how small, how big?
 
 SOURCES
 https://science.nasa.gov/universe/black-holes/types/
@@ -55,8 +55,8 @@ Sabit yorum: `Which one surprised you most: the one nobody has found, or the mon
 | 3 | Can our probe cross the biggest black hole? | 49 yıllık yol, TON 618 yarıçapının ~1/5'i | Monster |
 
 ## Yükleme kontrol listesi
-- [ ] Ses ElevenLabs ile değiştirildi (`SESLENDIRME.md`); bölüm zamanları güncellendi
-- [ ] **Ses hakkı:** geçici edge-tts sesiyle yayınlama. ElevenLabs ticari lisansı Starter planda
+- [x] Ses: ElevenLabs eleven_v4, Daniel; bölüm zamanları güncellendi
+- [ ] **Ses hakkı:** ses üretildiği anda hesap ücretli planda mıydı? Ücretsiz plandaysa Starter alıp yeniden üret (`ses/eleven.json` dosyasını silerek)
 - [ ] Video baştan sona izlendi ve dinlendi
 - [ ] `altyazi.srt` yüklendi (videoda yazı gömülü; srt isteğe bağlı)
 - [ ] "Altered content" sorusu güncel YouTube sayfasına göre yanıtlandı

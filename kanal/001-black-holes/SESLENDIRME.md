@@ -1,8 +1,8 @@
 # Seslendirme metni ve ses değiştirme
 
-Videodaki ses **geçici** (edge-tts, en-US-AndrewNeural). Yayından önce değiştirilecek.
+Videodaki ses: **ElevenLabs eleven_v4, Daniel** (`onwK4e9ZLuTAKqWW03F9`), duygu etiketli. Sesi veya metni değiştirmek için aşağıdaki adımlar.
 
-## ElevenLabs ile (evde)
+## ElevenLabs ile (model eleven_v4; duygu etiketleri sahneler.py içindeki DUYGU)
 1. Yeni hesapta API anahtarı ve ses kimliği (Voice ID) al. **Anahtarı dosyaya veya commit'e yazma.**
 2. `kanal/` içinde (Git Bash):
    ```bash

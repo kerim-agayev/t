@@ -95,6 +95,22 @@ TEXT = {
     ],
 }
 
+# ElevenLabs v4 duygu etiketleri: cümle başına eklenir (eleven.py). Az ve yerinde; belgesel tonu.
+DUYGU = {
+    "Hook_0": "[curious]", "Hook_1": "[amazed]", "Hook_3": "[excited]",
+    "What_0": "[warmly]", "What_3": "[playfully]",
+    "Rule_3": "[amazed]",
+    "Primordial_0": "[mysterious]", "Primordial_5": "[serious]",
+    "Stellar_2": "[curious]",
+    "Fall_0": "[suspenseful]", "Fall_2": "[amused]", "Fall_4": "[surprised]", "Fall_5": "[serious]",
+    "Middle_2": "[excited]", "Middle_5": "[serious]",
+    "Center_5": "[mysterious]",
+    "M87_2": "[curious]", "M87_4": "[amazed]",
+    "Monster_0": "[dramatic]", "Monster_3": "[curious]", "Monster_5": "[amazed]",
+    "Ladder_0": "[warmly]", "Ladder_4": "[awe]",
+    "End_0": "[thoughtful]", "End_2": "[warmly]", "End_3": "[excited]",
+}
+
 K = "#000000"
 
 

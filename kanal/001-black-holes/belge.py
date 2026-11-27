@@ -58,7 +58,7 @@ Durum: **onaylandı (2026-11-27), video üretildi.** Bu dosya `belge.py` ile `sa
 - İzleyici: uzayı merak eden, fizik bilmeyen İngilizce izleyici.
 - Büyük soru: Bir kara delik ne kadar küçük veya büyük olabilir?
 - Akılda kalacak: aynı fizik, atom altı (teori) ile onlarca milyar Güneş arası; boyutu kütle belirler.
-- Biçim: küçükten büyüğe tur. Süre {zaman(t)}, {kelime} kelime, video sesi geçici (en-US-AndrewNeural), ElevenLabs ile değişecek: SESLENDIRME.md.
+- Biçim: küçükten büyüğe tur. Süre {zaman(t)}, {kelime} kelime, video sesi ElevenLabs eleven_v4, Daniel (SESLENDIRME.md).
 - Kanca: seçilen "nokta ile tahtaya sığmayan daire". Elenen: "yıldızın çöküş anı" (soru geç geliyor), "Güneş yerine kara delik koysak?" (asıl soruyu karşılamıyor).
 - Sapma: küçükten büyüğe sıra, arada tek ters köşe (düşme sahnesi) ritim için.
 
@@ -80,9 +80,9 @@ print(zaman(t), kelime)
 # ElevenLabs veya kendi sesin için metin: dosya adı + cümle
 (H / "SESLENDIRME.md").write_text("""# Seslendirme metni ve ses değiştirme
 
-Videodaki ses **geçici** (edge-tts, en-US-AndrewNeural). Yayından önce değiştirilecek.
+Videodaki ses: **ElevenLabs eleven_v4, Daniel** (`onwK4e9ZLuTAKqWW03F9`), duygu etiketli. Sesi veya metni değiştirmek için aşağıdaki adımlar.
 
-## ElevenLabs ile (evde)
+## ElevenLabs ile (model eleven_v4; duygu etiketleri sahneler.py içindeki DUYGU)
 1. Yeni hesapta API anahtarı ve ses kimliği (Voice ID) al. **Anahtarı dosyaya veya commit'e yazma.**
 2. `kanal/` içinde (Git Bash):
    ```bash
