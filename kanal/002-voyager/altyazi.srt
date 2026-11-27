@@ -1,0 +1,247 @@
+1
+00:00:00,000 --> 00:00:08,438
+Right now, the farthest thing humans have ever made may still be calling home. But the call is empty.
+
+2
+00:00:08,733 --> 00:00:19,496
+In November twenty twenty-six, days before a historic milestone, Voyager 1 stopped sending its data. A bare radio signal kept arriving.
+
+3
+00:00:19,767 --> 00:00:27,577
+Then, on November eighteenth, it became the first spacecraft ever to be one full light-day from Earth.
+
+4
+00:00:27,867 --> 00:00:34,554
+One day, at the speed of light. But how far is that, really? And is it far at all?
+
+5
+00:00:35,500 --> 00:00:41,769
+To feel it, we need a ruler. Ours is light, the fastest thing there is.
+
+6
+00:00:42,067 --> 00:00:46,664
+Light covers about three hundred thousand kilometers every second.
+
+7
+00:00:46,933 --> 00:00:51,374
+From Earth to the Moon, it needs about one point three seconds.
+
+8
+00:00:51,667 --> 00:00:55,298
+From the Sun to Earth, a little over eight minutes.
+
+9
+00:00:55,567 --> 00:01:03,691
+Now stretch the ruler to one whole day. Everything you just heard is squeezed into this tiny corner.
+
+10
+00:01:03,967 --> 00:01:13,919
+Voyager 1 is at the other end, about twenty-six billion kilometers away. To get there, it has been flying for forty-nine years.
+
+11
+00:01:14,800 --> 00:01:19,946
+Rewind to nineteen seventy-seven. NASA had a rare chance.
+
+12
+00:01:20,233 --> 00:01:27,391
+The outer planets were lining up in a way that happens only about once every one hundred and seventy-five years.
+
+13
+00:01:27,667 --> 00:01:34,903
+A spacecraft could swing past one planet and use its gravity to hurry on to the next, like a slingshot.
+
+14
+00:01:35,200 --> 00:01:40,189
+That trick could cut a flight to Neptune from thirty years to twelve.
+
+15
+00:01:40,467 --> 00:01:49,871
+So two probes set out. Voyager 2 left first. Voyager 1 followed sixteen days later, on September fifth.
+
+16
+00:01:50,167 --> 00:01:55,652
+But it was on a faster path. By December, it had overtaken its twin.
+
+17
+00:01:56,533 --> 00:02:05,519
+Its first stop was Jupiter, in March nineteen seventy-nine. On our ruler, that is only about forty-three minutes from the Sun.
+
+18
+00:02:05,867 --> 00:02:13,024
+There, the Voyagers saw something never before seen on another world: active volcanoes.
+
+19
+00:02:13,300 --> 00:02:20,849
+They were on Io, a moon of Jupiter. Some plumes rose more than three hundred kilometers high.
+
+20
+00:02:21,133 --> 00:02:30,381
+Voyager 1 also helped reveal a faint ring around Jupiter. Then it used the giant's pull to race on toward Saturn.
+
+21
+00:02:31,267 --> 00:02:37,301
+Saturn came in November nineteen eighty, about seventy-nine light-minutes from the Sun.
+
+22
+00:02:37,600 --> 00:02:45,228
+But here came a choice. Voyager 1 could pass close to Saturn's largest moon, Titan, at a price.
+
+23
+00:02:45,500 --> 00:02:52,031
+The Titan flyby bent its path northward, up and out of the plane where the planets travel.
+
+24
+00:02:52,300 --> 00:02:57,942
+So it would never visit Uranus or Neptune. Only its twin went on to see them.
+
+25
+00:02:58,233 --> 00:03:07,219
+Neptune, the farthest planet, is only about four light-hours from the Sun. Voyager 1 was headed far beyond that.
+
+26
+00:03:08,133 --> 00:03:16,101
+In nineteen ninety, about six billion kilometers from the Sun, Voyager 1 turned its camera back toward home.
+
+27
+00:03:16,400 --> 00:03:19,561
+It took a family portrait of the solar system.
+
+28
+00:03:19,833 --> 00:03:25,476
+In that picture, Earth is a point of light, about one pixel in size.
+
+29
+00:03:25,767 --> 00:03:29,319
+Every person alive that day was on that dot.
+
+30
+00:03:29,600 --> 00:03:33,074
+After that, its cameras were switched off for good.
+
+31
+00:03:33,367 --> 00:03:37,886
+And all of that was only about five and a half hours up our ruler.
+
+32
+00:03:38,833 --> 00:03:45,364
+The Sun blows a constant wind of particles, which inflates a giant bubble around the planets.
+
+33
+00:03:45,633 --> 00:03:51,433
+For more than two more decades, Voyager 1 flew toward the edge of that bubble.
+
+34
+00:03:51,700 --> 00:03:59,406
+On August twenty-fifth, twenty twelve, about seventeen light-hours out, it crossed into interstellar space.
+
+35
+00:03:59,700 --> 00:04:07,746
+Nobody knew for certain that day. Confirmation came almost a year later, from waves in the gas around it.
+
+36
+00:04:08,433 --> 00:04:14,859
+It had left the Sun's bubble. But, as you will see, it has not left the solar system.
+
+37
+00:04:15,733 --> 00:04:25,137
+Keeping it alive is its own adventure. Its computers handle about eight thousand instructions per second. Your phone handles billions.
+
+38
+00:04:25,433 --> 00:04:30,684
+In late twenty twenty-three, it began sending data that nobody could read.
+
+39
+00:04:30,967 --> 00:04:40,527
+Engineers traced it to what looked like a failed memory chip, and worked around it. By June twenty twenty-four, the science was flowing again.
+
+40
+00:04:40,800 --> 00:04:47,331
+In twenty twenty-five, they even revived thrusters that had not worked since two thousand four.
+
+41
+00:04:47,600 --> 00:04:54,026
+But power is running out. Its nuclear power source loses about four watts every year.
+
+42
+00:04:54,700 --> 00:05:03,451
+So instruments go dark, one by one. By April twenty twenty-six, only two science instruments were still on.
+
+43
+00:05:04,333 --> 00:05:11,334
+And distance makes every fix painfully slow. A command now takes a full day to reach it.
+
+44
+00:05:11,633 --> 00:05:18,477
+The answer needs another day to come back. Ask on Monday, and you hear the reply on Wednesday.
+
+45
+00:05:18,767 --> 00:05:26,812
+That is the challenge right now. On November fourteenth, twenty twenty-six, the team found that the data had stopped.
+
+46
+00:05:27,100 --> 00:05:33,866
+A carrier signal still reached the giant dishes on Earth. So the spacecraft was still transmitting.
+
+47
+00:05:34,133 --> 00:05:42,101
+As this video was made, engineers did not yet know the cause. They said finding it could take weeks or longer.
+
+48
+00:05:43,000 --> 00:05:49,844
+So here is the real question. After forty-nine years, how far has it actually gone?
+
+49
+00:05:50,133 --> 00:05:56,168
+Let this one square be a light-day: the whole gap between Voyager 1 and us.
+
+50
+00:05:56,467 --> 00:06:02,266
+This is one light-year. Three hundred and sixty-five of those squares.
+
+51
+00:06:02,533 --> 00:06:10,579
+At about seventeen kilometers per second, a single light-year takes Voyager nearly eighteen thousand years.
+
+52
+00:06:11,367 --> 00:06:22,443
+It should reach the inner edge of the Oort cloud, a vast swarm of icy bodies, in about three hundred years. Getting past it may take thirty thousand.
+
+53
+00:06:22,733 --> 00:06:33,731
+In about forty thousand years, it will pass a star called Gliese 445, still one point seven light-years away. It will not stop there.
+
+54
+00:06:34,600 --> 00:06:40,086
+Long before then, it will have gone silent. But it carries one more message.
+
+55
+00:06:40,367 --> 00:06:44,964
+On its side is a golden record, thirty centimeters wide.
+
+56
+00:06:45,233 --> 00:06:53,122
+It holds greetings in fifty-five languages, one hundred and fifteen images, and about ninety minutes of music.
+
+57
+00:06:53,400 --> 00:06:58,468
+There is surf, wind, thunder, and the songs of whales.
+
+58
+00:06:58,767 --> 00:07:02,816
+Nobody may ever play it. We sent it anyway.
+
+59
+00:07:03,700 --> 00:07:14,384
+So here is the whole ruler. The Moon, the Sun, the planets, the pale blue dot, the edge of the bubble, and now, one light-day.
+
+60
+00:07:14,667 --> 00:07:22,216
+Nothing we built has ever traveled farther. And on the scale of the stars, it has barely stepped outside.
+
+61
+00:07:22,500 --> 00:07:28,456
+If you could add one thing to that golden record, what would it be? Tell me in the comments.
+
+62
+00:07:28,733 --> 00:07:34,454
+Next time, something much closer to home: what would happen if the Moon disappeared?

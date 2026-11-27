@@ -35,3 +35,11 @@ Varsayılan **tahta animasyonu** (kanal kimliği). Başka bir tarz bir sahneyi a
 
 ## Her tarzda ortak
 Önce örnek kare, onay, sonra render; uzun render arka planda; sesi dinlemediysen ve kareleri görmediysen bunu söyle.
+
+## Defter tarzı (`kanal/kalem.py`, video 3)
+Kural (kullanıcı): her yeni videonun resim ve hareket dili öncekilerden **farklı ve daha iyi** olsun; gereken yerde kalemle çizme ve yazma efekti kullanılsın. Sonraki videoda bu tarzı kopyalamakla yetinme: motoru kullan, yeni bir görsel fikir ekle.
+- `class Sahne(Defter)`, `theme = "gece" | "defter"`: dokulu lacivert veya kareli kâğıt.
+- `self.ciz(...)` şekli kalem ucuyla çizer, `self.yaz(...)` metni yazar; ikisi de `say()` adımıdır. Bir adımda en fazla bir kalem animasyonu.
+- Kalemi her şeye kullanma: yeni fikir ve başlıkta kalem; hareket, kaybolma ve veri için normal animasyon.
+- Hazır öğeler: `baslik(s, saat)` (sol üst başlık + zaman damgası), `tara` (taramalı boyama), `dunya`, `ay`, `yildizlar`.
+- Tuzaklar: sürekli yeniden çizilen nesneyi (`always_redraw`) `FadeIn` ile sokma, `self.add` kullan; aynı nesneye aynı adımda `FadeIn` ve `Rotate` verme.

@@ -17,15 +17,31 @@ uv venv -p 3.13 && uv pip install -r requirements.txt                  # bir kez
 ```
 Sonra Claude Code'u `t/` klasöründe aç ve yaz: ne istiyorsan (ses değiştirme adımları: `kanal/001-black-holes/SESLENDIRME.md`). Yeni video için sıra: bu dosya → `hikaye-senaryo` skill'i → `STIL_REHBERI.md`.
 
+## İki kanal
+- **Kanal 1 = `kanal/`** (aşağıdaki "Kanal" bölümü, Chalk Orbit): kullanıcı buna bu bilgisayardaki oturumda devam ediyor.
+- **Kanal 2 = `kanal_2/`**: evde ayrı bir kanal için; talimatlar `kanal_2/CLAUDE.md`. İki klasör birbirinin dosyasını değiştirmez.
+
 ## Kanal
 - **Marka:** ad "Chalk Orbit" (öneri; müsaitliği kontrol edilmedi). `kanal/marka/profil_800.png` ve `banner_2560x1440.png` yüklemeye hazır (kaynak görseller ChatGPT üretimi, aynı klasörde).
 - **Niş:** İngilizce "uzay ve ölçek, tahtada": evrenle ilgili merak sorularını çizerek anlatmak. Veri ve sınırları: `NIS_ARASTIRMASI.md`.
 - **Tarz:** varsayılan beyaz + siyah tahta animasyonu. Sahne için başka tarz açıkça daha iyiyse kullan: seçim kuralı ve tarz anlatımı **`STIL_REHBERI.md`**.
 - **Üretim:** `kanal/` (ortak `tahta.py`, `render.py`; her video `kanal/NNN-ad/` içinde `BRIF.md`, `ARASTIRMA.md`, `SENARYO.md`, `sahneler.py`). Video sesi: ElevenLabs `eleven_v4` + duygu etiketleri (`kanal/eleven.py`, `sahneler.DUYGU`); video 1 sesi Daniel (`onwK4e9ZLuTAKqWW03F9`).
+- **Video 3 durumu (2026-11-27):** `kanal/003-moon/` üretildi (kapak A, Daniel sesi). Kullanıcı izleyip yayınlayacak. Sıradaki: video 4.
+- **Yeni görsel tarz (video 3'ten itibaren, kullanıcı: her video öncekilerden farklı ve daha iyi olsun, gereken yerde kalemle çizme/yazma efekti):** `kanal/kalem.py`, ayrıntı `STIL_REHBERI.md`.
+- **Video 2 durumu (2026-11-27):** `kanal/002-voyager/` üretildi (kapak A). Yayın günü veri kesintisinin son durumunu kontrol et. Belgeler `kanal/belge.py` ile üretilir.
 - **Video 1 durumu (2026-11-27):** üretildi (kapak C). **Bekleyen:** kullanıcı izleyip dinleyecek, sonra yayın (`kanal/001-black-holes/PAKET.md`).
-- **Yayın:** haftada 1 uzun video (5-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
+- **Yayın:** şimdilik yalnız uzun video (kullanıcı, 2026-11-27; Shorts istenince). Plan: haftada 1 uzun video (5-10 dk) + her birinden 2-3 dikey Shorts (30-45 sn, tek soru tek cevap; dikey ayrıca render edilir, kırpılmaz; dikey şablon henüz yok).
 - **Kurallar:** her sayı ve iddia kaynaklı, yazmadan önce doğrulanır; kapakta videoda olmayan vaat yok; art arda aynı başlık kalıbı yok.
 - İlk 8 videodan sonra YouTube Studio verisine göre sıra ve türler güncellenir.
+
+### Ses ve duygu etiketleri (ElevenLabs `eleven_v4`)
+- Her videonun `sahneler.py` dosyasında `DUYGU = {"Sahne_n": "[etiket]"}`; `eleven.py` etiketi cümlenin başına ekler. **Etiket altyazıda görünmez**, `TEXT` içine yazma.
+- Etiketler köşeli parantezde serbest İngilizce sözcük. Kullanılanlar: `[curious]` `[mysterious]` `[amazed]` `[excited]` `[warmly]` `[playfully]` `[amused]` `[surprised]` `[suspenseful]` `[dramatic]` `[serious]` `[thoughtful]` `[wistful]` `[softly]` `[impressed]` `[awe]` `[whispers]`. Örnek almak için ElevenLabs belgeleri: [audio tags](https://elevenlabs.io/docs/help-center/product/core-capabilities/text-to-speech/how-do-audio-tags-work-with-eleven-v3-and-v4).
+- **Her videoda aynı dağılımı kopyalama:** etiketi sahnenin duygusuna göre seç (kanca: merak/gizem; dönüş: ciddi; zirve: hayranlık; bitiş: sıcak). Cümlelerin yarısından azına koy; art arda aynı etiketi tekrarlama; `[softly]`/`[whispers]` seyrek (sesi kısar, gerekirse ffmpeg ile birkaç dB yükselt).
+- Ses: Daniel `onwK4e9ZLuTAKqWW03F9` (kanal sesi). Konuya göre başka ses veya etiket denenecekse önce kısa örnek üretip kullanıcıya dinlet (kredi harcar).
+- Etiket veya metin değişince `eleven.py` yalnız o satırları yeniden üretir. Claude sesi dinleyemez: duyguyu ve okunuşu kullanıcı kontrol eder.
+- Anahtar ortam değişkeninde (`ELEVENLABS_API_KEY`); dosyaya, commit'e, mümkünse sohbete yazılmaz. Para kazanılacaksa ses ücretli planda üretilir.
+- Taslak sesi `render.py` ücretsiz edge-tts ile üretir; final öncesi `eleven.py` çalıştır, sonra `render.py <klasör> final`.
 
 ### YouTube'a API ile yükleme (kurulmadı; kullanıcı isteyince)
 2026-11-27'de soruldu. Aşağıdakiler genel bilgiye dayanıyor: **kurmadan önce güncel resmi dokümandan doğrula.**

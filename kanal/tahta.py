@@ -1,6 +1,7 @@
 """Kanalın tahta tarzı: renkler, el çizimi yardımcıları, sesle senkron sahne.
 Her video klasöründeki sahneler.py bunu kullanır (örnek: ornek/sahneler.py)."""
 import asyncio
+import json
 import sys
 import textwrap
 from pathlib import Path
@@ -24,7 +25,8 @@ def P(x, y):
 
 def text(s, color, size=34, **kw):
     # büyük çizip küçültmek harf aralığını düzgün tutar (uzun satırı kaydırır: satır başına ~40 karakter)
-    return Text(s, font=FONT, color=color, font_size=96, **kw).scale(size / 96)
+    with tempconfig({"pixel_width": 16000}):              # yoksa Pango çözünürlüğe göre satır kaydırır
+        return Text(s, font=FONT, color=color, font_size=96, **kw).scale(size / 96)
 
 
 def sketch(m, amp=0.018, seed=0):
@@ -59,20 +61,31 @@ class Tahta(Scene):
         if self.caption:
             self.remove(self.caption)
         # 48+ punto Pango satır kaydırması yapıyor; altyazı küçük puntoyla
-        lines = VGroup(*[Text(t, font=FONT, color=self.c["ink"], font_size=32).scale(22 / 32)
-                         for t in textwrap.wrap(self.modul.TEXT[name][i], 96)]).arrange(DOWN, buff=.1)
+        with tempconfig({"pixel_width": 16000}):
+            lines = VGroup(*[Text(t, font=FONT, color=self.c["ink"], font_size=32).scale(22 / 32)
+                             for t in textwrap.wrap(self.modul.TEXT[name][i], 92)]).arrange(DOWN, buff=.1)
         lines.move_to(P(0, -4.35))
         back = BackgroundRectangle(lines, color=self.c["bg"], fill_opacity=.88, buff=.12)
         self.caption = VGroup(back, lines).set_z_index(10)
         self.add(self.caption)
         self.add_sound(str(f))
+        self._zaman(i, dur)
         used = 0
         for step in steps:
             anims = step if isinstance(step, (list, tuple)) else [step]
             rt = round(dur * .92 / len(steps) * 30) / 30
+            for x in anims:                             # kalem animasyonları kendi hızını ayarlar (kalem.py)
+                getattr(x, "adim", lambda r: None)(rt)
             self.play(*anims, run_time=rt)
             used += rt
         self.wait(max(1 / 30, dur + extra - used))
+
+    def _zaman(self, i, dur):
+        """Cümlenin sahne içindeki başlangıcı ve süresi (belge.py altyazı için okur)."""
+        kayit = Path(self.modul.__file__).parent / "media/zaman" / f"{type(self).__name__}.json"
+        kayit.parent.mkdir(parents=True, exist_ok=True)
+        self.zamanlar = {**getattr(self, "zamanlar", {}), i: [self.renderer.time, dur]}
+        kayit.write_text(json.dumps(self.zamanlar))
 
     def title(self, s):
         t = text(s, self.c["ink"], 38).move_to(P(0, 3.4))
