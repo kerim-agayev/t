@@ -22,3 +22,7 @@ kanal_2/*/onizleme.png
 kanal_3/*/media/
 kanal_3/*/taslak.mp4
 kanal_3/*/onizleme.png
+# kanal 2: video ve yeniden üretilebilir önizlemeler depoya girmez
+kanal_2/*/video.mp4
+kanal_2/*/onizleme/
+kanal_2/*/ses_ornek/

@@ -1,0 +1,231 @@
+1
+00:00:00,000 --> 00:00:04,441
+Before we start, I need one number from you. Watch the wheel.
+
+2
+00:00:04,733 --> 00:00:06,849
+It stopped on 65.
+
+3
+00:00:07,133 --> 00:00:14,604
+Now think: is the share of United Nations members that are African higher or lower than 65 percent?
+
+4
+00:00:14,900 --> 00:00:21,431
+Next, pick your own exact percentage. Write it down, so you can't quietly change it later.
+
+5
+00:00:25,700 --> 00:00:32,466
+In a famous experiment, a spinning wheel moved people's answers. Did this one just move yours?
+
+6
+00:00:33,333 --> 00:00:40,804
+In 1974, the psychologists Amos Tversky and Daniel Kahneman described an experiment much like this.
+
+7
+00:00:41,100 --> 00:00:49,851
+People watched a wheel of fortune spin. It was marked 0 to 100, but rigged to stop only at 10 or 65.
+
+8
+00:00:50,133 --> 00:00:55,933
+They said whether the true answer was higher or lower, then moved up or down from that number.
+
+9
+00:00:56,200 --> 00:01:00,954
+Different groups got different starting numbers. The question stayed the same.
+
+10
+00:01:01,233 --> 00:01:06,641
+Starting from 10, the median answer, the one in the middle, was 25 percent.
+
+11
+00:01:06,933 --> 00:01:10,721
+Starting from 65, it was 45 percent.
+
+12
+00:01:11,000 --> 00:01:17,348
+A wheel knows nothing about the United Nations. Yet the two groups' middle answers were 20 points apart.
+
+13
+00:01:18,232 --> 00:01:24,580
+Were they just being careless? The authors report that paying for accuracy did not reduce the effect.
+
+14
+00:01:24,866 --> 00:01:30,822
+Later work adds a catch: incentives can help when people know which way to adjust.
+
+15
+00:01:31,099 --> 00:01:36,820
+So here is a second test from the 1974 paper, and this one you can try yourself.
+
+16
+00:01:37,699 --> 00:01:41,983
+You have five seconds. Don't work it all out. Just estimate this.
+
+17
+00:01:47,166 --> 00:01:53,278
+Got a number? In the study, high school students had five seconds to estimate a product like this.
+
+18
+00:01:53,599 --> 00:01:58,745
+But one group saw it starting from 8. Another group saw it starting from 1.
+
+19
+00:01:59,032 --> 00:02:04,440
+The group that saw 8 first gave a median guess of 2,250.
+
+20
+00:02:04,732 --> 00:02:08,520
+The group that saw 1 first gave 512.
+
+21
+00:02:08,799 --> 00:02:14,990
+Same numbers, same product. And the real answer is 40,320.
+
+22
+00:02:15,266 --> 00:02:22,658
+The authors' explanation: people may work out the first few steps, then adjust upward, but not far enough.
+
+23
+00:02:23,532 --> 00:02:30,063
+Fine. But surely a ridiculous number would do nothing. Anyone can see it is nonsense.
+
+24
+00:02:30,332 --> 00:02:36,288
+In one study, people compared Mahatma Gandhi's age with either 9 or 140.
+
+25
+00:02:36,566 --> 00:02:45,317
+Both are absurd. Yet after 140 the average guess was about 67 years, and after 9, about 50.
+
+26
+00:02:46,199 --> 00:02:50,483
+Still, an expert, you might think, would see straight through it.
+
+27
+00:02:50,766 --> 00:02:58,393
+In a 1987 study, Gregory Northcraft and Margaret Neale gave estate agents a 10-page booklet on a house.
+
+28
+00:02:58,666 --> 00:03:05,745
+It held the facts needed to price it, plus a listing price: above the appraisal for some, below for others.
+
+29
+00:03:06,032 --> 00:03:12,067
+The agents' estimates moved toward that listing price. So did the estimates of non-experts.
+
+30
+00:03:12,366 --> 00:03:18,792
+To be fair, a listing price can carry real information. So here is a harder case.
+
+31
+00:03:19,666 --> 00:03:27,293
+Trial judges, with more than 15 years of experience on average, were asked to sentence a hypothetical criminal case.
+
+32
+00:03:27,566 --> 00:03:33,757
+They considered a sentencing demand that openly came from a computer science student playing prosecutor.
+
+33
+00:03:34,032 --> 00:03:41,582
+In the researchers' account, judges shown a demand of 34 months gave almost 8 months more than those shown 12.
+
+34
+00:03:41,866 --> 00:03:49,258
+In later research, junior lawyers threw secretly loaded dice to set the demand. It still pulled their sentences.
+
+35
+00:03:50,132 --> 00:03:54,494
+So why does a number pull, even when you know where it came from?
+
+36
+00:03:54,765 --> 00:04:01,766
+One leading explanation: to compare, your mind tests the number, and facts that fit it come forward.
+
+37
+00:04:02,065 --> 00:04:10,267
+In one study, people judged whether the average German car costs more or less than 40,000 marks, or 20,000.
+
+38
+00:04:10,565 --> 00:04:17,566
+The researchers reported that after the high number, people spotted words like Mercedes and BMW faster.
+
+39
+00:04:17,865 --> 00:04:26,224
+And after the low one, words like VW. But a 2019 team ran new versions and did not find this word effect.
+
+40
+00:04:26,498 --> 00:04:33,813
+Anchoring still appeared, and their word test may be too weak to settle why. So treat the explanation as open.
+
+41
+00:04:34,098 --> 00:04:41,178
+Some starting points you pick yourself. To guess when vodka freezes, you may start at water's 0 degrees Celsius.
+
+42
+00:04:41,532 --> 00:04:48,454
+Then you move downward. With starting points like these, research suggests we tend to stop too soon.
+
+43
+00:04:49,332 --> 00:04:55,131
+Now the part that is easy to leave out. Not every number you happen to see will grab you.
+
+44
+00:04:55,398 --> 00:05:03,287
+In a 2020 paper, David Shanks and colleagues found that incidental numbers had no reliable effect on price estimates.
+
+45
+00:05:03,565 --> 00:05:08,816
+But the classic setup, compare first and then estimate, has held up well.
+
+46
+00:05:09,098 --> 00:05:19,469
+Many Labs, a project with 36 samples and 6,344 participants, gave a high or low hint first. Anchoring appeared.
+
+47
+00:05:20,365 --> 00:05:25,198
+So can you simply watch out for it? A warning may not be enough.
+
+48
+00:05:25,465 --> 00:05:33,171
+In one study, students were warned, some even told which way the pull would go. The pull did not go away.
+
+49
+00:05:33,465 --> 00:05:40,544
+Something else did help. Car experts who listed reasons against a suggested price were pulled less.
+
+50
+00:05:40,832 --> 00:05:46,082
+So here is a habit to try. Treat it as my suggestion, not a proven cure.
+
+51
+00:05:46,365 --> 00:05:52,399
+Make your own guess before you hear theirs. Then ask: why might their number be wrong?
+
+52
+00:05:53,365 --> 00:06:01,881
+Now, back to your number. Today, 54 of the 193 United Nations members belong to the African Group.
+
+53
+00:06:02,165 --> 00:06:05,874
+That is about 28 percent. How close were you?
+
+54
+00:06:06,165 --> 00:06:14,838
+A confession: our wheel was staged, like theirs. I chose 65. And one answer can't show whether it moved you.
+
+55
+00:06:15,132 --> 00:06:21,009
+To see that, you need to compare groups with different starting numbers, as those researchers did.
+
+56
+00:06:21,298 --> 00:06:28,142
+So keep this: a number you stop to weigh can quietly become the place where your thinking starts.
+
+57
+00:06:28,432 --> 00:06:33,343
+What did you write down? Tell me in the comments, even if you saw the trick coming.
+
+58
+00:06:33,632 --> 00:06:39,979
+Next time: you can only study the planes that came back. So where would you add armor?

@@ -107,8 +107,15 @@ uv venv -p 3.13 && uv pip install -r requirements.txt     # bir kez
 
 İlk iş: **"kanal_2 ile 1. videoya başla"** denince 1 numaralı videodan başla; önce kanal adı ve görünüm örneklerini onaylat.
 
+## Durum
+- **Video 1** (`001-first-number/`, 2026-11-28): final üretildi (6:41); kullanıcı izleyip yayınlayacak. `video.mp4` depoya girmez.
+- **Sıradaki video 2:** ayrıntılı görev metni `VIDEO_2_PROMPT.md`.
+- Denetim araçları `araclar/`: ses ve final kontrolü (whisper), uyku engelli final render, PDF metni.
+
 ## Motor
+- Video 1'den itibaren görünüm `marj.py` (kenar boşluklu defter, Patrick Hand). `stills.py <klasör>`: video üretmeden her cümlenin karesi, yerleşim denetimi, `SENARYO.md`/`altyazi.srt` (tahmini zaman).
 - `tahta.py` (sade tahta), `kalem.py` (defter/gece dokusu, kalemle çizme-yazma, taramalı boyama), `render.py`, `eleven.py` (`eleven_v4`, duygu etiketleri; kullanım kökteki `CLAUDE.md` "Ses ve duygu etiketleri"), `belge.py`.
 - Bu dosyalar kanal 1'den kopyalandı; burada serbestçe değiştirebilirsin.
 - Görsel tarz kuralları ve tuzaklar: `../STIL_REHBERI.md`. Her video öncekilerden farklı ve daha iyi olsun.
-- Kanalın renk, yazı tipi ve sesini ilk videoda kullanıcıya seçtir; kanal 1 ile aynı görünmesin.
+- Kanalın renk ve yazı tipini ilk videoda kullanıcıya seçtir; kanal 1 ile aynı görünmesin.
+- **Ses (kullanıcı seçti, 2026-11-27):** ElevenLabs `8GmsjNWRZ3Rk8VmRpvBZ`, model `eleven_v4`, duygu etiketli. Anahtar ve ses kimliği `../.env` içinde (git dışı).
